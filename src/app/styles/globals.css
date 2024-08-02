@@ -15,7 +15,17 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
-body {
-  
+.container{
+  max-width: 1040px;
+  padding: 0 20px;
+  margin: auto;
+  overflow: hidden;
+}
+.react-multiple-carousel__arrow {
+  background: black !important;
+}
+/* .react-multiple-carousel__arrow--right  */
+ /* react-multiple-carousel__arrow--left  */
+.react-multi-carousel-list{
+  border-radius: 20px;
 }

@@ -1,0 +1,33 @@
+.slider {
+  max-width: 1000px;
+  margin: auto;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.sliderItem {
+  border-radius: 20px;
+  max-width: 100%;
+  height: auto;
+}
+
+.skeleton {
+  border-radius: 20px;
+  height: 400px;
+  width: 100%;
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .skeleton {
+    height: 38vw;
+  }
+}

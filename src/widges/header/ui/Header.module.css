@@ -1,0 +1,11 @@
+.headerImage{
+  cursor: pointer;
+}
+.headerFlex{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}

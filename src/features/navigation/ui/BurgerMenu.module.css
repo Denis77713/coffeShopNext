@@ -1,0 +1,38 @@
+.navigationContainer {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 60px 20px 0;
+  box-shadow: 5px 5px 5px gray;
+  border-radius: 0 0 16px;
+  position: relative;
+}
+.navigation {
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+.title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+.image {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+.burger {
+  cursor: pointer;
+}
+.dNone {
+  left: -200px;
+}
+.visible {
+  left: 0px;
+}
+.wrapper {
+  position: absolute;
+  z-index: 2000;
+  top: 0;
+  transition: all 1s ease;
+}

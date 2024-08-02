@@ -1,0 +1,23 @@
+.ListCard {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  justify-items: start;
+  justify-content: center;
+}
+@media (max-width: 1000px) {
+  .ListCard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  .ListCard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 450px) {
+  .ListCard {
+    justify-items: center;
+    text-align: center;
+    grid-template-columns: repeat(1 , 1fr);
+  }
+}
