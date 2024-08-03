@@ -6,11 +6,10 @@ import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { useEffect, useState } from "react"
 
-import {getTargetDom} from './CarouselSliderSlice'
-import { useDispatch } from "react-redux"
 const CarouselSlider = () => {
-  const dispatch = useDispatch()
-  dispatch(getTargetDom(23123))
+  // const dispatch = useDispatch()
+  // dispatch(getTargetDom(23123))
+
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
@@ -40,6 +39,8 @@ const CarouselSlider = () => {
     { id: 1, src: "/slide1.jpg" },
     { id: 2, src: "/slide2.jpg" },
     { id: 3, src: "/slide3.jpg" },
+    { id: 4, src: "/slide3.jpg" },
+    { id: 5, src: "/slide3.jpg" },
   ]
   return (
     <div className={style.slider}>
