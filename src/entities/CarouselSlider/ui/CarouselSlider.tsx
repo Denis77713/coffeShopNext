@@ -5,11 +5,12 @@ import style from "./CarouselSlider.module.css"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 
+import {getTargetDom} from './CarouselSliderSlice'
+import { useDispatch } from "react-redux"
 const CarouselSlider = () => {
-  const state = useSelector((store: any) => store.getTargetDom.value)
-  console.log(state)
+  const dispatch = useDispatch()
+  dispatch(getTargetDom(23123))
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {

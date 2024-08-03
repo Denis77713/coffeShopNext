@@ -6,6 +6,8 @@ import style from "./LocationsList.module.css"
 
 const LocationsList: FC = async () => {
   const data = await getLocations()
+  // const dispatch  = useDispatch()
+  
   return (
     <div className={style.ListCard}>
       {data.map((item) => (

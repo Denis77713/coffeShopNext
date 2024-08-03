@@ -1,9 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit"
-import getTargetDom from "@/entities/CarouselSlider/ui/CarouselSliderSlice"
+import { configureStore } from '@reduxjs/toolkit'
+import counterReducer from '@/entities/CarouselSlider/ui/CarouselSliderSlice'
 export const store = configureStore({
   reducer: {
-    getTargetDom,
+    counter: counterReducer,
   },
 })
 
-// export type RootState = 
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch
