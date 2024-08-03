@@ -39,6 +39,9 @@ model Product {
   // Связь с Category
   category   Category @relation(fields: [categoryId], references: [id])
   // Связь с Category
+  price      Int
+  best       Boolean
+  weight     Int
   categoryId Int
 }
 

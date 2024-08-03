@@ -1,3 +1,9 @@
-.cardLocation{
-  margin-bottom: 20px ;
+.cardLocation {
+  margin-bottom: 20px;
+}
+.noWork {
+  color: orange;
+}
+.isOpen {
+  color: rgb(250, 194, 90);
 }

@@ -5,7 +5,7 @@ import style from "./CarouselSlider.module.css"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { useEffect, useState } from "react"
-
+import img from '@/../public/slider/slide1.jpg'
 const CarouselSlider = () => {
   // const dispatch = useDispatch()
   // dispatch(getTargetDom(23123))
@@ -36,11 +36,8 @@ const CarouselSlider = () => {
     },
   }
   const images = [
-    { id: 1, src: "/slide1.jpg" },
-    { id: 2, src: "/slide2.jpg" },
-    { id: 3, src: "/slide3.jpg" },
-    { id: 4, src: "/slide3.jpg" },
-    { id: 5, src: "/slide3.jpg" },
+    { id: 2, src: "/slider/slide2.jpg" },
+    { id: 3, src: "/slider/slide3.jpg" },
   ]
   return (
     <div className={style.slider}>
@@ -48,6 +45,14 @@ const CarouselSlider = () => {
         <div className={style.skeleton}></div>
       ) : (
         <Carousel responsive={responsive} infinite={true}>
+          <Image
+              className={style.sliderItem}
+              width={1000}
+              height={400}
+              src={img}
+              alt={'slid-one'}
+              placeholder='blur'
+            />
           {images?.map((item) => (
             <Image
               className={style.sliderItem}

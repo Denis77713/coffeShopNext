@@ -20,8 +20,8 @@ const LocationCard: FC<ILocationCard> = ({ item }) => {
       <strong>{item.adress}</strong>
       <div>{item.locatin}</div>
       <div>{item.time}</div>
-      <div>{item.isWork && "Временно не работает"}</div>
-      <div>{item.newIsOpen && "Скоро открытие"}</div>
+      {item.isWork && <div className={style.noWork}>Временно не работает</div>}
+      {item.newIsOpen && <div className={style.isOpen}>Скоро открытие</div>}
     </div>
   )
 }
