@@ -7,17 +7,24 @@ type TypeCoffe = "true" | "false"
 interface IntTitle {
   children: string
   coffeNum: TypeCoffe
+  styles?: string
 }
 
-const Title: FC<IntTitle> = async ({ children, coffeNum }) => {
+const Title: FC<IntTitle> = async ({ children, coffeNum, styles }) => {
   const res = await getLocations()
   const numCoffe = res
     .filter((item) => item.newIsOpen === false)
     .filter((item) => item.isWork === false)
   return (
-    <div className={`${style.wrapper} ${coffeNum && style.dflex}`}>
+    <div
+      className={`${style.wrapper} ${coffeNum === "true" && style.dflex} ${
+        styles && styles
+      }`}
+    >
       <h2 className={style.title}>{`${children} `}</h2>
-      {coffeNum && <div className={style.number}>{numCoffe.length}</div>}
+      {coffeNum === "true" && (
+        <div className={style.number}>{numCoffe.length}</div>
+      )}
     </div>
   )
 }

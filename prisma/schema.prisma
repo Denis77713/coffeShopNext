@@ -28,7 +28,9 @@ model Post {
 model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
+  image    String
   // Связь одна Category ко многим Product
+  page     String
   products Product[]
 }
 

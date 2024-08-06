@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:push": "prisma db push",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
@@ -18,7 +22,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-multi-carousel": "^2.8.5",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "^20",
