@@ -4,7 +4,6 @@ import Product from "@/entities/Product/ui/Product"
 
 const BestProductList = async () => {
   const result = await getProduct()
-  console.log(result)
   return (
     <div className={style.bestList}>
       {result.map((item) => (

@@ -72,3 +72,10 @@ model Carousel {
   id    Int    @id @default(autoincrement())
   image String
 }
+
+model WhyUsList {
+  id    Int    @id @default(autoincrement())
+  text  String
+  image String
+  title String
+}

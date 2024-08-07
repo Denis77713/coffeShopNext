@@ -10,6 +10,7 @@ import assortiment from "@/widges/CategoryList/ui/CategoryList.module.css"
 import BestProductList from "@/widges/BestProductList/ui/BestProductList"
 import bestStyle from '@/widges/BestProductList/ui/BestProductList.module.css'
 import bestStyleItem from '@/entities/Product/ui/Product.module.css'
+import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
 
 export default async function Home() {
   const list = assortiment.cartList
@@ -37,6 +38,7 @@ export default async function Home() {
         <Suspense fallback={ProductSkeleton}>
           <BestProductList/>
         </Suspense>
+        <WhyUsList/>
       </main>
     </div>
   )
