@@ -1,6 +1,6 @@
 .ListCard {
   display: grid;
-  grid-template-columns: repeat(4, 250px);
+  grid-template-columns: repeat(4, 240px);
   justify-items: start;
   justify-content: center;
 }

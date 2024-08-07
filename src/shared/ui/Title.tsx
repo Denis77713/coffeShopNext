@@ -17,7 +17,7 @@ const Title: FC<IntTitle> = async ({ children, coffeNum, styles }) => {
     .filter((item) => item.isWork === false)
   return (
     <div
-      className={`${style.wrapper} ${coffeNum === "true" && style.dflex} ${
+      className={`container ${style.wrapper} ${coffeNum === "true" && style.dflex} ${
         styles && styles
       }`}
     >

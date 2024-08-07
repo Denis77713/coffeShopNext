@@ -7,7 +7,7 @@ const LocationsList: FC = async () => {
   const data = await getLocations()
 
   return (
-    <div className={style.ListCard}>
+    <div className={`${style.ListCard} container`}>
       {data.map((item) => (
         <LocationCard key={item.id} item={item} />
       ))}

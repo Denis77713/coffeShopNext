@@ -1,0 +1,16 @@
+.wrapper{
+  background:RGB(128, 135, 99);
+  display: grid;
+  grid-template-columns: repeat(3, 330px);
+  justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .wrapper{
+    grid-template-columns: repeat(2, 330px);
+  } 
+}@media (max-width: 750px) {
+  .wrapper{
+    grid-template-columns: repeat(1, 330px);
+  } 
+}

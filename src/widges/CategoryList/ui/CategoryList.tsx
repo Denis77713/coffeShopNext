@@ -6,7 +6,7 @@ import Link from "next/link"
 const CategoryList = async () => {
   const category = await getCategory()
   return (
-    <div className={style.cartList}>
+    <div className={`container ${style.cartList} `}>
       {category?.map((item) => (
         <div className={style.cart} key={item.id}>
           <Link href={item.page}>

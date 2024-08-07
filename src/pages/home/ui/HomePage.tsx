@@ -8,8 +8,8 @@ import { Suspense } from "react"
 import Skeleton from "@/shared/ui/Skeleton"
 import assortiment from "@/widges/CategoryList/ui/CategoryList.module.css"
 import BestProductList from "@/widges/BestProductList/ui/BestProductList"
-import bestStyle from '@/widges/BestProductList/ui/BestProductList.module.css'
-import bestStyleItem from '@/entities/Product/ui/Product.module.css'
+import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
+import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
 
 export default async function Home() {
@@ -18,9 +18,11 @@ export default async function Home() {
   const bestList = bestStyle.bestList
   const bestItem = bestStyleItem.item
   const CategorySkeleton = <Skeleton number={4} wrapper={list} inner={cart} />
-  const ProductSkeleton = <Skeleton number={4} wrapper={bestList} inner={bestItem} />
+  const ProductSkeleton = (
+    <Skeleton number={4} wrapper={bestList} inner={bestItem} />
+  )
   return (
-    <div className="container">
+    <div>
       <Header />
       <main>
         <Title coffeNum={"true"}>Кофейни:</Title>
@@ -36,9 +38,9 @@ export default async function Home() {
           Хиты продаж
         </Title>
         <Suspense fallback={ProductSkeleton}>
-          <BestProductList/>
+          <BestProductList />
         </Suspense>
-        <WhyUsList/>
+        <WhyUsList />
       </main>
     </div>
   )

@@ -1,0 +1,11 @@
+.card{
+  margin: 20px;
+  text-align: center;
+  color: white;
+}
+.card img {
+  color: white;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  fill: #ffffff;
+}

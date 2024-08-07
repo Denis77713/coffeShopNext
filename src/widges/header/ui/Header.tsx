@@ -5,7 +5,7 @@ import { FC } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 const Header: FC = () => {
   return (
-    <header className={`${style.headerFlex}`}>
+    <header className={`${style.headerFlex} container  `}>
       <BurgerMenu />
       <Image
         className={style.headerImage}
