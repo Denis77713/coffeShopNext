@@ -12,7 +12,6 @@ const Skeleton: FC<IntSkeleton> = ({ number, wrapper, inner }) => {
   for (let i = 0; i < number; i++) {
     arr2.push(1)
   }
-  console.log(arr2)
   return (
     <div className={wrapper}>
       {arr2.map((item) => (

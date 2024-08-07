@@ -8,13 +8,14 @@
   .ListCard {
     grid-template-columns: repeat(3, 1fr);
   }
+
 }
-@media (max-width: 650px) {
+@media (max-width: 750px) {
   .ListCard {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 500px) {
   .ListCard {
     justify-items: center;
     text-align: center;

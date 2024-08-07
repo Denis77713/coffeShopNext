@@ -44,6 +44,8 @@ model Product {
   price      Int
   best       Boolean
   weight     Int
+  none       Boolean
+  drip       Boolean
   categoryId Int
 }
 

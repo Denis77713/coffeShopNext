@@ -7,11 +7,16 @@ import style from "./HomePage.module.css"
 import { Suspense } from "react"
 import Skeleton from "@/shared/ui/Skeleton"
 import assortiment from "@/entities/Category/ui/Category.module.css"
+import BestProductList from "@/widges/BestProductList/ui/BestProductList"
+import bestStyle from '@/widges/BestProductList/ui/BestProductList.module.css'
 
 export default async function Home() {
   const list = assortiment.cartList
   const cart = assortiment.cart
+  const bestList = bestStyle.bestList
+  const bestItem = bestStyle.item
   const CategorySkeleton = <Skeleton number={4} wrapper={list} inner={cart} />
+  const ProductSkeleton = <Skeleton number={4} wrapper={bestList} inner={bestItem} />
   return (
     <div className="container">
       <Header />
@@ -24,6 +29,12 @@ export default async function Home() {
         </Title>
         <Suspense fallback={CategorySkeleton}>
           <Category />
+        </Suspense>
+        <Title coffeNum={"false"} styles={style.title}>
+          Хиты продаж
+        </Title>
+        <Suspense fallback={ProductSkeleton}>
+          <BestProductList/>
         </Suspense>
       </main>
     </div>

@@ -5,7 +5,6 @@ import Link from "next/link"
 
 const Category = async () => {
   const category = await getCategory()
-  console.log(category)
   return (
     <div className={style.cartList}>
       {category?.map((item) => (
