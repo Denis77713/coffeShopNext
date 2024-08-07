@@ -1,9 +1,9 @@
 import Image from "next/image"
 import { getCategory } from "../api/api"
-import style from "./Category.module.css"
+import style from "./CategoryList.module.css"
 import Link from "next/link"
 
-const Category = async () => {
+const CategoryList = async () => {
   const category = await getCategory()
   return (
     <div className={style.cartList}>
@@ -24,4 +24,4 @@ const Category = async () => {
   )
 }
 
-export default Category
+export default CategoryList

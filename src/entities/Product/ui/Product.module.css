@@ -1,0 +1,38 @@
+.bestItem {
+  margin: 20px;
+  text-align: center;
+}
+.item{
+  width: 200px;
+  height: 272px;
+  margin: 20px;
+}
+.bestItem img {
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.wrapper {
+  position: relative;
+}
+.wrapper:hover .weight {
+  animation: ani 0.1s linear forwards;
+}
+.weight {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 0;
+}
+@keyframes ani {
+  0% {
+    bottom: 0;
+  }
+  100% {
+    padding-top: 10px;
+    height: 50px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
