@@ -1,20 +1,21 @@
 import Image from "next/image"
 import { FC } from "react"
 import style from "./Product.module.css"
+import Like from "@/features/like/ui/Like"
 
-interface IntProductItems {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-  best: boolean;
-  weight: number;
-  none: boolean;
-  drip: boolean;
-  categoryId: number;
+export interface IntProductItems {
+  id: number
+  name: string
+  imageUrl: string
+  price: number
+  best: boolean
+  weight: number
+  none: boolean
+  drip: boolean
+  categoryId: number
 }
 
-interface IntProudctItem {
+export interface IntProudctItem {
   item: IntProductItems
 }
 
@@ -28,6 +29,7 @@ const Product: FC<IntProudctItem> = ({ item }) => {
           width={200}
           height={200}
         />
+      <Like item={item}/>
         <div className={style.weight}>{`${item.weight} г.`}</div>
       </div>
       <div>{item.name}</div>
