@@ -1,3 +1,4 @@
+
 import { getProduct } from "../api/api"
 import style from "./BestProductList.module.css"
 import Product from "@/entities/Product/ui/Product"

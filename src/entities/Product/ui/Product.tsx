@@ -1,3 +1,5 @@
+
+
 import Image from "next/image"
 import { FC } from "react"
 import style from "./Product.module.css"
