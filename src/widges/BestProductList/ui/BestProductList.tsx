@@ -8,7 +8,7 @@ const BestProductList = async () => {
   return (
     <div className={`container ${style.bestList} `}>
       {result.map((item) => (
-        <Product key={item.id} item={item} />
+        <Product key={item.id} item={item} list={result}/>
       ))}
     </div>
   )
