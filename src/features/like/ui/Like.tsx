@@ -11,12 +11,9 @@ const Like: FC<IntProudctItem> = ({ item }) => {
 
   useEffect(() => {
     const savedValue = window.localStorage.getItem(`like`)
-    console.log(JSON.parse(savedValue).sort((a, b) => (a.id > b.id ? 1 : -1)))
     savedValue &&
-    setCount(JSON.parse(savedValue).sort((a, b) => (a.id > b.id ? 1 : -1)))
-    console.log(count)
+      setCount(JSON.parse(savedValue).sort((a, b) => (a.id > b.id ? 1 : -1)))
   }, [state])
-  
   return (
     <Image
       className={style.like}
@@ -33,11 +30,19 @@ const Like: FC<IntProudctItem> = ({ item }) => {
   )
   function handleclick(item: IntProductItems): void {
     const arr = JSON.parse(localStorage.getItem("like"))
+    if (arr !== null) {
+      const newValue = arr.find((value) => value.id === item.id)
+      newValue.like = !newValue.like
+      const newArr = arr.filter((value: any) => value.id !== item.id)
+      newArr.push(newValue)
+      localStorage.setItem("like", JSON.stringify(newArr))
+    } else {
+      localStorage.setItem(
+        "like",
+        JSON.stringify([{ id: 1, like: true },{ id: 2, like: true },{ id: 3, like: true },{ id: 4, like: true }])
+      )
+    }
     setState(!state)
-    const newArr = arr.filter((value: any) => value.id !== item.id)
-    newArr.push({ id: item.id, like: state })
-    localStorage.setItem("like", JSON.stringify(newArr))
-    // localStorage.setItem("like", JSON.stringify([{id:1,like:true},{id:2,like:true},{id:3,like:true},{id:4,like:true}]))
   }
 }
 export default Like
