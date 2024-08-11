@@ -10,7 +10,7 @@
 .cart::after {
   content: "";
   position: absolute;
-  bottom: 25px;
+  bottom: 14px;
   left: 0;
   right: 0;
   transition: all;

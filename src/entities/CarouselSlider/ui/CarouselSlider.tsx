@@ -7,8 +7,6 @@ import "react-multi-carousel/lib/styles.css"
 import { useEffect, useState } from "react"
 import img from '@/../public/slider/slide1.jpg'
 const CarouselSlider = () => {
-  // const dispatch = useDispatch()
-  // dispatch(getTargetDom(23123))
 
   const [isVisible, setIsVisible] = useState(true)
 
