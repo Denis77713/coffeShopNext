@@ -17,7 +17,7 @@ export interface IntProductItems {
 
 export interface IntProudctItem {
   item: IntProductItems
-  list: IntProductItems
+  list: IntProductItems[]
 }
 
 const Product: FC<IntProudctItem> = ({ item,list }) => {
