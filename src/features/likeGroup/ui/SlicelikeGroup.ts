@@ -7,10 +7,12 @@ interface data {
 
 export interface LikeState {
   storage: data[]
+  window: boolean
 }
 
 const initialState: LikeState = {
   storage: [{ id: 0, like: false }],
+  window: false,
 }
 
 export const LikeSlice = createSlice({
@@ -21,9 +23,13 @@ export const LikeSlice = createSlice({
       state.storage = action.payload
       // console.log(state.storage)
     },
+    getWindow: (state, action) => {
+      state.window = action.payload
+      console.log(state.window)
+    },
   },
 })
 
-export const { getLike } = LikeSlice.actions
+export const { getLike, getWindow } = LikeSlice.actions
 
 export default LikeSlice.reducer

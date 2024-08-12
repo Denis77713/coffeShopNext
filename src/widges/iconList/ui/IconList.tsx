@@ -12,7 +12,7 @@ const IconList: FC<InterfaseIconList> = async ({ search }) => {
     <div className={style.icons}>
       <Image className={style.icon} src={"/cart.svg"} alt="cart" width={30} height={30} />
       <Image className={style.icon} src={"/user.svg"} alt="cart" width={30} height={30} />
-      <LikeGroup/>
+      <LikeGroup />
       {search && (
         <Image className={style.icon} src={"/search.svg"} alt="cart" width={30} height={30} />
       )}

@@ -11,8 +11,12 @@ import BestProductList from "@/widges/BestProductList/ui/BestProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
+import { getProduct } from "../api/api"
+import SenterWindow from "@/features/SenterWindow/ui/SenterWindow"
 
 export default async function Home() {
+  // Лучшие продусты
+  const bestProductList = await getProduct()
   const list = assortiment.cartList
   const cart = assortiment.cart
   const bestList = bestStyle.bestList
@@ -24,6 +28,7 @@ export default async function Home() {
   return (
     <div>
       <Header />
+      <SenterWindow dataList={bestProductList} />
       <main>
         <Title coffeNum={"true"}>Кофейни:</Title>
         <CarouselSlider />
@@ -38,7 +43,7 @@ export default async function Home() {
           Хиты продаж
         </Title>
         <Suspense fallback={ProductSkeleton}>
-          <BestProductList />
+          <BestProductList dataList={bestProductList} />
         </Suspense>
         <WhyUsList />
       </main>

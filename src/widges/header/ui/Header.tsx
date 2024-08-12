@@ -3,6 +3,7 @@ import style from "./Header.module.css"
 import IconList from "@/widges/iconList/ui/IconList"
 import { FC } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
+
 const Header: FC = () => {
   return (
     <header className={`${style.headerFlex} container  `}>

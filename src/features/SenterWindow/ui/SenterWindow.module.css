@@ -1,0 +1,18 @@
+.shadow {
+  position: fixed;
+  background: transparent;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.window {
+  background: white;
+  width: 200px;
+  height: 200px;
+}

@@ -1,9 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
-import counterReducer from "@/entities/CarouselSlider/ui/CarouselSliderSlice"
 import LikeSlice from "@/features/likeGroup/ui/SlicelikeGroup"
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     like: LikeSlice,
   },
 })

@@ -1,7 +1,13 @@
 import { prisma } from "../../../../prisma/prisma-client"
 
-export const getStaticProps = async () => {
-  const result = await prisma.location.findMany()
+export const getProduct = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1))
+
+  const result = await prisma.product.findMany({
+    where:{
+      best: true
+    }
+  })
   return result
 }
-// const res = await getStaticProps()
+// const result = await getProduct()

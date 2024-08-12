@@ -1,14 +1,16 @@
-
-import { getProduct } from "../api/api"
+import { FC } from "react"
 import style from "./BestProductList.module.css"
-import Product from "@/entities/Product/ui/Product"
+import Product, { IntProductItems } from "@/entities/Product/ui/Product"
 
-const BestProductList = async () => {
-  const result = await getProduct()
+ export interface IntDataList {
+  dataList: IntProductItems[]
+}
+
+const BestProductList: FC<IntDataList> = async ({ dataList }) => {
   return (
     <div className={`container ${style.bestList} `}>
-      {result.map((item) => (
-        <Product key={item.id} item={item} list={result}/>
+      {dataList.map((item) => (
+        <Product key={item.id} item={item} list={dataList} />
       ))}
     </div>
   )
