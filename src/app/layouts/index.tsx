@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 
 import "../styles"
 import StoreProvider from "../store/StoreProvider"
+import Header from "@/widges/header/ui/Header"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -14,7 +15,10 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <StoreProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <Header />
+          {children}
+        </body>
       </html>
     </StoreProvider>
   )

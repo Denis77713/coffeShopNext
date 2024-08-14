@@ -2,7 +2,6 @@ import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import CategoryList from "@/widges/CategoryList/ui/CategoryList"
 import LocationsList from "@/entities/LocationsList/ui/LocationsList"
 import Title from "@/shared/ui/Title"
-import Header from "@/widges/header/ui/Header"
 import style from "./HomePage.module.css"
 import { Suspense } from "react"
 import Skeleton from "@/shared/ui/Skeleton"
@@ -12,7 +11,6 @@ import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
 import { getProduct } from "../api/api"
-import SenterWindow from "@/features/SenterWindow/ui/SenterWindow"
 
 export default async function Home() {
   // Лучшие продусты
@@ -27,8 +25,6 @@ export default async function Home() {
   )
   return (
     <div>
-      <Header />
-      <SenterWindow dataList={bestProductList} />
       <main>
         <Title coffeNum={"true"}>Кофейни:</Title>
         <CarouselSlider />

@@ -21,15 +21,11 @@ export const LikeSlice = createSlice({
   reducers: {
     getLike: (state, action) => {
       state.storage = action.payload
-      // console.log(state.storage)
-    },
-    getWindow: (state, action) => {
-      state.window = action.payload
-      console.log(state.window)
+      console.log(state.storage)
     },
   },
 })
 
-export const { getLike, getWindow } = LikeSlice.actions
+export const { getLike } = LikeSlice.actions
 
 export default LikeSlice.reducer

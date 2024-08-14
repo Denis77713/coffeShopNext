@@ -13,7 +13,18 @@ export function handleclick(
     getLocalStorageData(arr, item)
   } else {
     const arr = list.map((i) => {
-      const result = { id: i.id, like: false }
+      const result = {
+        id: i.id,
+        name: i.name,
+        imageUrl: i.imageUrl,
+        price: i.price,
+        best: i.best,
+        weight: i.weight,
+        none: i.none,
+        drip: i.drip,
+        categoryId: i.categoryId,
+        like: false,
+      }
       return result
     })
     getLocalStorageData(arr, item)

@@ -13,6 +13,7 @@ export interface IntProductItems {
   none: boolean
   drip: boolean
   categoryId: number
+  like?: boolean
 }
 
 export interface IntProudctItem {
@@ -20,7 +21,7 @@ export interface IntProudctItem {
   list: IntProductItems[]
 }
 
-const Product: FC<IntProudctItem> = ({ item,list }) => {
+const Product: FC<IntProudctItem> = ({ item, list }) => {
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>
