@@ -1,6 +1,6 @@
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import CategoryList from "@/widges/CategoryList/ui/CategoryList"
-import LocationsList from "@/entities/LocationsList/ui/LocationsList"
+import LocationsList from "@/widges/LocationsList/ui/LocationsList"
 import Title from "@/shared/ui/Title"
 import style from "./HomePage.module.css"
 import { Suspense } from "react"

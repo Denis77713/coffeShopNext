@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { FC } from "react"
 import style from "./Product.module.css"
-import Like from "@/features/like/ui/Like"
+import Like from "@/shared/like/ui/Like"
 
 export interface IntProductItems {
   id: number

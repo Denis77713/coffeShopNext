@@ -6,7 +6,7 @@ import Image from "next/image"
 import style from "./like.module.css"
 import { handleclick } from "./FunctionsLike"
 import { useDispatch } from "react-redux"
-import { getLike } from "../../likeGroup/ui/SlicelikeGroup"
+import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
 
 export interface IntStorageData {
   id: number
