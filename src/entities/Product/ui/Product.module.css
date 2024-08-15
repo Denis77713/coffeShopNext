@@ -22,8 +22,9 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: auto;
   font-size: 0;
+  width: 200px;
 }
 @keyframes ani {
   0% {

@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
 import LikeSlice from "@/features/likeGroup/ui/SlicelikeGroup"
+import ProductSlice from "@/pages/favorites/ui/FavoriteSlice"
 export const store = configureStore({
   reducer: {
     like: LikeSlice,
+    product: ProductSlice,
   },
 })
 

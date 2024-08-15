@@ -2,10 +2,17 @@
 
 import Product, { IntProductItems } from "@/entities/Product/ui/Product"
 import { useEffect, useState } from "react"
+import style from "./FavoritesList.module.css"
+import { useDispatch } from "react-redux"
+import {
+  getProductNum,
+  getProductSum,
+} from "@/pages/favorites/ui/FavoriteSlice"
 
 const FavoritesList = () => {
   const [state, setstate] = useState<IntProductItems[]>([])
   const [boolean, setBoolean] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const storageJson = localStorage.getItem("like")
@@ -19,8 +26,18 @@ const FavoritesList = () => {
     }
   }, [boolean])
 
+  useEffect(() => {
+    const price = state
+      .map((item) => item.price)
+      .reduce((acc, val, i, arr) => {
+        return acc + val
+      }, 0)
+    dispatch(getProductSum(price))
+    dispatch(getProductNum(state.length))
+  }, [state])
+
   return (
-    <div onClick={() => setBoolean(!boolean)}>
+    <div className={style.favorites} onClick={() => setBoolean(!boolean)}>
       {state.map((item) => (
         <Product key={item.id} item={item} list={state} />
       ))}

@@ -21,7 +21,6 @@ export const LikeSlice = createSlice({
   reducers: {
     getLike: (state, action) => {
       state.storage = action.payload
-      console.log(state.storage)
     },
   },
 })

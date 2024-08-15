@@ -30,6 +30,8 @@ const Product: FC<IntProudctItem> = ({ item, list }) => {
           alt="ad"
           width={200}
           height={200}
+          placeholder="blur"
+          blurDataURL="/load.png"
         />
         <Like item={item} list={list} />
         <div className={style.weight}>{`${item.weight} г.`}</div>

@@ -3,9 +3,9 @@
 import Image from "next/image"
 import style from "./LikeGroup.module.css"
 import { useSelector } from "react-redux"
-import { IntStorageData } from "@/features/like/ui/Like"
 import { FC } from "react"
 import Link from "next/link"
+import { IntStorageData } from "@/shared/like/ui/Like"
 
 const LikeGroup: FC = () => {
   const data = useSelector((store: any) => store.like.storage)
