@@ -7,6 +7,7 @@ export function handleclick(
   state: boolean,
   setState: any
 ): void {
+  console.log(item)
   const data = localStorage.getItem("like")
   if (data !== null) {
     const arr = JSON.parse(data)
@@ -25,6 +26,7 @@ export function handleclick(
         categoryId: i.categoryId,
         like: false,
       }
+      console.log(result)
       return result
     })
     getLocalStorageData(arr, item)
