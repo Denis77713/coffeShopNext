@@ -39,8 +39,8 @@ const Like: FC<IntProudctItem> = ({ item, list }) => {
   if (count === true) {
     img = "/product/ico/like.svg"
   } else {
+    // count !== true && count[item.id - 1].like === true
     img = "/product/ico/likeActive.svg"
-    console.log(count)
   }
   return (
     <Image
