@@ -6,7 +6,7 @@ const Footer = async () => {
   const result = await getContacts()
   console.log(result)
   return (
-    <div className={`${style.footer} container`}>
+    <footer className={`${style.footer} container qwe`}>
       <Title coffeNum="false" styles={style.title}>Контакты</Title>
       <div className={`${style.footerFlex} container`}>
         {result.map((item) => (
@@ -16,7 +16,7 @@ const Footer = async () => {
           </div>
         ))}
       </div>
-    </div>
+    </footer>
   )
 }
 

@@ -3,10 +3,10 @@ import FavoritesList from "@/widges/FavoritesList/ui/FavoritesList"
 
 const Favorites = async () => {
   return (
-    <div className="container">
+    <main >
       <FavoritesNumProduct/>
       <FavoritesList />
-    </div>
+    </main>
   )
 }
 

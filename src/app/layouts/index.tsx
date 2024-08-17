@@ -17,9 +17,11 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
     <StoreProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Header />
-          {children}
-          <Footer/>
+          <div className="wrapper">
+            <Header />
+            {children}
+            <Footer />
+          </div>
         </body>
       </html>
     </StoreProvider>
