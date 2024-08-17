@@ -79,3 +79,9 @@ model WhyUsList {
   image String
   title String
 }
+
+model Contacts {
+  id    Int    @id @default(autoincrement())
+  email String
+  text  String
+}

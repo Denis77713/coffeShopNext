@@ -4,6 +4,7 @@ import generateProduct from "./data/product"
 import generateCity from "./data/city"
 import generateLocation from "./data/location"
 import generateWhiList from "./data/whyUsList"
+import generateContacts from "./data/contacts"
 
 async function clearData() {
   // Чистка Category и обнуление id
@@ -12,6 +13,7 @@ async function clearData() {
   await prisma.$executeRaw`TRUNCATE TABLE "City"RESTART IDENTITY CASCADE`
   await prisma.$executeRaw`TRUNCATE TABLE "Location"RESTART IDENTITY CASCADE`
   await prisma.$executeRaw`TRUNCATE TABLE "WhyUsList"RESTART IDENTITY CASCADE`
+  await prisma.$executeRaw`TRUNCATE TABLE "Contacts"RESTART IDENTITY CASCADE`
 }
 async function main() {
   try {
@@ -21,6 +23,7 @@ async function main() {
     await generateCity()
     await generateLocation()
     await generateWhiList()
+    await generateContacts()
   } catch (e) {
     console.log(e)
   }

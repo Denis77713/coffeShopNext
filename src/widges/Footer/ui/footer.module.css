@@ -1,0 +1,31 @@
+.footer{
+  padding: 20px 0;
+}
+.footerFlex {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 20px;
+  align-items: end;
+}
+.footerFlexItem {
+  justify-content: center;
+}
+@media (max-width: 1000px) {
+  .footerFlex {
+    justify-content: center;
+    grid-template-columns: repeat(3, 240px);
+  }
+  .title{
+    text-align: center;
+  }
+}
+@media (max-width: 750px) {
+  .footerFlex {
+    grid-template-columns: repeat(2, 240px);
+  }
+}
+@media (max-width: 500px) {
+  .footerFlex {
+    grid-template-columns: repeat(1, 240px);
+  }
+}
