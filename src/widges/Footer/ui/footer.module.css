@@ -10,6 +10,9 @@
 .footerFlexItem {
   justify-content: center;
 }
+.mail{
+  color: #FFA500;
+}
 @media (max-width: 1000px) {
   .footerFlex {
     justify-content: center;

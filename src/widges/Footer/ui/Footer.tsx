@@ -4,7 +4,6 @@ import style from "./footer.module.css"
 
 const Footer = async () => {
   const result = await getContacts()
-  console.log(result)
   return (
     <footer className={`${style.footer} container qwe`}>
       <Title coffeNum="false" styles={style.title}>Контакты</Title>
@@ -12,7 +11,7 @@ const Footer = async () => {
         {result.map((item) => (
           <div className={style.footerFlexItem} key={item.id}>
             <p>{item.text}</p>
-            <a href={`mailto:mailto:${item.email}`}>{item.email}</a>
+            <a className={style.mail} href={`mailto:mailto:${item.email}`}>{item.email}</a>
           </div>
         ))}
       </div>

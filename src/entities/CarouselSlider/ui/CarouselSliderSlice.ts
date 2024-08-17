@@ -24,7 +24,6 @@ export const counterSlice = createSlice({
       state.value -= 1
     },
     getTargetDom: (state, action: PayloadAction<number>) => {
-      console.log(action.payload)
     },
   },
 })

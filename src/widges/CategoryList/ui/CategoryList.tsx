@@ -9,7 +9,7 @@ const CategoryList = async () => {
     <div className={`container ${style.cartList} `}>
       {category?.map((item) => (
         <div className={style.cart} key={item.id}>
-          <Link href={item.page}>
+          <Link href={`products/${item.page}`}>
            <Image
               className={style.img}
               src={`/categories/${item.image}.webp`}
