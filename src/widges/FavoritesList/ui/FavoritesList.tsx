@@ -1,6 +1,6 @@
 "use client"
 
-import Product, { IntProductItems } from "@/entities/Product/ui/Product"
+import Product from "@/entities/Product/ui/Product"
 import { useEffect, useState } from "react"
 import style from "./FavoritesList.module.css"
 import { useDispatch } from "react-redux"
@@ -9,21 +9,23 @@ import {
   getProductSum,
 } from "@/pages/favorites/ui/FavoriteSlice"
 import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
+import { IntStorageData } from "@/shared/like/ui/Like"
+import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
 
 const FavoritesList = () => {
-  const [state, setstate] = useState<IntProductItems[]>([])
-  const [boolean, setBoolean] = useState(false)
+  const [state, setstate] = useState<ItemStore[]>([])
+  const [boolean, setBoolean] = useState<boolean>(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const storageJson = localStorage.getItem("like")
+    const storageJson: string | null = localStorage.getItem("like")
 
     if (storageJson) {
-      const storageData: IntProductItems[] = JSON.parse(storageJson)
-      const ArrIdIsLikeTrue: IntProductItems[] = storageData.filter(
+      const storageData: ItemStore[] = JSON.parse(storageJson)
+      const storageDataFilter: ItemStore[] = storageData.filter(
         (item) => item.like === true
       )
-      setstate(ArrIdIsLikeTrue)
+      setstate(storageDataFilter)
     }
   }, [boolean])
 
@@ -44,11 +46,11 @@ const FavoritesList = () => {
       )
     )
   }, [state])
-
+  console.log(state)
   return (
     <div className={style.favorites} onClick={() => setBoolean(!boolean)}>
       {state.map((item) => (
-        <Product key={item.id} item={item} list={state} />
+        <Product key={item.id} item={item} />
       ))}
     </div>
   )

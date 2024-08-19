@@ -3,7 +3,7 @@ import { FC } from "react"
 import style from "./Product.module.css"
 import Like from "@/shared/like/ui/Like"
 
-export interface IntProductItems {
+export type Item = {
   id: number
   name: string
   imageUrl: string
@@ -16,12 +16,7 @@ export interface IntProductItems {
   like?: boolean
 }
 
-export interface IntProudctItem {
-  item: IntProductItems
-  list: IntProductItems[]
-}
-
-const Product: FC<IntProudctItem> = ({ item, list,storage }) => {
+const Product: FC<{ item: Item }> = ({ item }) => {
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>
@@ -33,7 +28,7 @@ const Product: FC<IntProudctItem> = ({ item, list,storage }) => {
           placeholder="blur"
           blurDataURL="/load.png"
         />
-        <Like item={item} list={list} storage={storage} />
+        <Like item={item} />
         <div className={style.weight}>{`${item.weight} г.`}</div>
       </div>
       <div>{item.name}</div>

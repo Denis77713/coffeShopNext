@@ -1,52 +1,38 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import style from "./BestProductList.module.css"
-import Product, { IntProductItems } from "@/entities/Product/ui/Product"
-import { useDispatch } from "react-redux"
-import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
-import { IntStorageData } from "@/shared/like/ui/Like"
+import Product, { Item } from "@/entities/Product/ui/Product"
+import useStorage from "@/shared/ui/useStorage"
+import { addLikeInList } from "@/shared/ui/addLikeInList"
 
-export interface IntDataList {
-  dataList: IntProductItems[]
+export type ItemStore = {
+  id: number
+  name: string
+  imageUrl: string
+  price: number
+  best: boolean
+  weight: number
+  none: boolean
+  drip: boolean
+  categoryId: number
+  like: boolean | undefined
 }
 
-const BestProductList: FC<IntDataList> = ({ dataList }) => {
-  const dispatch = useDispatch()
-  const [count, setCount] = useState<any>([])
+const BestProductList: FC<{ dataList: Item[] }> = ({ dataList }) => {
+  const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
 
-  useEffect(() => {
-    const savedValue = window.localStorage.getItem(`like`)
-    if (savedValue) {
-      setCount(
-        JSON.parse(savedValue).sort((a: IntStorageData, b: IntStorageData) =>
-          a.id > b.id ? 1 : -1
-        )
-      )
-      dispatch(
-        getLike(
-          JSON.parse(savedValue).sort((a: IntStorageData, b: IntStorageData) =>
-            a.id > b.id ? 1 : -1
-          )
-        )
-      )
-    }
-  }, [state])
-  dataList.forEach((item, index) => {
-    if (count[index]) {
-      if (item.id === count[index].id) {
-        item.like = count[index].like
-      }
-    }
-  })
+  useStorage(state, setCount)
+  addLikeInList(dataList, count)
+
   return (
     <div
       className={`container ${style.bestList}`}
       onClick={() => setState(!state)}
     >
       {dataList.map((item) => (
-        <Product key={item.id} item={item} list={dataList} />
+        <Product key={item.id} item={item} />
       ))}
     </div>
   )

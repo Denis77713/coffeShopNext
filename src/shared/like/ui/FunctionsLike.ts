@@ -1,49 +1,23 @@
-import { IntProductItems } from "@/entities/Product/ui/Product"
-import { IntStorageData } from "./Like"
-
-export function handleclick(
-  item: IntProductItems,
-  list: IntProductItems[],
-  state: boolean,
-  setState: any
-): void {
-  console.log(item)
-  const data = localStorage.getItem("like")
-  if (data !== null) {
-    const arr = JSON.parse(data)
-    getLocalStorageData(arr, item)
+export function handleclick(item) {
+  const jsonData = localStorage.getItem("like")
+  const arr = JSON.parse(jsonData)
+  if (arr !== null) {
+    const filterArr = arr.filter((i) => i.id === item.id)
+    if (filterArr.length === 0) {
+      const newArr = item
+      newArr.like = true
+      arr.push(newArr)
+      localStorage.setItem("like", JSON.stringify(arr))
+      // console.log(arr)
+    } else {
+      filterArr[0].like = !filterArr[0].like
+      arr.splice(filterArr[0].id - 1, 1, filterArr[0])
+      // console.log(arr)
+      localStorage.setItem("like", JSON.stringify(arr))
+    }
   } else {
-    const arr = list.map((i) => {
-      const result = {
-        id: i.id,
-        name: i.name,
-        imageUrl: i.imageUrl,
-        price: i.price,
-        best: i.best,
-        weight: i.weight,
-        none: i.none,
-        drip: i.drip,
-        categoryId: i.categoryId,
-        like: false,
-      }
-      console.log(result)
-      return result
-    })
-    getLocalStorageData(arr, item)
-  }
-  setState(!state)
-}
-
-export function getLocalStorageData(
-  arr: IntStorageData[],
-  item: IntProductItems
-): void {
-  const newValue = arr.find((value: any) => value.id === item.id)
-
-  if (typeof newValue !== "undefined") {
-    newValue.like = !newValue.like
-    const newArr = arr.filter((value: any) => value.id !== item.id)
-    newArr.push(newValue)
-    localStorage.setItem("like", JSON.stringify(newArr))
+    const newItem = item
+    newItem.like = true
+    localStorage.setItem("like", JSON.stringify([newItem]))
   }
 }
