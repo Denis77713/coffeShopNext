@@ -1,12 +1,9 @@
 "use client"
 
-import { useState, useEffect, FC } from "react"
+import { FC } from "react"
 import { IntProudctItem } from "@/entities/Product/ui/Product"
 import Image from "next/image"
 import style from "./like.module.css"
-import { handleclick } from "./FunctionsLike"
-import { useDispatch } from "react-redux"
-import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
 
 export interface IntStorageData {
   id: number
@@ -14,43 +11,41 @@ export interface IntStorageData {
 }
 
 const Like: FC<IntProudctItem> = ({ item, list }) => {
-  const dispatch = useDispatch()
-  const [count, setCount] = useState<any>(true)
-  const [state, setState] = useState<boolean>(false)
-
-  useEffect(() => {
-    const savedValue = window.localStorage.getItem(`like`)
-    if (savedValue) {
-      setCount(
-        JSON.parse(savedValue).sort((a: IntStorageData, b: IntStorageData) =>
-          a.id > b.id ? 1 : -1
-        )
-      )
-      dispatch(
-        getLike(
-          JSON.parse(savedValue).sort((a: IntStorageData, b: IntStorageData) =>
-            a.id > b.id ? 1 : -1
-          )
-        )
-      )
-    }
-  }, [state])
-  let img = ""
-  if (count === true) {
-    img = "/product/ico/like.svg"
-  } else {
-    // count !== true && count[item.id - 1].like === true
-    img = "/product/ico/likeActive.svg"
-  }
+  
   return (
     <Image
       className={style.like}
-      src={img}
+      src={item.like?'/product/ico/likeActive.svg':"/product/ico/like.svg"}
       alt="like"
       width={30}
       height={30}
-      onClick={() => handleclick(item, list, state, setState)}
+      onClick={() => handleclick(item)}
     />
   )
+
+  function handleclick(item) {
+    const jsonData = localStorage.getItem("like")
+    const arr = JSON.parse(jsonData)
+    if (arr !== null) {
+      const filterArr = arr.filter((i) => i.id === item.id)
+      if (filterArr.length === 0) {
+        const newArr = item
+        newArr.like = true
+        arr.push(newArr)
+        localStorage.setItem("like", JSON.stringify(arr))
+        // console.log(arr)
+      } else {
+        filterArr[0].like = !filterArr[0].like
+        arr.splice(filterArr[0].id-1, 1, filterArr[0])
+        // console.log(arr)
+        localStorage.setItem("like", JSON.stringify(arr))
+
+      }
+    } else {
+      const newItem = item
+      newItem.like = true
+      localStorage.setItem("like", JSON.stringify([newItem]))
+    }
+  }
 }
 export default Like

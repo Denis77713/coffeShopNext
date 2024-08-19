@@ -8,6 +8,7 @@ import {
   getProductNum,
   getProductSum,
 } from "@/pages/favorites/ui/FavoriteSlice"
+import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
 
 const FavoritesList = () => {
   const [state, setstate] = useState<IntProductItems[]>([])
@@ -34,6 +35,14 @@ const FavoritesList = () => {
       }, 0)
     dispatch(getProductSum(price))
     dispatch(getProductNum(state.length))
+
+    dispatch(
+      getLike(
+        state.sort((a: IntStorageData, b: IntStorageData) =>
+          a.id > b.id ? 1 : -1
+        )
+      )
+    )
   }, [state])
 
   return (

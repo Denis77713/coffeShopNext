@@ -21,7 +21,7 @@ export interface IntProudctItem {
   list: IntProductItems[]
 }
 
-const Product: FC<IntProudctItem> = ({ item, list }) => {
+const Product: FC<IntProudctItem> = ({ item, list,storage }) => {
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>
@@ -33,7 +33,7 @@ const Product: FC<IntProudctItem> = ({ item, list }) => {
           placeholder="blur"
           blurDataURL="/load.png"
         />
-        <Like item={item} list={list} />
+        <Like item={item} list={list} storage={storage} />
         <div className={style.weight}>{`${item.weight} г.`}</div>
       </div>
       <div>{item.name}</div>

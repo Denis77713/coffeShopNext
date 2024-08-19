@@ -1,7 +1,6 @@
 import Product from "@/entities/Product/ui/Product"
 import { prisma } from "../../../../prisma/prisma-client"
-
-
+import ProductList from "@/widges/ProductList/ui/ProductList"
 
 export const getCategory = async (page: string) => {
   await new Promise((resolve) => setTimeout(resolve, 1))
@@ -11,24 +10,22 @@ export const getCategory = async (page: string) => {
       page: page,
     },
   })
-  
+
   const productData = await prisma.product.findMany({
-  where:{
-    categoryId: category[0].id
-  }
+    where: {
+      categoryId: category[0].id,
+    },
   })
-return productData
+  return productData
 }
 
 const ProductPage = async ({ params }: any) => {
   const res = await getCategory(`/${params.id}`)
-  // getCategory(`/${params.id}`)
-  console.log(res)
-  return <main className="container">{
-   res.map(item=>
-    <Product key={item.id} item={item} list={res}/>
-   ) 
-  }</main>
+  return (
+    <main className="container">
+      <ProductList res={res}/>
+    </main>
+  )
 }
 
 export default ProductPage

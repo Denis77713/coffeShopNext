@@ -1,19 +1,16 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
-import style from "./BestProductList.module.css"
-import Product, { IntProductItems } from "@/entities/Product/ui/Product"
-import { useDispatch } from "react-redux"
+import Product from "@/entities/Product/ui/Product"
 import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
 import { IntStorageData } from "@/shared/like/ui/Like"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 
-export interface IntDataList {
-  dataList: IntProductItems[]
-}
 
-const BestProductList: FC<IntDataList> = ({ dataList }) => {
+
+const ProductList = ({ res }) => {
   const dispatch = useDispatch()
-  const [count, setCount] = useState<any>([])
+  const [count, setCount] = useState<any>(true)
   const [state, setState] = useState<boolean>(false)
 
   useEffect(() => {
@@ -33,7 +30,7 @@ const BestProductList: FC<IntDataList> = ({ dataList }) => {
       )
     }
   }, [state])
-  dataList.forEach((item, index) => {
+  res.forEach((item, index) => {
     if (count[index]) {
       if (item.id === count[index].id) {
         item.like = count[index].like
@@ -41,15 +38,12 @@ const BestProductList: FC<IntDataList> = ({ dataList }) => {
     }
   })
   return (
-    <div
-      className={`container ${style.bestList}`}
-      onClick={() => setState(!state)}
-    >
-      {dataList.map((item) => (
-        <Product key={item.id} item={item} list={dataList} />
+    <div onClick={()=>setState(!state)}>
+      {res.map((item) => (
+        <Product key={item.id} item={item} list={res} storage={count}/>
       ))}
     </div>
   )
 }
 
-export default BestProductList
+export default ProductList
