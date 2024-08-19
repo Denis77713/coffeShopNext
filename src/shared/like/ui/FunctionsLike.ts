@@ -1,10 +1,13 @@
-export function handleclick(item) {
-  const jsonData = localStorage.getItem("like")
-  const arr = JSON.parse(jsonData)
-  if (arr !== null) {
+import { Item } from "@/entities/Product/ui/Product"
+import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
+
+export function handleclick(item: Item) {
+  const jsonData: string | null = localStorage.getItem("like")
+  if (jsonData !== null) {
+    const arr: ItemStore[] = JSON.parse(jsonData)
     const filterArr = arr.filter((i) => i.id === item.id)
     if (filterArr.length === 0) {
-      const newArr = item
+      const newArr:any = item
       newArr.like = true
       arr.push(newArr)
       localStorage.setItem("like", JSON.stringify(arr))
