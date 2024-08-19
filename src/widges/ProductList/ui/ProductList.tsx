@@ -5,6 +5,8 @@ import { addLikeInList } from "@/shared/ui/addLikeInList"
 import useStorage from "@/shared/ui/useStorage"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
 import { FC, useState } from "react"
+import style from './ProductList.module.css'
+
 
 const ProductList: FC<{ res: Item[] }> = ({ res }) => {
   const [count, setCount] = useState<ItemStore[]>([])
@@ -14,7 +16,7 @@ const ProductList: FC<{ res: Item[] }> = ({ res }) => {
   addLikeInList(res, count)
 
   return (
-    <div onClick={() => setState(!state)}>
+    <div className={style.bestList} onClick={() => setState(!state)}>
       {res.map((item) => (
         <Product key={item.id} item={item} />
       ))}
