@@ -20,6 +20,7 @@ export const getCategory = async (page: string, query: string) => {
       },
     },
   })
+  console.log(productData)
   return productData
 }
 
