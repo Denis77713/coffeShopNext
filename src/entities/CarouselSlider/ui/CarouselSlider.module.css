@@ -1,8 +1,9 @@
 .slider {
-  max-width: 1000px;
+  max-width: 1040px;
   margin: auto;
   border-radius: 20px;
   margin-bottom: 20px;
+  padding: 0 20px;
 }
 .sliderItem {
   border-radius: 20px;

@@ -1,6 +1,6 @@
 .cart {
   position: relative;
-  margin: 40px 20px;
+  margin: 40px 0px;
   margin-top: 0;
   height: 300px;
   border-radius: 16px;
@@ -10,7 +10,7 @@
 .cart::after {
   content: "";
   position: absolute;
-  bottom: 14px;
+  bottom: 0px;
   left: 0;
   right: 0;
   transition: all;
@@ -37,7 +37,7 @@
 
 .cartList {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 220px);
   justify-content: space-between;
 }
 
@@ -48,21 +48,21 @@
 
 @media (max-width: 1000px) {
   .cartList {
+    max-width: 780px;
     display: grid;
-    grid-template-columns:  repeat(3, 240px);
-    justify-content: center;
+    grid-template-columns:  repeat(3, 220px);
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   .cartList {
+    max-width: 520px;
     display: grid;
-    grid-template-columns: repeat(2, 240px);
-    justify-content: center;
+    grid-template-columns: repeat(2, 220px);
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 520px) {
   .cartList {
     display: grid;
     grid-template-columns: repeat(1, 240px);

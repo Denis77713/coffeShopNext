@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import style from "./Search.module.css"
 
 const Search = () => {
-  const searchParams = useSearchParams()
+  const searchParams:any = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
 
@@ -14,10 +14,10 @@ const Search = () => {
       type="text"
       defaultValue={searchParams.get('query')?.toString()}
       onChange={(e) => handleChange(e.target.value)}
+      placeholder="Поиск по сайту"
     />
   )
   function handleChange(value: string): void {
-    console.log(value)
     const params = new URLSearchParams(searchParams)
     if (value) {
       params.set("query", value)

@@ -38,7 +38,7 @@ const CarouselSlider = () => {
     { id: 3, src: "/slider/slide3.jpg" },
   ]
   return (
-    <div className={`container ${style.slider} `}>
+    <div className={` ${style.slider} `}>
       {isVisible ? (
         <div className={style.skeleton}></div>
       ) : (
