@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
@@ -32,6 +32,7 @@ model Category {
   // Связь одна Category ко многим Product
   page     String
   products Product[]
+  filters  Filter[]
 }
 
 model Product {
@@ -47,6 +48,16 @@ model Product {
   none       Boolean
   drip       Boolean
   categoryId Int
+}
+
+model Filter {
+  id       Int      @id @default(autoincrement())
+  name     String
+  value    String
+  text     String
+  // Связь с Category
+  filter   Category @relation(fields: [filterId], references: [id])
+  filterId Int
 }
 
 model City {

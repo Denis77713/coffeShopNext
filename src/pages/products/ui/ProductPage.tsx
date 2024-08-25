@@ -1,6 +1,7 @@
 import Search from "@/features/Search/ui/Search"
 import { prisma } from "../../../../prisma/prisma-client"
 import ProductList from "@/widges/ProductList/ui/ProductList"
+import FilterList from "@/widges/FilterList/ui/FilterList"
 
 export const getCategory = async (page: string, query: string) => {
   await new Promise((resolve) => setTimeout(resolve, 1))
@@ -20,8 +21,13 @@ export const getCategory = async (page: string, query: string) => {
       },
     },
   })
-  console.log(productData)
-  return productData
+  const filtersData = await prisma.filter.findMany({
+    where: {
+      filterId: category[0].id,
+    },
+  })
+
+  return { productData, filtersData }
 }
 
 const ProductPage = async ({ params, searchParams }: any) => {
@@ -30,7 +36,8 @@ const ProductPage = async ({ params, searchParams }: any) => {
   return (
     <main className="container">
       <Search />
-      <ProductList res={res} />
+      <FilterList filters={res.filtersData} />
+      <ProductList res={res.productData} />
     </main>
   )
 }
