@@ -15,9 +15,7 @@ export const getCategory = async (page: string, query: any) => {
     res.push(...(await getDrip(query, category)))
   // Получить товары
   let productData
-  // console.log(res.length === 0)
-  console.log(query.query)
-  // if (res.length === 0) {
+  if (res.length === 0) {
     productData = await prisma.product.findMany({
       where: {
         categoryId: category[0].id,
@@ -27,29 +25,23 @@ export const getCategory = async (page: string, query: any) => {
         },
       },
     })
-  // }
-  console.log(productData)
-  console.log(res)
-  productData = res
-  //  else {
-    // if(query.query === 'undefined'){
-      // productData = res
-      // console.log(productData)
-    // }
-  //   let result = []
-  //   res.forEach((item) => {
-  //     if (
-  //       item.name
-  //         .toLocaleLowerCase()
-  //         .includes(query.query.toLocaleLowerCase()) === true
-  //     ) {
-  //       result.push(item)
-  //     }
-  //   })
-  //   productData = result
-  //   console.log(result)
-  
-// }
+  } else {
+    if (typeof query.query === "undefined") {
+      productData = res
+    } else {
+        let result = []
+        res.forEach((item) => {
+          if (
+            item.name
+              .toLocaleLowerCase()
+              .includes(query.query.toLocaleLowerCase()) === true
+          ) {
+            result.push(item)
+          }
+        })
+        productData = result
+    }
+  }
   // Получить фильтры
   const filtersData = await prisma.filter.findMany({
     where: {
@@ -57,6 +49,7 @@ export const getCategory = async (page: string, query: any) => {
     },
   })
   // Вернуть Товары и фильтры
+
   return { productData, filtersData }
 }
 
