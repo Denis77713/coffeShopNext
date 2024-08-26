@@ -1,0 +1,9 @@
+.filterItem{
+  display: flex;
+}
+.filterItem input {
+  cursor: pointer;
+}
+.filterInner{
+  margin-right: 10px;
+}

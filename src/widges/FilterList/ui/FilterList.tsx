@@ -1,5 +1,5 @@
 import { FC } from "react"
-import style from "./FilterList.module.css"
+import FilterItem from "@/features/FilterItem/ui/FilterItem"
 
 export type Filter = {
   id: number
@@ -10,8 +10,10 @@ export type Filter = {
 }
 
 const FilterList: FC<{ filters: Filter[] }> = ({ filters }) => {
-  return <>
-  </>
+  return filters.map((item) => (
+  <FilterItem key={item.id} item = {item}/>
+  ))
+
 }
 
 export default FilterList
