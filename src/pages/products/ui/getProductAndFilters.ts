@@ -29,7 +29,7 @@ export const getCategory = async (page: string, query: any) => {
     if (typeof query.query === "undefined") {
       productData = res
     } else {
-        let result = []
+        let result:any = []
         res.forEach((item) => {
           if (
             item.name
