@@ -20,6 +20,7 @@ const FilterItem: FC<{ item: Filter }> = ({ item }) => {
   )
   function handleChange(item: Filter) {
     const params = new URLSearchParams(searchParams)
+    console.log(item.name)
     if (state) {
       params.set(item.name, item.value)
     } else {
