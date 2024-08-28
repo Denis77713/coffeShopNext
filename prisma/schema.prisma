@@ -42,11 +42,11 @@ model Product {
   // Связь с Category
   category   Category @relation(fields: [categoryId], references: [id])
   // Связь с Category
-  price      Int
-  best       Boolean
-  weight     Int
-  none       Boolean
-  drip       Boolean
+  price      String
+  best       String
+  weight     String
+  none       String
+  drip       String
   categoryId Int
 }
 

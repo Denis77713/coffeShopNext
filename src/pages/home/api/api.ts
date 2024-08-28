@@ -5,7 +5,7 @@ export const getProduct = async () => {
 
   const result = await prisma.product.findMany({
     where: {
-      best: true
+      best: 'true'
     },
   })
   return result

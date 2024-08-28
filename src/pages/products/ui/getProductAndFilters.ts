@@ -8,15 +8,9 @@ export const getCategory = async (page: string, query: any) => {
       page: page,
     },
   })
-  // console.log(query)
   let res = []
-  if (Boolean(query.best) === true)
-    res.push(...(await getBest(query, category)))
-  if (Boolean(query.drip) === true)
-    res.push(...(await getDrip(query, category)))
-  // if (typeof(query.weightMax) !== 'undefined')
-  //   res.push(...(await getDrip(query, category)))
-  // Получить товары
+  if (Object.keys(query).length > 0)
+    res.push(...(await getFilter(query, category)))
   let productData
   if (res.length === 0) {
     productData = await prisma.product.findMany({
@@ -36,8 +30,8 @@ export const getCategory = async (page: string, query: any) => {
       res.forEach((item) => {
         if (
           item.name
-          .toLocaleLowerCase()
-          .includes(query.query.toLocaleLowerCase()) === true
+            .toLocaleLowerCase()
+            .includes(query.query.toLocaleLowerCase()) === true
         ) {
           result.push(item)
         }
@@ -52,56 +46,19 @@ export const getCategory = async (page: string, query: any) => {
     },
   })
   // Вернуть Товары и фильтры
-  
-  // console.log(productData)
+
   return { productData, filtersData }
 }
 
-async function getBest(query: any, category: any) {
+async function getFilter(query: any, category: any) {
   let result
+  const newQery = query
   result = await prisma.product.findMany({
-    where: {
-      categoryId: category[0].id,
-      best: Boolean(query.best),
-    },
-  })
-  return result
-}
-
-async function getDrip(query: any, category: any) {
-  let result
-  result = await prisma.product.findMany({
-    where: {
-      categoryId: category[0].id,
-      drip: Boolean(query.drip),
-    },
-  })
-  return result
-}
-async function weightMax(query: any, category: any) {
-  let result
-  result = await prisma.product.findMany({
-    where: {
-      categoryId: category[0].id,
-      weight: query.weightMax,
-    },
-  })
-  return result
-}
-async function weightMin(query: any, category: any) {
-  let result
-  result = await prisma.product.findMany({
-    where: {
-      categoryId: category[0].id,
-      weight: query.weightMin,
-    },
-  })
-  return result
-}
-async function qwe(query: any, category: any) {
-  let result
-  result = await prisma.product.findMany({
-    where: query
+    where: {...newQery,
+    name: {
+      contains: newQery.query,
+      mode: "insensitive",
+    }},
   })
   return result
 }
