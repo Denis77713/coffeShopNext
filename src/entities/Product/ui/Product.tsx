@@ -17,7 +17,6 @@ export type Item = {
 }
 
 const Product: FC<{ item: Item }> = ({ item }) => {
-  console.log(item)
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>
