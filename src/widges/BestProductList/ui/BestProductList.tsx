@@ -10,11 +10,11 @@ export type ItemStore = {
   id: number
   name: string
   imageUrl: string
-  price: number
-  best: boolean
-  weight: number
-  none: boolean
-  drip: boolean
+  price: string
+  best: string
+  weight: string
+  none: string
+  drip: string
   categoryId: number
   like: boolean | undefined
 }

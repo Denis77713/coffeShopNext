@@ -7,16 +7,17 @@ export type Item = {
   id: number
   name: string
   imageUrl: string
-  price: number
-  best: boolean
-  weight: number
-  none: boolean
-  drip: boolean
+  price: string
+  best: string
+  weight: string
+  none: string
+  drip: string
   categoryId: number
   like?: boolean
 }
 
 const Product: FC<{ item: Item }> = ({ item }) => {
+  console.log(item)
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>

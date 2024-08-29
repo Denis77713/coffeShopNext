@@ -12,9 +12,7 @@ const ProductPage: FC<{ params: IParams; searchParams: any }> = async ({
   params,
   searchParams,
 }) => {
-  const query = searchParams.query
   const res = await getCategory(`/${params.id}`, searchParams)
-  console.log(searchParams)
   return (
     <main className="container">
       <Search />
