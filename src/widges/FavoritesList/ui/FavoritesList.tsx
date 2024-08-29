@@ -30,7 +30,7 @@ const FavoritesList = () => {
   
   useEffect(() => {
     const price = count
-      .map((item) => item.price)
+      .map((item) => Number(item.price))
       .reduce((acc, val, i, arr) => {
         return acc + val
       }, 0)
