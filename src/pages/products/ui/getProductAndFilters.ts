@@ -35,7 +35,7 @@ async function getFilter(query: any, category: category[]) {
   return result
 }
 
-async function getCategoryProdusct(page: string) {
+export async function getCategoryProdusct(page: string) {
   const category = await prisma.category.findMany({
     where: {
       page: page,

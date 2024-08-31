@@ -11,7 +11,7 @@ import {
 import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
 
-const FavoritesList = () => {
+const FavoritesList = ({category}) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -45,7 +45,7 @@ const FavoritesList = () => {
   return (
     <div className={style.favorites} onClick={() => setState(!state)}>
       {count.map((item) => (
-        <Product key={item.id} item={item} />
+        <Product key={item.id} item={item} category={category}/>
       ))}
     </div>
   )

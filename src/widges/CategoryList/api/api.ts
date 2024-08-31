@@ -6,4 +6,10 @@ export const getCategory = async () => {
   const result = await prisma.category.findMany()
   return result
 }
+export const getCategoryes = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1))
+
+  const result = await prisma.category.findMany()
+  return result
+}
 // const res = await getLocations()

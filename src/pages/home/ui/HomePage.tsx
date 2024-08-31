@@ -11,6 +11,7 @@ import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
 import { getProduct } from "../api/api"
+import { getCategoryes } from '@/widges/CategoryList/api/api';
 
 export default async function Home() {
   // Лучшие продусты
@@ -23,6 +24,8 @@ export default async function Home() {
   const ProductSkeleton = (
     <Skeleton number={4} wrapper={bestList} inner={bestItem} />
   )
+  const category = await getCategoryes()
+
   return (
     <div>
       <main>
@@ -39,7 +42,7 @@ export default async function Home() {
           Хиты продаж
         </Title>
         <Suspense fallback={ProductSkeleton}>
-          <BestProductList dataList={bestProductList} />
+          <BestProductList dataList={bestProductList} category={category} />
         </Suspense>
         <WhyUsList />
       </main>

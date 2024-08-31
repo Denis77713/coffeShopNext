@@ -19,7 +19,7 @@ export type ItemStore = {
   like: boolean | undefined
 }
 
-const BestProductList: FC<{ dataList: Item[] }> = ({ dataList }) => {
+const BestProductList: FC<{ dataList: Item[],category }> = ({ dataList,category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
 
@@ -32,7 +32,7 @@ const BestProductList: FC<{ dataList: Item[] }> = ({ dataList }) => {
       onClick={() => setState(!state)}
     >
       {dataList.map((item) => (
-        <Product key={item.id} item={item} />
+        <Product key={item.id} item={item} category={category} />
       ))}
     </div>
   )
