@@ -5,14 +5,12 @@ interface IntProductSlice {
   sum: number
 }
 
-
-
 const initialState: IntProductSlice = {
   product: 0,
   sum: 0,
 }
 
-export const ProductSlice = createSlice({
+export const FavoriteSlice = createSlice({
   name: "Product",
   initialState,
   reducers: {
@@ -25,6 +23,6 @@ export const ProductSlice = createSlice({
   },
 })
 
-export const { getProductNum,getProductSum } = ProductSlice.actions
+export const { getProductNum, getProductSum } = FavoriteSlice.actions
 
-export default ProductSlice.reducer
+export default FavoriteSlice.reducer

@@ -1,9 +1,14 @@
+
+import ProductInProductPage from "@/widges/ProductInProductPage/ui/ProductInProductPage"
 import { FC } from "react"
 
-type params = { id: string; product: string }
-const ProductPage: FC<{ params: params }> = async ({ params }) => {
-  console.log(params)
-  return <main className="container">product</main>
+const ProductPage: FC =  () => {
+  
+  return (
+    <main className="container">
+      <ProductInProductPage />
+    </main>
+  )
 }
 
 export default ProductPage

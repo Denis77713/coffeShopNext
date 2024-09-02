@@ -6,6 +6,8 @@ import style from "./Product.module.css"
 import Like from "@/shared/like/ui/Like"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useDispatch } from "react-redux"
+import { getId } from "./ProductSlice"
 
 export type Item = {
   id: number
@@ -23,6 +25,7 @@ export type Item = {
 const Product: FC<{ item: Item; category }> = ({ item, category }) => {
   const pathname = usePathname()
   const url = getPageCategory(item, category, pathname)
+  const dispatch = useDispatch()
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>
@@ -34,7 +37,8 @@ const Product: FC<{ item: Item; category }> = ({ item, category }) => {
             height={200}
             placeholder="blur"
             blurDataURL="/load.png"
-            onClick={(e) => console.log(pathname)}
+            onClick={() =>   addCookie(item.id)
+            }
           />
         </Link>
         <Like item={item} />
@@ -44,6 +48,11 @@ const Product: FC<{ item: Item; category }> = ({ item, category }) => {
       <div>{`${item.price} руб.`}</div>
     </div>
   )
+}
+function addCookie(item:number){
+  
+  document.cookie = `number=${item} 'max-age': -1`
+  document.cookie = `number=${item}`
 }
 function getPageCategory(item, category, pathname) {
   const filterCategory = category.filter(
