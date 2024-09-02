@@ -49,10 +49,17 @@ const Product: FC<{ item: Item; category }> = ({ item, category }) => {
     </div>
   )
 }
+function deleteCookie(name) {
+  setCookie(name, "", {
+    'max-age': -1
+  })
+}
 function addCookie(item:number){
-  
-  document.cookie = `number=${item} 'max-age': -1`
+  console.log(item)
+  // deleteCookie('number')
+  document.cookie = 'cookieName=number; Max-Age=-1;';
   document.cookie = `number=${item}`
+  // document.cookie = `number= 'max-age': -1`
 }
 function getPageCategory(item, category, pathname) {
   const filterCategory = category.filter(
