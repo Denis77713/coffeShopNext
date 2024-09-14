@@ -6,8 +6,7 @@ import style from "./Product.module.css"
 import Like from "@/shared/like/ui/Like"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useDispatch } from "react-redux"
-import { getId } from "./ProductSlice"
+import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 
 export type Item = {
   id: number
@@ -22,10 +21,14 @@ export type Item = {
   like?: boolean
 }
 
-const Product: FC<{ item: Item; category }> = ({ item, category }) => {
+const Product: FC<{ item: Item; category: TypeCategory[] }> = ({
+  item,
+  category,
+}) => {
   const pathname = usePathname()
+  
   const url = getPageCategory(item, category, pathname)
-  const dispatch = useDispatch()
+
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.wrapper}>
@@ -37,8 +40,7 @@ const Product: FC<{ item: Item; category }> = ({ item, category }) => {
             height={200}
             placeholder="blur"
             blurDataURL="/load.png"
-            onClick={() =>   addCookie(item.id)
-            }
+            onClick={() => addCookie(item.id)}
           />
         </Link>
         <Like item={item} />
@@ -49,19 +51,12 @@ const Product: FC<{ item: Item; category }> = ({ item, category }) => {
     </div>
   )
 }
-function deleteCookie(name) {
-  setCookie(name, "", {
-    'max-age': -1
-  })
-}
-function addCookie(item:number){
-  console.log(item)
-  // deleteCookie('number')
-  document.cookie = 'cookieName=number; Max-Age=-1;';
+
+function addCookie(item: number) {
+  document.cookie = "cookieName=number; Max-Age=-1;"
   document.cookie = `number=${item}`
-  // document.cookie = `number= 'max-age': -1`
 }
-function getPageCategory(item, category, pathname) {
+function getPageCategory(item: Item,category: TypeCategory[],pathname: string | null) : string {
   const filterCategory = category.filter(
     (inner) => inner.id === item.categoryId
   )
