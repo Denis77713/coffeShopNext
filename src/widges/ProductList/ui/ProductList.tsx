@@ -1,11 +1,12 @@
 "use client"
 
-import Product, { Item } from "@/entities/Product/ui/Product"
+import Product from "@/entities/Product/ui/Product"
 import { addLikeInList } from "@/shared/ui/addLikeInList"
 import useStorage from "@/shared/ui/useStorage"
-import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
 import { FC, useState } from "react"
 import style from "./ProductList.module.css"
+import { Item } from "@/entities/Product/ui/ProductType"
+import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 
 export type TypeCategory = {
     id: number;

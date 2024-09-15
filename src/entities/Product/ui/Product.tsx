@@ -7,26 +7,14 @@ import Like from "@/shared/like/ui/Like"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
+import { addCookie, getPageCategory } from "./ProductController"
+import { Item } from "./ProductType"
 
-export type Item = {
-  id: number
-  name: string
-  imageUrl: string
-  price: string
-  best: string
-  weight: string
-  none: string
-  drip: string
-  categoryId: number
-  like?: boolean
-}
 
-const Product: FC<{ item: Item; category: TypeCategory[] }> = ({
-  item,
-  category,
-}) => {
-  const pathname = usePathname()
+
+const Product: FC<{ item: Item; category: TypeCategory[]}> = ({item, category}) => {
   
+  const pathname = usePathname()
   const url = getPageCategory(item, category, pathname)
 
   return (
@@ -52,22 +40,4 @@ const Product: FC<{ item: Item; category: TypeCategory[] }> = ({
   )
 }
 
-function addCookie(item: number) {
-  document.cookie = "cookieName=number; Max-Age=-1;"
-  document.cookie = `number=${item}`
-}
-function getPageCategory(item: Item,category: TypeCategory[],pathname: string | null) : string {
-  const filterCategory = category.filter(
-    (inner) => inner.id === item.categoryId
-  )
-  const resultCategory = filterCategory[0].page
-  const result = resultCategory.replace("/", "")
-  let url = ""
-  if (pathname === "/" || pathname === "/favorites") {
-    url = `products/${result}/${item.name}`
-  } else {
-    url = `${result}/${item.name}`
-  }
-  return url
-}
 export default Product

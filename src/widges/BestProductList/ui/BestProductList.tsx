@@ -2,24 +2,14 @@
 
 import { FC, useState } from "react"
 import style from "./BestProductList.module.css"
-import Product, { Item } from "@/entities/Product/ui/Product"
+import Product from "@/entities/Product/ui/Product"
 import useStorage from "@/shared/ui/useStorage"
 import { addLikeInList } from "@/shared/ui/addLikeInList"
+import { Item } from "@/entities/Product/ui/ProductType"
+import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
+import { ItemStore } from "./BestProductListTypes"
 
-export type ItemStore = {
-  id: number
-  name: string
-  imageUrl: string
-  price: string
-  best: string
-  weight: string
-  none: string
-  drip: string
-  categoryId: number
-  like: boolean | undefined
-}
-
-const BestProductList: FC<{ dataList: Item[],category }> = ({ dataList,category }) => {
+const BestProductList: FC<{ dataList: Item[], category: TypeCategory[] }> = ({ dataList,category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
 

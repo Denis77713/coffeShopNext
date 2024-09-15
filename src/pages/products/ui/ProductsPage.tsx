@@ -9,10 +9,7 @@ export type IParams = {
   id: string
 }
 
-const ProductsPage: FC<{ params: IParams; searchParams: any }> = async ({
-  params,
-  searchParams,
-}) => {
+const ProductsPage: FC<{ params: IParams; searchParams: string }> = async ({params, searchParams}) => {
   const res = await getCategory(`/${params.id}`, searchParams)
   const category = await getCategoryes()
   return (
