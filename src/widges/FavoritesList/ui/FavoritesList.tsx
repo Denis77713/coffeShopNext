@@ -1,7 +1,7 @@
 "use client"
 
-import Product, { Item } from "@/entities/Product/ui/Product"
-import { useEffect, useState } from "react"
+import Product from "@/entities/Product/ui/Product"
+import { FC, useEffect, useState } from "react"
 import style from "./FavoritesList.module.css"
 import { useDispatch } from "react-redux"
 import {
@@ -9,9 +9,10 @@ import {
   getProductSum,
 } from "@/pages/favorites/ui/FavoriteSlice"
 import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
-import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
+import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
+import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 
-const FavoritesList = ({category}) => {
+const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
   const dispatch = useDispatch()

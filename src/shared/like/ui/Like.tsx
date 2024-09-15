@@ -1,10 +1,10 @@
 "use client"
 
 import { FC } from "react"
-import { Item } from "@/entities/Product/ui/Product"
 import Image from "next/image"
 import style from "./like.module.css"
 import { handleclick } from "./FunctionsLike"
+import { Item } from "@/entities/Product/ui/ProductType"
 
 export type IntStorageData = {
   id: number

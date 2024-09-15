@@ -6,7 +6,7 @@ import style from './ProductInProductPage.module.css'
 const ProductInProductPage = async () => {
   const cookieStore = cookies()
   const cookieId = cookieStore.get("number")
-  let result = null
+  let result: any = null
   if (typeof cookieId !== "undefined") {
     const id = Number(cookieId.value)
     result = await getProductId(id)

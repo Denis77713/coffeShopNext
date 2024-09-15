@@ -1,5 +1,5 @@
-import { Item } from "@/entities/Product/ui/Product"
-import { ItemStore } from "@/widges/BestProductList/ui/BestProductList"
+import { Item } from "@/entities/Product/ui/ProductType"
+import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 
 export function addLikeInList(dataList: Item[], count: ItemStore[]) {
   dataList.forEach((item, index) => {
