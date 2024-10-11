@@ -33,14 +33,25 @@ CREATE TABLE "Product" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL,
-    "price" INTEGER NOT NULL,
-    "best" BOOLEAN NOT NULL,
-    "weight" INTEGER NOT NULL,
-    "none" BOOLEAN NOT NULL,
-    "drip" BOOLEAN NOT NULL,
+    "price" TEXT NOT NULL,
+    "best" TEXT NOT NULL,
+    "weight" TEXT NOT NULL,
+    "none" TEXT NOT NULL,
+    "drip" TEXT NOT NULL,
     "categoryId" INTEGER NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Filter" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "value" TEXT NOT NULL,
+    "text" TEXT NOT NULL,
+    "filterId" INTEGER NOT NULL,
+
+    CONSTRAINT "Filter_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -104,6 +115,9 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") 
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Filter" ADD CONSTRAINT "Filter_filterId_fkey" FOREIGN KEY ("filterId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Location" ADD CONSTRAINT "Location_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
