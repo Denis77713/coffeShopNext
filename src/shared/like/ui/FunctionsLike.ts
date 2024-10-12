@@ -1,7 +1,7 @@
 import { Item } from "@/entities/Product/ui/ProductType"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 
-export function handleclick(item: Item) {
+export function handleclick(item: Item,setState:any) {
   const jsonData: string | null = localStorage.getItem("like")
   if (jsonData !== null) {
     const arr: ItemStore[] = JSON.parse(jsonData)
@@ -9,18 +9,22 @@ export function handleclick(item: Item) {
     if (filterArr.length === 0) {
       const newArr:any = item
       newArr.like = true
+      setState(true)
       arr.push(newArr)
       localStorage.setItem("like", JSON.stringify(arr))
       // console.log(arr)
     } else {
-      filterArr[0].like = !filterArr[0].like
-      arr.splice(filterArr[0].id - 1, 1, filterArr[0])
       // console.log(arr)
-      localStorage.setItem("like", JSON.stringify(arr))
+      const filterArr2 = arr.filter(itemArr=> itemArr.id !== filterArr[0].id)
+      filterArr[0].like = !filterArr[0].like
+      setState(filterArr[0].like)
+      filterArr2.push(filterArr[0])
+      localStorage.setItem("like", JSON.stringify(filterArr2))
     }
   } else {
     const newItem = item
     newItem.like = true
+    setState(true)
     localStorage.setItem("like", JSON.stringify([newItem]))
   }
 }
