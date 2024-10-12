@@ -7,7 +7,7 @@ const Favorites = async () => {
 
   return (
     <main >
-      <div className="container">
+      <div className={`container`}>
       <FavoritesNumProduct/>
       <FavoritesList category={category}/>
       </div>

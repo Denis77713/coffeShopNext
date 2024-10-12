@@ -11,6 +11,7 @@ import {
 import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
+import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 
 const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
   const [count, setCount] = useState<ItemStore[]>([])
@@ -44,7 +45,7 @@ const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
     )
   }, [count])
   return (
-    <div className={style.favorites} onClick={() => setState(!state)}>
+    <div className={`${style.favorites} ${bestStyle.bestList} ${style.mAuto}`} onClick={() => setState(!state)}>
       {count.map((item) => (
         <Product key={item.id} item={item} category={category}/>
       ))}

@@ -28,3 +28,17 @@ export function handleclick(item: Item,setState:any) {
     localStorage.setItem("like", JSON.stringify([newItem]))
   }
 }
+
+
+export function getState(item:Item) {
+  let result: boolean | undefined = false
+  if (typeof window !== "undefined") {
+    const jsonData: string | null = localStorage.getItem("like")
+    if (jsonData !== null) {
+      const arr: ItemStore[] = JSON.parse(jsonData)
+      const filterArr = arr.filter((i) => i.id === item.id)
+      if (filterArr.length !== 0) result = filterArr[0].like
+    }
+  }
+  return result
+}
