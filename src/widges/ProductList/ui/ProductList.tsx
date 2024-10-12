@@ -7,6 +7,7 @@ import { FC, useState } from "react"
 import style from "./ProductList.module.css"
 import { Item } from "@/entities/Product/ui/ProductType"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
+import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 
 export type TypeCategory = {
     id: number;
@@ -22,7 +23,7 @@ const ProductList: FC<{ res: Item[],category:TypeCategory[]  }> = ({ res,categor
   useStorage(state, setCount)
   addLikeInList(res, count)
   return (
-    <div className={style.bestList} onClick={() => setState(!state)}>
+    <div className={`${style.bestList} ${bestStyle.bestList}`} onClick={() => setState(!state)}>
       {res.map((item) => (
         <Product key={item.id} item={item} category={category}
         />

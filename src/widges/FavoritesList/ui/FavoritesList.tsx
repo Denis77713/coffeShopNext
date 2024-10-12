@@ -45,7 +45,7 @@ const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
     )
   }, [count])
   return (
-    <div className={`${style.favorites} ${bestStyle.bestList} ${style.mAuto}`} onClick={() => setState(!state)}>
+    <div className={`${style.favorites} ${bestStyle.bestList}`} onClick={() => setState(!state)}>
       {count.map((item) => (
         <Product key={item.id} item={item} category={category}/>
       ))}
