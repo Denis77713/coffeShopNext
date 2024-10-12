@@ -11,7 +11,7 @@ const Footer = async () => {
         {result.map((item) => (
           <div className={style.footerFlexItem} key={item.id}>
             <p>{item.text}</p>
-            <a className={style.mail} href={`mailto:mailto:${item.email}`}>{item.email}</a>
+            <a className={style.mail} href={`mailto:${item.email}`}>{item.email}</a>
           </div>
         ))}
       </div>
