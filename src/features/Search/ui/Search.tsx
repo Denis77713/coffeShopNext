@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import style from "./Search.module.css"
 
+
 const Search = () => {
   const searchParams:any = useSearchParams()
   const pathName = usePathname()

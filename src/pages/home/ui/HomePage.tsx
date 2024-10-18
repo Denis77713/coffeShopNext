@@ -36,7 +36,7 @@ export default async function Home() {
           Асортимент
         </Title>
         <Suspense fallback={CategorySkeleton}>
-          <CategoryList />
+          <CategoryList page={'products'} />
         </Suspense>
         <Title coffeNum={"false"} styles={style.title}>
           Хиты продаж
