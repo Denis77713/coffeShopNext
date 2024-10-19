@@ -6,6 +6,7 @@ import inputStyle from "../../../features/Search/ui/Search.module.css"
 import { useState } from "react"
 import Select from "@/features/Select/ui/Select"
 import Image from "next/image"
+import { inputSecurity } from "@/security"
 const FormAddProduct = () => {
   const [formVisible, setFormVisible] = useState(false)
   const [weight, setWeight] = useState(10)
@@ -30,8 +31,10 @@ const FormAddProduct = () => {
               className={inputStyle.input}
               type="text"
               placeholder="Название товара"
-              defaultValue={inputName}
-              onChange={(e) => setInputName(e.target.value)}
+              value={inputName}
+              onChange={(e) => {
+                setInputName(inputSecurity(e.target.value))
+              }}
             />
             <input
               className={inputStyle.input}

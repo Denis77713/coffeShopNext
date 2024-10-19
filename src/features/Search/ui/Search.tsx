@@ -2,19 +2,26 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import style from "./Search.module.css"
-
+import { useState } from "react"
+import { inputSecurity } from "@/security"
 
 const Search = () => {
-  const searchParams:any = useSearchParams()
+  const searchParams: any = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
+  const [search, setSearch] = useState(searchParams.get("query")?.toString())
+  console.log(search)
 
   return (
     <input
       className={style.input}
       type="text"
-      defaultValue={searchParams.get('query')?.toString()}
-      onChange={(e) => handleChange(e.target.value)}
+      value={search}
+      onChange={(e) => {
+        const result = inputSecurity(e.target.value)
+        setSearch(result)
+        handleChange(result)
+      }}
       placeholder="Поиск по сайту"
     />
   )

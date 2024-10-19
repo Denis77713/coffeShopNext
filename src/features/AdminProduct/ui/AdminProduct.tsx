@@ -7,12 +7,12 @@ import { Item } from "@/entities/Product/ui/ProductType"
 import styles from '@/widges/FormAddProduct/ui/FormAddProduct.module.css'
 import styless from './AdminProduct.module.css'
 import { deleteProduct, updateProduct } from "../api/api"
+import { inputSecurity } from "@/security"
 
 const AdminProduct: FC<{ item: Item, dataArr:Item[],setDataArr:any }> = ({ item,dataArr,setDataArr }) => {
   
   const [name, setName] = useState(item.name)
   const [price, setPrice] = useState(item.price)
-console.log(item)
   return (
     <div className={style.bestItem} key={item.id} >
       <Image className={styless.close} src = {`/close.svg`}
@@ -30,7 +30,9 @@ console.log(item)
         <div className={style.weight}>{`${item.weight} г.`}</div>
       </div>
       <div>
-      <input type="text" defaultValue={name} onChange={(e)=>setName(e.target.value)}/>
+      <input type="text" value={name}  onChange={(e)=>{
+         
+        setName(inputSecurity(e.target.value))}}/>
       <input type="number" defaultValue={price} onChange={(e)=>setPrice(e.target.value)}/>
       <button className={`${styles.formButton} ${styless.button}`}
       onClick={()=> handleClick(item.id,name,price) }
