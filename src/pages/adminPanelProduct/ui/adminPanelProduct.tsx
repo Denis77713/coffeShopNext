@@ -6,6 +6,7 @@ import AdminProductList from "@/widges/AdminProductList/ui/AdminProductList";
 
 const adminPanelProduct : FC<{ params: IParams }> = async ({params}) => {
   const category = await getCategory(params)
+  console.log(params)
   const data = await getProductList(category[0].id)
   return (
     <>
