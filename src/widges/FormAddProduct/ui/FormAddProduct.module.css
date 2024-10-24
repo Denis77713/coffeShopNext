@@ -25,6 +25,7 @@
   width: 100px;
   height: 50px;
   border-radius: 20px;
+  
 }
 .formProduct input {
   margin-bottom: 15px;
@@ -41,4 +42,9 @@
   cursor: pointer;
   right: -5px;
   top: -5px;
+}
+.buttonPosition{
+  position: absolute;
+  top: 0;
+  left: 150px;
 }

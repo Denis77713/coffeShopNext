@@ -65,7 +65,7 @@ const FormAddProduct = () => {
         </div>
       ) : (
         <button
-          className={styles.formButton}
+          className={`${styles.formButton} ${styles.buttonPosition}`}
           onClick={() => setFormVisible(true)}>Добавить товар</button>
       )}
     </>
