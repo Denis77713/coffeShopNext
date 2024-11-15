@@ -43,12 +43,14 @@ const FormAddProduct = () => {
               defaultValue={inputNum}
               onChange={(e) => setInputNum(e.target.value)}
             />
-            <div>
+            <div className={styles.selectList}>
+            <label htmlFor="">Выберите грамовки</label>
+
               <Select state={weight} setState={setWeight}
                 valueOne={"250"} valueTwo={"10"}
                 textOne={"250"} textTwo={"10"}
               />
-
+              <label htmlFor="">Добавить в лучшие товары?</label>
               <Select state={best} setState={setBest}
                 valueOne={false} valueTwo={true}
                 textOne={"Нет"} textTwo={"Да"}
