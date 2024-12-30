@@ -10,7 +10,6 @@ export default function DashboardLayout({
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
       <div className={`${style.posRelative} container`}>
-        <AdminNav />
       </div>
 
       {children}
