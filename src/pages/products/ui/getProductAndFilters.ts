@@ -25,6 +25,7 @@ async function getFilter(query: any, category: category[]) {
     delete newQery.query
   }
   if (newQery.hasOwnProperty("delete") === true) delete newQery.delete
+  if (newQery.hasOwnProperty("page") === true) delete newQery.page
   result = await prisma.product.findMany({
     where: {
       // в нем остались фильтры с чекбоксами

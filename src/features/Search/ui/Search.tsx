@@ -20,7 +20,6 @@ const Search = () => {
       onChange={(e) => {
         const result = inputSecurity(e.target.value)
         setSearch(result)
-        // handleChange(result)
         debounced(result)
       }}
       placeholder="Поиск по сайту"
