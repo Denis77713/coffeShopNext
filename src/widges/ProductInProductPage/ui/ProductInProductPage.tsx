@@ -14,7 +14,6 @@ const ProductInProductPage = async () => {
     result = false
   }
 
-  console.log(result)
   const item = result[0]
   return (
     <>

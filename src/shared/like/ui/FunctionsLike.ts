@@ -12,9 +12,7 @@ export function handleclick(item: Item,setState:any) {
       setState(true)
       arr.push(newArr)
       localStorage.setItem("like", JSON.stringify(arr))
-      // console.log(arr)
     } else {
-      // console.log(arr)
       const filterArr2 = arr.filter(itemArr=> itemArr.id !== filterArr[0].id)
       filterArr[0].like = !filterArr[0].like
       setState(filterArr[0].like)

@@ -10,8 +10,6 @@ const Search = () => {
   const pathName = usePathname()
   const { replace } = useRouter()
   const [search, setSearch] = useState(searchParams.get("query")?.toString())
-  console.log(search)
-
   return (
     <input
       className={style.input}

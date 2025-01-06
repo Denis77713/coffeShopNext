@@ -7,6 +7,7 @@ import { useState } from "react"
 import Select from "@/features/Select/ui/Select"
 import Image from "next/image"
 import { inputSecurity } from "@/security"
+import Button from "@/shared/ui/Button"
 const FormAddProduct = () => {
   const [formVisible, setFormVisible] = useState(false)
   const [weight, setWeight] = useState(10)
@@ -56,19 +57,13 @@ const FormAddProduct = () => {
                 textOne={"Нет"} textTwo={"Да"}
               />
             </div>
-
-            <button
-              className={styles.formButton}
-              onClick={() => handleClick(weight, best, inputName, inputNum)}
-            >
-              Добавить
-            </button>
+            <Button handleClick = {() => handleClick(weight, best, inputName, inputNum)}>Добавить</Button>
           </form>
         </div>
       ) : (
-        <button
-          className={`${styles.formButton} ${styles.buttonPosition}`}
-          onClick={() => setFormVisible(true)}>Добавить товар</button>
+        <div className= {styles.buttonPosition}>
+          <Button handleClick = {() => setFormVisible(true)}>Добавить товар</Button>
+        </div>
       )}
     </>
   )

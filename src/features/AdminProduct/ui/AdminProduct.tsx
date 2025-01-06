@@ -8,6 +8,7 @@ import styles from '@/widges/FormAddProduct/ui/FormAddProduct.module.css'
 import styless from './AdminProduct.module.css'
 import { deleteProduct, updateProduct } from "../api/api"
 import { inputSecurity } from "@/security"
+import Button from "@/shared/ui/Button"
 
 const AdminProduct: FC<{ item: Item, dataArr:Item[],setDataArr:any }> = ({ item,dataArr,setDataArr }) => {
   
@@ -34,11 +35,9 @@ const AdminProduct: FC<{ item: Item, dataArr:Item[],setDataArr:any }> = ({ item,
          
         setName(inputSecurity(e.target.value))}}/>
       <input type="number" defaultValue={price} onChange={(e)=>setPrice(e.target.value)}/>
-      <button className={`${styles.formButton} ${styless.button}`}
-      onClick={()=> handleClick(item.id,name,price) }
-      >
-        Редактировать
-        </button>
+      <div className={styless.button}>
+        <Button handleClick={()=> handleClick(item.id,name,price) }>Редактировать</Button>
+      </div>
       </div>
     </div>
   )

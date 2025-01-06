@@ -8,9 +8,10 @@ export const getCategory = async (page: string, query: any) => {
   const category = await getCategoryProdusct(page)
   // Получить товары учитывая фильтры
   const productData = await getFilter(query, category)
-  // Получить фильтры
+  // Возвращает фильтры с чекбоксом для конкретных товаров
   const filtersData = await getFilters(category)
   // Вернуть Товары и фильтры
+
   return { productData, filtersData }
 }
 
@@ -20,10 +21,13 @@ async function getFilter(query: any, category: category[]) {
   let search = ""
   if (newQery.hasOwnProperty("query") === true) {
     search = newQery.query
+    // удалить свойство query из объекта newQery
     delete newQery.query
   }
+  if (newQery.hasOwnProperty("delete") === true) delete newQery.delete
   result = await prisma.product.findMany({
     where: {
+      // в нем остались фильтры с чекбоксами
       ...newQery,
       categoryId: category[0].id,
       name: {

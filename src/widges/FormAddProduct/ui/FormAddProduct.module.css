@@ -25,7 +25,6 @@
   width: 100px;
   height: 50px;
   border-radius: 20px;
-  
 }
 .formProduct input {
   margin-bottom: 15px;
@@ -43,12 +42,12 @@
   right: -5px;
   top: -5px;
 }
-.buttonPosition{
-  position: absolute;
-  top: 0;
-  left: 150px;
+.buttonPosition {
+  display: inline-block;
+  width: auto;
+  margin-left: 15px;
 }
-.selectList{
+.selectList {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,6 +55,6 @@
 .selectList select {
   margin-bottom: 10px;
 }
-.selectList label{
+.selectList label {
   margin-bottom: 10px;
 }
