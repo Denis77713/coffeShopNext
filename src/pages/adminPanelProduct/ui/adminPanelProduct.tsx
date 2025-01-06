@@ -7,9 +7,10 @@ import Link from "next/link"
 import Button from "@/shared/ui/Button"
 import Search from "@/features/Search/ui/Search"
 import { getCategory } from "@/pages/products/ui/getProductAndFilters"
+import Pagination from "@/features/Pagination/ui/Pagination"
 
 const adminPanelProduct: FC<{ params: IParams,searchParams: string }> = async ({ params, searchParams }) => {
-  const res = await getCategory(`/${params.id}`, searchParams)
+  // const res = await getCategory(`/${params.id}`, searchParams)
   return (
     <div className={`${style.wrapper}`}>
       <div className = {style.mB}>
@@ -19,7 +20,8 @@ const adminPanelProduct: FC<{ params: IParams,searchParams: string }> = async ({
         <Button>Админ панель</Button>
       </Link>
       <FormAddProduct />
-      <AdminProductList data={res.productData}  />
+      {/* <AdminProductList data={res.productData}  /> */}
+      <Pagination/>
     </div>
   )
 }
