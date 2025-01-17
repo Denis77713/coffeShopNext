@@ -48,23 +48,4 @@ export default async function Home() {
     </div>
   )
 }
-async function testReqest() {
-  const user = {
-    email: "user@mail.ru",
-    password: "12345",
-  }
-  try {
-    const response = await fetch("http://localhost:5000/api/registration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(user),
-    })
-    let result = await response.json()
-    console.log(result)
-  } catch (error) {
-    console.log(error)
-  }
-  console.log(12345)
-}
+

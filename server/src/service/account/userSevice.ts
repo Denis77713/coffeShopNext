@@ -47,6 +47,3 @@ class userServiceClass {
   }
 }
 export const userService = new userServiceClass()
-// const activationLiinkMail = uuidv4()
-// console.log(activationLiinkMail)
-console.log(1232222)

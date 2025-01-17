@@ -18,10 +18,10 @@ class tokenServiseClass {
 
   generateToken(payload: any) {
     const accessToken = jwt.sign(payload, this.jwtAccessToken, {
-      expiresIn: `"${this.timeToLiveAccessToken}"`,
+      expiresIn: "30m",
     })
     const refreshToken = jwt.sign(payload, this.jwtRefreshToken, {
-      expiresIn: `"${this.timeToLiveRefreshToken}"`,
+      expiresIn: "30d",
     })
 
     return {
