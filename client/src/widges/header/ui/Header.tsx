@@ -25,7 +25,7 @@ const Header: FC = () => {
       </Link>
       <div className={style.icons}>
         <Image className={style.icon} src={"/cart.svg"} alt="cart" width={30} height={30} />
-        <Image className={style.icon} onClick={()=>registration('denis@mail.ru','22323')} src={"/user.svg"} alt="cart" width={30} height={30} />
+        <Image className={style.icon} onClick={()=>registration('zarvirovdenis@mail.ru','22323')} src={"/user.svg"} alt="cart" width={30} height={30} />
         <LikeGroup />
       </div>
     </header>

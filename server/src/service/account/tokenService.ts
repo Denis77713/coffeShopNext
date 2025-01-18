@@ -3,6 +3,7 @@ import { configDotenv } from "dotenv"
 import { prisma } from "../../../../client/prisma/prisma-client"
 
 class tokenServiseClass {
+  // env переменные
   private readonly jwtAccessToken = String(
     configDotenv().parsed?.JWT_ACCESS_TOKEN
   )
@@ -15,13 +16,13 @@ class tokenServiseClass {
   private readonly timeToLiveRefreshToken = String(
     configDotenv().parsed?.JWT_REFRESH_TOKEN_TiME_TO_LIVE
   )
-
+  // Генерация токенов
   generateToken(payload: any) {
     const accessToken = jwt.sign(payload, this.jwtAccessToken, {
-      expiresIn: "30m",
+      expiresIn: this.timeToLiveAccessToken,
     })
     const refreshToken = jwt.sign(payload, this.jwtRefreshToken, {
-      expiresIn: "30d",
+      expiresIn: this.timeToLiveRefreshToken ,
     })
 
     return {
@@ -31,6 +32,7 @@ class tokenServiseClass {
   }
 
   async saveToken(userId: number, refreshToken: string) {
+    // вывести первую запись с userId из token
     const tokenData = await prisma.token.findFirst({
       where: { userId: userId },
     })

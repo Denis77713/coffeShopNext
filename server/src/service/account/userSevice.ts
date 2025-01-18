@@ -18,10 +18,13 @@ class UserDtoClass {
 }
 
 class userServiceClass {
+
   async registration(email: string, password: string) {
+    // вывести первого юзера где совпадает email
     const userMail = await prisma.user.findFirst({
       where: { email: email },
     })
+    // если найден юзер по емайлу выдать ошибку
     if (userMail) {
       throw new Error("пользователь с такой почтой уже существует")
     }
@@ -38,9 +41,15 @@ class userServiceClass {
         activationLink: activationLiinkMail,
       },
     })
-    await mailService.sendActivationMail(email, activationLiinkMail)
+    // Активация аккаунта по майлу
+    // Отправляем ссылку на роут по которому будет активация
+    await mailService.sendActivationMail(email, `${String(process.env.API_URL)}/api/activate/${activationLiinkMail}`)
+      // await mailService.test()
+    // 
+
     const userDto = new UserDtoClass(user.email, user.id, user.isActivated)
     const tokens = tokenServise.generateToken({...userDto})
+    //  
     await tokenServise.saveToken(user.id,tokens.refreshToken)
     
     return {...tokens, user:userDto}
