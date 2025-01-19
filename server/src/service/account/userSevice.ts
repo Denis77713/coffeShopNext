@@ -1,7 +1,7 @@
 import { prisma } from "../../../../client/prisma/prisma-client"
 import bcrypt from "bcrypt"
 // import uuid from "uuid"
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid"
 import { mailService } from "../../service/account/mailService"
 import { tokenServise } from "../../service/account/tokenService"
 
@@ -18,7 +18,6 @@ class UserDtoClass {
 }
 
 class userServiceClass {
-
   async registration(email: string, password: string) {
     // вывести первого юзера где совпадает email
     const userMail = await prisma.user.findFirst({
@@ -32,7 +31,7 @@ class userServiceClass {
     const hashPassword = await bcrypt.hash(password, 3)
     // рандомная ссылка для активации майла
     const activationLiinkMail: any = uuidv4()
-    
+
     // Создать пользоватея в бд
     const user = await prisma.user.create({
       data: {
@@ -43,16 +42,33 @@ class userServiceClass {
     })
     // Активация аккаунта по майлу
     // Отправляем ссылку на роут по которому будет активация
-    await mailService.sendActivationMail(email, `${String(process.env.API_URL)}/api/activate/${activationLiinkMail}`)
-      // await mailService.test()
-    // 
-
+    await mailService.sendActivationMail(
+      email,
+      `${String(process.env.API_URL)}/api/activated/${activationLiinkMail}`
+    )
+    // Создаю объект юзера и сохраняю в него реального юзера из бд
     const userDto = new UserDtoClass(user.email, user.id, user.isActivated)
-    const tokens = tokenServise.generateToken({...userDto})
-    //  
-    await tokenServise.saveToken(user.id,tokens.refreshToken)
-    
-    return {...tokens, user:userDto}
+    // Генерирую токен в котором зашифрованы email, id, isActivated
+    const tokens = tokenServise.generateToken({ ...userDto })
+    // Создаю новый токен или перезаписываю
+    await tokenServise.saveToken(user.id, tokens.refreshToken)
+    // Верну токены и данные юзера
+    return { ...tokens, user: userDto }
+  }
+  
+  async activate(activationLink: string) {
+    const user = await prisma.user.findFirst({
+      where: {
+        activationLink: activationLink,
+      },
+    })
+    if (!user) {
+      throw new Error("Нет такой ссылки для активации")
+    }
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { isActivated: true }
+    })
   }
 }
 export const userService = new userServiceClass()
