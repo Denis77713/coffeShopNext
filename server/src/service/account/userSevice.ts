@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import { v4 as uuidv4 } from "uuid"
 import { mailService } from "../../service/account/mailService"
 import { tokenServise } from "../../service/account/tokenService"
-import {ApiError} from '../../errors/api.error'
+import { ApiError } from "../../errors/api.error"
 
 class UserDtoClass {
   email: string
@@ -56,7 +56,7 @@ class userServiceClass {
     // Верну токены и данные юзера
     return { ...tokens, user: userDto }
   }
-  
+
   async activate(activationLink: string) {
     const user = await prisma.user.findFirst({
       where: {
@@ -68,8 +68,30 @@ class userServiceClass {
     }
     await prisma.user.update({
       where: { id: user.id },
-      data: { isActivated: true }
+      data: { isActivated: true },
     })
+  }
+  async login(email: string, password: string) {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+    })
+    if (!user) {
+      throw ApiError.BadRequest('Пользователь с таким email не найден')
+    }
+    const userPassword = await bcrypt.compare(password, String(user?.password))
+    if (!userPassword) {
+      throw ApiError.BadRequest("Неверный пароль")
+    }
+    // Создаю объект юзера и сохраняю в него реального юзера из бд
+    const userDto = new UserDtoClass(user.email, user.id, user.isActivated)
+    // Генерирую токен в котором зашифрованы email, id, isActivated
+    const tokens = tokenServise.generateToken({ ...userDto })
+    // Создаю новый токен или перезаписываю
+    await tokenServise.saveToken(user.id, tokens.refreshToken)
+    // Верну токены и данные юзера
+    return { ...tokens, user: userDto }
   }
 }
 export const userService = new userServiceClass()

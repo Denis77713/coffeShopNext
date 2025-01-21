@@ -22,7 +22,7 @@ class tokenServiseClass {
       expiresIn: this.timeToLiveAccessToken,
     })
     const refreshToken = jwt.sign(payload, this.jwtRefreshToken, {
-      expiresIn: this.timeToLiveRefreshToken ,
+      expiresIn: this.timeToLiveRefreshToken,
     })
 
     return {
@@ -46,14 +46,16 @@ class tokenServiseClass {
           refreshToken: tokenData.refreshToken,
         },
       })
+    } else {
+      // если нет то создать новый токен
+      await prisma.token.create({
+        data: {
+          refreshToken: refreshToken,
+          userId: userId,
+        },
+      })
     }
-    // если нет то создать новый токен
-    await prisma.token.create({
-      data: {
-        refreshToken: refreshToken,
-        userId: userId,
-      },
-    })
+
     return refreshToken
   }
 }
