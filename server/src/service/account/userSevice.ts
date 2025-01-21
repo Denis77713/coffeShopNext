@@ -93,5 +93,17 @@ class userServiceClass {
     // Верну токены и данные юзера
     return { ...tokens, user: userDto }
   }
+  async logout(refreshToken:any){
+
+    const userData = await prisma.token.findFirst({where:{
+      refreshToken:refreshToken
+    }})
+    const tokenData = await prisma.token.delete({
+      where: {
+        userId:userData?.userId,
+      },
+    })
+    return tokenData
+  }
 }
 export const userService = new userServiceClass()
