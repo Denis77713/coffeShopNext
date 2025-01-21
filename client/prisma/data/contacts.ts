@@ -17,7 +17,7 @@ export default async function generateContacts() {
       },
       {
         email: "hello@coffeeshop.ru",
-        text: "Если вы хотите простонаписать нам:",
+        text: "Если вы хотите просто написать нам:",
       },
     ],
   })

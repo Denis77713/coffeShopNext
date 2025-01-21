@@ -17,16 +17,20 @@ class UserControllerClass {
       // Вернуть Юзера
       return res.json(userData)
     } catch (e) {
-      console.log(e)
+      next(e)
     }
   }
   async login(req: any, res: any, next: any) {
     try {
-    } catch (e) {}
+    } catch (e) {
+      next(e)
+    }
   }
   async logout(req: any, res: any, next: any) {
     try {
-    } catch (e) {}
+    } catch (e) {
+      next(e)
+    }
   }
   async activated(req: any, res: any, next: any) {
     try {
@@ -37,18 +41,24 @@ class UserControllerClass {
        await userService.activate(activationLink)
        // редирект на главную
        return res.redirect(process.env.CLIENT_URL)
-    } catch (e) {}
+    } catch (e) {
+      next(e)
+    }
   }
   async refresh(req: any, res: any, next: any) {
     try {
-    } catch (e) {}
+    } catch (e) {
+      next(e)
+    }
   }
   async getUsers(req: any, res: any, next: any) {
     try {
       const result = await prisma.category.findMany()
       console.log(result)
       console.log(result)
-    } catch (e) {}
+    } catch (e) {
+      next(e)
+    }
   }
 }
 

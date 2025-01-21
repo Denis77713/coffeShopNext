@@ -32,7 +32,7 @@ export default async function Home() {
         <CarouselSlider />
         <LocationsList />
         <Title coffeNum={"false"} styles={style.title}>
-          Асортимент
+          Асcортимент
         </Title>
         <Suspense fallback={CategorySkeleton}>
           <CategoryList page={"products"} />

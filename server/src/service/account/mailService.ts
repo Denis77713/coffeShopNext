@@ -23,7 +23,7 @@ class mailServiceClass {
     const info = await transporter.sendMail({
       from: process.env.SMTP_USER,
       to: to, // list of receivers
-      subject: "Ссылка на кативацию", // Subject line
+      subject: "Ссылка на активацию", // Subject line
       text: "Нажмите на ссылку чтобы активировать аккаунт", // plain text body
       html: `<a href="${link}"> ${link}</a>`, // html body
     });

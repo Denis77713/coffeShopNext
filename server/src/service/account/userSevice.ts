@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 import { v4 as uuidv4 } from "uuid"
 import { mailService } from "../../service/account/mailService"
 import { tokenServise } from "../../service/account/tokenService"
+import {ApiError} from '../../errors/api.error'
 
 class UserDtoClass {
   email: string
@@ -25,7 +26,7 @@ class userServiceClass {
     })
     // если найден юзер по емайлу выдать ошибку
     if (userMail) {
-      throw new Error("пользователь с такой почтой уже существует")
+      throw ApiError.BadRequest("Пользователь с такой почтой уже существует")
     }
     // хэширование пароля
     const hashPassword = await bcrypt.hash(password, 3)
@@ -63,7 +64,7 @@ class userServiceClass {
       },
     })
     if (!user) {
-      throw new Error("Нет такой ссылки для активации")
+      throw ApiError.BadRequest("Нет такой ссылки для активации")
     }
     await prisma.user.update({
       where: { id: user.id },
