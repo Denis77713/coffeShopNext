@@ -58,6 +58,28 @@ class tokenServiseClass {
 
     return refreshToken
   }
+  validateAccessToken(token: any) {
+    try {
+      const tokenSecret = String(process.env.JWT_ACCESS_TOKEN)
+      const userData = jwt.verify(token, tokenSecret)
+      return userData
+    } catch (e) {
+      return null
+    }
+  }
+  validateRefreshToken(token: string) {
+    try {
+      const tokenSecret = String(process.env.JWT_REFRESH_TOKEN)
+      const userData = jwt.verify(token, tokenSecret)
+      return userData
+    } catch (e) {
+      return null
+    }
+  }
+  async findToken(refreshToken:string){
+    const token = await prisma.token.findFirst({where:{refreshToken:refreshToken}})
+    return token
+  }
 }
 
 export const tokenServise = new tokenServiseClass()

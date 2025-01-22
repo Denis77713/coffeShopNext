@@ -19,8 +19,8 @@ async function main(){
       resolve.status(200).json({
         message:'complite!'
       })
+      
     })
-  
     app.listen(PORT,()=>{
       console.log('port: 5000')
     })  

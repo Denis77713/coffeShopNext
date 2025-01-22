@@ -46,9 +46,9 @@ class UserControllerClass {
   }
   async logout(req: any, res: any, next: any) {
     try {
-      const {refreshToken} = req.cookies
+      const { refreshToken } = req.cookies
       const token = await userService.logout(refreshToken)
-      res.clearCookie('refreshToken')
+      res.clearCookie("refreshToken")
       return res.json(token)
     } catch (e) {
       next(e)
@@ -69,15 +69,24 @@ class UserControllerClass {
   }
   async refresh(req: any, res: any, next: any) {
     try {
+      const { refreshToken } = req.cookies
+      const userData = await userService.refresh(refreshToken)
+      if (userData) {
+        res.cookie("refreshToken", userData.refreshToken, {
+          maxAge: 30 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+        })
+        // Вернуть Юзера
+        return res.json(userData)
+      }
     } catch (e) {
       next(e)
     }
   }
   async getUsers(req: any, res: any, next: any) {
     try {
-      const result = await prisma.category.findMany()
-      console.log(result)
-      console.log(result)
+      const users = await userService.getAllUsers()
+      res.json(users)
     } catch (e) {
       next(e)
     }

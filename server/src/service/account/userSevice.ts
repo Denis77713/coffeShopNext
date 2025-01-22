@@ -105,5 +105,30 @@ class userServiceClass {
     })
     return tokenData
   }
+  async refresh(refreshToken:string){
+    if(!refreshToken){
+      throw ApiError.UnauthorizedError()
+    }
+    const userData = tokenServise.validateRefreshToken(refreshToken)
+    const tokenFromDB = await tokenServise.findToken(refreshToken)
+    if(!userData || tokenFromDB){
+      await ApiError.UnauthorizedError()
+    }
+    const user = await prisma.user.findFirst({
+      where: {
+        id: tokenFromDB?.userId,
+      },
+    })
+    if(user){
+      const userDto = new UserDtoClass(user.email, user.id, user.isActivated)
+      const tokens = tokenServise.generateToken({ ...userDto })
+      await tokenServise.saveToken(user.id, tokens.refreshToken)
+      return { ...tokens, user: userDto }
+    }
+  }
+  async getAllUsers(){
+    const users = await prisma.user.findMany()
+    return users
+  }
 }
 export const userService = new userServiceClass()
