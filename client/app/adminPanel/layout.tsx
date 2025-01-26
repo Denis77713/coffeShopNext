@@ -1,4 +1,3 @@
-import AdminNav from "@/features/AdminNav/ui/AdminNav"
 import style from "./layout.module.css"
 
 export default function DashboardLayout({

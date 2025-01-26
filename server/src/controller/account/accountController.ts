@@ -75,6 +75,8 @@ class UserControllerClass {
         res.cookie("refreshToken", userData.refreshToken, {
           maxAge: 30 * 24 * 60 * 60 * 1000,
           httpOnly: true,
+          methods: ['GET', 'PUT', 'POST'],
+          allowedHeaders: ['Content-Type', '*']
         })
         // Вернуть Юзера
         return res.json(userData)

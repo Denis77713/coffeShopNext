@@ -1,20 +1,16 @@
-"use server"
+import axios from "axios"
 
-export async function testReqest(email: string, password: string) {
-  const user = {
-    email: email,
-    password: password,
-  }
+export const api = axios.create({
+  withCredentials:true,
+  baseURL:'http://localhost:5000/api'
+})
+api.interceptors.request.use((config)=>{
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  return config
+})
+// 
+// 
 
-   fetch("http://localhost:5000/api/registration", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify(user),
-  }).then(response => response.json()).then(data=> console.log(data))
- 
-
-  
-  // fetch('http://localhost:5000/login').then(response => response.json()).then(data=> console.log(data))
+export async function refresh(){
+  api.get('/refresh')
 }

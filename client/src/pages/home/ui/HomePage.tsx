@@ -10,7 +10,7 @@ import BestProductList from "@/widges/BestProductList/ui/BestProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
-import { getProduct } from "../api/api"
+import { getCookie, getProduct } from "../api/api"
 import { getCategoryes } from "@/widges/CategoryList/api/api"
 
 export default async function Home() {
@@ -25,6 +25,8 @@ export default async function Home() {
     <Skeleton number={4} wrapper={bestList} inner={bestItem} />
   )
   const category = await getCategoryes()
+  const cookie =  getCookie()
+  console.log(cookie)
   return (
     <div>
       <main>

@@ -5,7 +5,10 @@ import {isAuth} from '../../middleware/isAuth'
 
 const router =  Router()
 
-router.post('/registration',
+
+
+
+router.post('/registration', 
   body('email').isEmail(), // Валидация
   body('password').isLength({min:3, max:32}), // Валидация
    UserController.registrarion)
