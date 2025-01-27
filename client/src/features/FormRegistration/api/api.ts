@@ -4,8 +4,6 @@ export async function registration(email: any, password: any) {
   const res = await api.post("/registration", { email, password })
   if (res.data.accessToken) {
     localStorage.setItem("token", res.data.accessToken)
-    console.log(res.data)
-    console.log(res.status)
   }
   return res
 }

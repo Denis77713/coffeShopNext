@@ -36,7 +36,6 @@ async function getFilter(query: any, category: category[],numProductInPage: numb
     }else{
       pagination = (Number(newQery.page)-1)*numProductInPage
     }
-    console.log(pagination)
     delete newQery.page
   }
   // Вернуть число записей с учетом фильтров и игнором пагинации

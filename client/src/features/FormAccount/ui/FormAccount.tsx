@@ -1,24 +1,16 @@
 import Button from "@/shared/ui/Button"
-import FormAddProduct from "../../../widges/FormAddProduct/ui/FormAddProduct.module.css"
-import registration from "../../FormRegistration/ui/FormRegistration.module.css"
-import Image from "next/image"
+import Form from "@/shared/Form/ui/Form"
+import { useDispatch } from "react-redux"
+import { getWindow } from "@/shared/Form/ui/FormSlice"
 
-const FormAccount = ({ setPage }: any) => {
+const FormAccount = () => {
+  const dispatch = useDispatch()
+
   return (
-    <div className={registration.wrapper}>
-      <Image
-        className={`${FormAddProduct.close} ${registration.zindex}`}
-        src={"/close.svg"}
-        alt="close"
-        width={30}
-        height={30}
-        onClick={() => setPage(null)}
-      />
-      <div className={FormAddProduct.formProduct}>
-        <Button>Логин</Button>
-        <Button handleClick={() => setPage("registrarion")}>Регистрация</Button>
-      </div>
-    </div>
+    <Form >
+      <Button>Логин</Button>
+      <Button handleClick={() => dispatch(getWindow('registrarion'))}>Регистрация</Button>
+    </Form>
   )
 }
 

@@ -2,15 +2,35 @@
 
 import Image from "next/image"
 import style from "./Header.module.css"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
 import LikeGroup from "@/features/likeGroup/ui/likeGroup"
 import { refresh } from "../api/api"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
 import FormAccount from "@/features/FormAccount/ui/FormAccount"
+import {  useDispatch, useSelector } from "react-redux"
+import { getWindow } from "@/shared/Form/ui/FormSlice"
 const Header: FC = () => {
-  const [page, setPage] = useState<null|string>(null)
+  const formVisible = useSelector((store: any) => store.FormSlice.window)
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    console.log("render")
+    const cheskRefresh = async () => {
+      try{
+        const token = localStorage.getItem('token')
+        if(token){
+          const data = await refresh()
+          console.log(data)
+        }
+      }catch(e){
+        console.log(e)
+      }
+    }
+    cheskRefresh()
+  }, [])
+
   return (
     <>
       <header className={`${style.headerFlex} container`}>
@@ -40,14 +60,13 @@ const Header: FC = () => {
             alt="cart"
             width={30}
             height={30}
-            onClick={()=>setPage('account')}
+            onClick={()=> dispatch(getWindow('account'))}
           />
           <LikeGroup />
         </div>
       </header>
-      {page === "account" && <FormAccount setPage = {setPage}/>}
-      {page === "registrarion" && <FormRegistration setPage = {setPage}/>}
-      
+      {formVisible === "account" && <FormAccount />}
+      {formVisible === "registrarion" && <FormRegistration />}
     </>
   )
 }

@@ -12,5 +12,5 @@ api.interceptors.request.use((config)=>{
 // 
 
 export async function refresh(){
-  api.get('/refresh')
+  return api.get('/refresh')
 }

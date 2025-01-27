@@ -26,7 +26,6 @@ export default async function Home() {
   )
   const category = await getCategoryes()
   const cookie =  getCookie()
-  console.log(cookie)
   return (
     <div>
       <main>

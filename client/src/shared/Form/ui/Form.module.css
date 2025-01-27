@@ -1,0 +1,36 @@
+.close{
+  position: absolute;
+  z-index: 42;
+  right: -3px;
+  top: -3px;
+  cursor: pointer;
+}
+.wrapper {
+  width: 300px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 200px;
+  bottom: 0;
+  z-index: 2;
+}
+.formProduct {
+  box-shadow: 0px 0px 10px 10px #c7c7c7;
+  background: white;
+  outline: none;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.formProduct input {
+  margin-bottom: 15px;
+}
+.formProduct select {
+  background: #f7f7f7;
+  border-radius: 5px;
+  margin: 0 10px;
+}
