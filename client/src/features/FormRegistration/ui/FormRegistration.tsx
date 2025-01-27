@@ -5,9 +5,12 @@ import style from "./FormRegistration.module.css"
 import inputStyle from "../../../features/Search/ui/Search.module.css"
 import Button from "@/shared/ui/Button"
 import Form from "@/shared/Form/ui/Form"
-import { handleSubmit } from "../api/api"
+import { handleSubmit, registration } from "../api/api"
+import { inputSecurity } from "@/security"
+import { getAuth } from "@/shared/Form/ui/FormSlice"
+import { useDispatch } from "react-redux"
 
-interface IError {
+export interface IError {
   text: string
   emali?: boolean
   password?: boolean
@@ -21,16 +24,19 @@ const FormRegistration = () => {
   const [status, setStatus] = useState<string | null>(null)
 
   const props = { email, password, setError, setEmail, setPassword, setStatus }
+  const registrarionProps = {email, password,setEmail,setPassword,setStatus}
+console.log(password)
+const dispatch = useDispatch()
 
   return (
-    <Form >
+    <Form>
       <input
         className={`${inputStyle.input} ${error?.emali && style.inputError}`}
         type="email"
         name="email"
         placeholder="Введите email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(inputSecurity(e.target.value))}
       />
       <input
         className={`${inputStyle.input} ${error?.password && style.inputError}`}
@@ -38,12 +44,17 @@ const FormRegistration = () => {
         name="password"
         placeholder="Введите пароль"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setPassword(inputSecurity(e.target.value))}
       />
       <div className={style.error}>{error?.text}</div>
       {status && <div className={style.status}>{status}</div>}
 
-      <Button onClick={(e) => handleSubmit(e, props)}>Регистрация</Button>
+      <Button handleClick={async (e:any) => {
+       const data = await handleSubmit(e,registration(registrarionProps), props)
+       console.log(data)
+       dispatch(getAuth(data))
+
+      }}>Регистрация</Button>
     </Form>
   )
 }

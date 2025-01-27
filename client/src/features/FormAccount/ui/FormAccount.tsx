@@ -1,3 +1,5 @@
+"use client"
+
 import Button from "@/shared/ui/Button"
 import Form from "@/shared/Form/ui/Form"
 import { useDispatch } from "react-redux"
@@ -7,10 +9,14 @@ const FormAccount = () => {
   const dispatch = useDispatch()
 
   return (
-    <Form >
-      <Button>Логин</Button>
-      <Button handleClick={() => dispatch(getWindow('registrarion'))}>Регистрация</Button>
-    </Form>
+        <Form>
+          <Button handleClick={() => dispatch(getWindow("login"))}>
+            Логин
+          </Button>
+          <Button handleClick={() => dispatch(getWindow("registrarion"))}>
+            Регистрация
+          </Button>
+        </Form>
   )
 }
 

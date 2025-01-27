@@ -3,7 +3,7 @@
 import { createProduct } from "../api/actions"
 import styles from "./FormAddProduct.module.css"
 import inputStyle from "../../../features/Search/ui/Search.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Select from "@/features/Select/ui/Select"
 import { inputSecurity } from "@/security"
 import Button from "@/shared/ui/Button"
@@ -18,14 +18,16 @@ const FormAddProduct = () => {
   const [inputNum, setInputNum] = useState("")
   const dispatch = useDispatch()
   const formVisible = useSelector((store: any) => store.FormSlice.window)
-  
 
-
+  useEffect(() => {
+    setInputName("")
+    setInputNum("")
+  }, [formVisible])
 
   return (
     <>
-      {formVisible ==='addProduct'? (
-        <Form >
+      {formVisible === "addProduct" ? (
+        <Form>
           <input
             className={inputStyle.input}
             type="text"

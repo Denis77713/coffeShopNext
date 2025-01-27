@@ -9,28 +9,30 @@ import LikeGroup from "@/features/likeGroup/ui/likeGroup"
 import { refresh } from "../api/api"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
 import FormAccount from "@/features/FormAccount/ui/FormAccount"
-import {  useDispatch, useSelector } from "react-redux"
-import { getWindow } from "@/shared/Form/ui/FormSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
+import FormLogin from "@/features/FormLogin/ui/FormLogin"
+import { logout } from "@/features/FormRegistration/api/api"
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
+  const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const dispatch = useDispatch()
-  
+  const [state, setState] = useState(Auth);
   useEffect(() => {
     console.log("render")
     const cheskRefresh = async () => {
-      try{
+      try {
         const token = localStorage.getItem('token')
         if(token){
           const data = await refresh()
-          console.log(data)
+          dispatch(getAuth(data.status))
         }
-      }catch(e){
-        console.log(e)
+      } catch (e:any) {
+        dispatch(getAuth(e.status))
       }
     }
     cheskRefresh()
   }, [])
-
   return (
     <>
       <header className={`${style.headerFlex} container`}>
@@ -60,13 +62,25 @@ const Header: FC = () => {
             alt="cart"
             width={30}
             height={30}
-            onClick={()=> dispatch(getWindow('account'))}
+            onClick={() => dispatch(getWindow("account"))}
           />
-          <LikeGroup />
+          {Auth === 200 &&
+           <Image
+           className={style.icon}
+           src={"/logout.svg"}
+           alt="cart"
+           width={21}
+           height={21}
+           onClick={() => {logout(); dispatch(getAuth(false)); setState(false)}}
+           />
+          }
+            <LikeGroup />
         </div>
       </header>
-      {formVisible === "account" && <FormAccount />}
-      {formVisible === "registrarion" && <FormRegistration />}
+          
+      {formVisible === "account" && Auth!==200 && <FormAccount />}
+      {formVisible === "registrarion" &&  <FormRegistration />}
+      {formVisible === "login" && Auth!==200 &&  <FormLogin />}
     </>
   )
 }
