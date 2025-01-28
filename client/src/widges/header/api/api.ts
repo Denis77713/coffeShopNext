@@ -16,13 +16,7 @@ export async function refresh() {
   return api.get("/refresh")
 }
 
-export async function getActivatedUser(id: number) {
-  let result = false
-  const res = await prisma.user.findMany({
-    where: {
-      id: id,
-    },
-  })
-  // if(res?.isActivated === true) result = true
-  return result
+export async function Authorizasion() {
+const res = api.get('/users',)
+return res
 }

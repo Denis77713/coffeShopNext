@@ -26,6 +26,10 @@
   background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
 }
+.errActivated{
+  text-align: center;
+  color: #18653D;
+}
 
 @keyframes shine {
   to {

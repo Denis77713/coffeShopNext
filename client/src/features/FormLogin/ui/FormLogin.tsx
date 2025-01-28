@@ -9,7 +9,7 @@ import { handleSubmit, login } from "../../FormRegistration/api/api"
 import { inputSecurity } from "@/security"
 import { IError } from "@/features/FormRegistration/ui/FormRegistration"
 import { useDispatch, useSelector } from "react-redux"
-import { getAuth } from "@/shared/Form/ui/FormSlice"
+import { getActivated, getAuth } from "@/shared/Form/ui/FormSlice"
 
 const FormLogin = () => {
   const [email, setEmail] = useState<string>("")
@@ -44,9 +44,10 @@ const FormLogin = () => {
       {status && <div className={style.status}>{status}</div>}
 
       <Button
-        handleClick={async (e: any)  => {
+        handleClick={async (e: any) => {
           const data = await handleSubmit(e, login(loginProps), props)
-          dispatch(getAuth(data))
+          dispatch(getAuth(data.status))
+          dispatch(getActivated(data.data.user.isActivated))
         }}
       >
         Войти

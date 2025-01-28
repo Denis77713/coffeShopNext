@@ -4,11 +4,13 @@ import { createSlice } from "@reduxjs/toolkit"
 export interface LikeState {
   window: boolean
   Auth: number | boolean
+  Activated: boolean
 }
 
 const initialState: LikeState = {
   window: false,
-  Auth:false
+  Auth:false,
+  Activated: false
 }
 
 export const FormSlice = createSlice({
@@ -20,12 +22,13 @@ export const FormSlice = createSlice({
     },
     getAuth: (state, action) => {
       state.Auth = action.payload
-      console.log(action.payload)
-      console.log(state.Auth)
+    },    
+    getActivated: (state, action) => {
+      state.Activated = action.payload
     },
   },
 })
 
-export const { getWindow,getAuth } = FormSlice.actions
+export const { getWindow, getAuth, getActivated } = FormSlice.actions
 
 export default FormSlice.reducer

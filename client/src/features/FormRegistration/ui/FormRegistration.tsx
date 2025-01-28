@@ -51,8 +51,7 @@ const dispatch = useDispatch()
 
       <Button handleClick={async (e:any) => {
        const data = await handleSubmit(e,registration(registrarionProps), props)
-       console.log(data)
-       dispatch(getAuth(data))
+       dispatch(getAuth(data.status))
 
       }}>Регистрация</Button>
     </Form>

@@ -6,31 +6,41 @@ import { FC, useEffect } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
 import LikeGroup from "@/features/likeGroup/ui/likeGroup"
-import { getActivatedUser, refresh } from "../api/api"
+import { Authorizasion, refresh } from "../api/api"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
 import FormAccount from "@/features/FormAccount/ui/FormAccount"
 import { useDispatch, useSelector } from "react-redux"
-import { getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
+import { getActivated, getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
 import FormLogin from "@/features/FormLogin/ui/FormLogin"
 import { logout } from "@/features/FormRegistration/api/api"
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
+  const Activated = useSelector((store: any) => store.FormSlice.Activated)
   const dispatch = useDispatch()
 
   useEffect(() => {
     console.log("render")
     const cheskRefresh = async () => {
-      try {
-        const token = localStorage.getItem("token")
-        if (token) {
-          const data = await refresh()
-          localStorage.setItem("token", data.data.accessToken)
-          if (data.data.user.isActivated && data.status === 200)
-            dispatch(getAuth(data.status))
+      const token = localStorage.getItem("token")
+      if (token) {
+        try {
+          const AuthorizasionData = await Authorizasion()
+          dispatch(getAuth(AuthorizasionData.status))
+          dispatch(getActivated(AuthorizasionData.data.isActivated))
+        } catch (e:any) {
+          console.log(e)
+          try {
+            dispatch(getAuth(e.status))
+            const data = await refresh()
+            localStorage.setItem("token", data.data.accessToken)
+            const AuthorizasionData = await Authorizasion()
+            dispatch(getAuth(AuthorizasionData.status))
+            dispatch(getActivated(AuthorizasionData.data.isActivated))
+          } catch (e:any) {
+            console.log(e)
+          }
         }
-      } catch (e:any) {
-        dispatch(getAuth(e.status))
       }
     }
     cheskRefresh()
@@ -75,17 +85,27 @@ const Header: FC = () => {
               height={21}
               onClick={() => {
                 logout()
-                dispatch(getAuth(false))
+                dispatch(getAuth(false), localStorage.removeItem("token"))
               }}
             />
           )}
+          {/* <Link  href={item.link}> */}
+
+          {/* </Link> */}
           <LikeGroup />
         </div>
       </header>
+      {!Activated && Auth === 200 && (
+        <h2 className={style.errActivated}>
+          Активируйте аккаунт перейдя по ссылке на почте !
+        </h2>
+      )}
 
-      {formVisible === "account" && Auth !== 200 && <FormAccount />}
+      {formVisible === "account" && !Activated && Auth !== 200 && (
+        <FormAccount />
+      )}
       {formVisible === "registrarion" && <FormRegistration />}
-      {formVisible === "login" && Auth !== 200 && <FormLogin />}
+      {formVisible === "login" && <FormLogin />}
     </>
   )
 }

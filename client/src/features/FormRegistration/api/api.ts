@@ -73,7 +73,7 @@ export async function handleSubmit(e: any, reqest: any, props: TProps) {
     } else {
       setError(null)
       const data = await reqest
-      resolve = data.status
+      resolve = data
     }
   } catch (e) {
     resolve = e

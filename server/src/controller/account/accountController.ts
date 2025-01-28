@@ -87,7 +87,9 @@ class UserControllerClass {
   }
   async getUsers(req: any, res: any, next: any) {
     try {
-      const users = await userService.getAllUsers()
+      const { refreshToken } = req.cookies
+
+      const users = await userService.getAllUsers(refreshToken)
       res.json(users)
     } catch (e) {
       next(e)
