@@ -2,11 +2,11 @@
 
 import Image from "next/image"
 import style from "./Header.module.css"
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
 import LikeGroup from "@/features/likeGroup/ui/likeGroup"
-import { refresh } from "../api/api"
+import { getActivatedUser, refresh } from "../api/api"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
 import FormAccount from "@/features/FormAccount/ui/FormAccount"
 import { useDispatch, useSelector } from "react-redux"
@@ -17,15 +17,17 @@ const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const dispatch = useDispatch()
-  const [state, setState] = useState(Auth);
+
   useEffect(() => {
     console.log("render")
     const cheskRefresh = async () => {
       try {
-        const token = localStorage.getItem('token')
-        if(token){
+        const token = localStorage.getItem("token")
+        if (token) {
           const data = await refresh()
-          dispatch(getAuth(data.status))
+          localStorage.setItem("token", data.data.accessToken)
+          if (data.data.user.isActivated && data.status === 200)
+            dispatch(getAuth(data.status))
         }
       } catch (e:any) {
         dispatch(getAuth(e.status))
@@ -64,23 +66,26 @@ const Header: FC = () => {
             height={30}
             onClick={() => dispatch(getWindow("account"))}
           />
-          {Auth === 200 &&
-           <Image
-           className={style.icon}
-           src={"/logout.svg"}
-           alt="cart"
-           width={21}
-           height={21}
-           onClick={() => {logout(); dispatch(getAuth(false)); setState(false)}}
-           />
-          }
-            <LikeGroup />
+          {Auth === 200 && (
+            <Image
+              className={style.icon}
+              src={"/logout.svg"}
+              alt="cart"
+              width={21}
+              height={21}
+              onClick={() => {
+                logout()
+                dispatch(getAuth(false))
+              }}
+            />
+          )}
+          <LikeGroup />
         </div>
       </header>
-          
-      {formVisible === "account" && Auth!==200 && <FormAccount />}
-      {formVisible === "registrarion" &&  <FormRegistration />}
-      {formVisible === "login" && Auth!==200 &&  <FormLogin />}
+
+      {formVisible === "account" && Auth !== 200 && <FormAccount />}
+      {formVisible === "registrarion" && <FormRegistration />}
+      {formVisible === "login" && Auth !== 200 && <FormLogin />}
     </>
   )
 }
