@@ -18,7 +18,8 @@ const Header: FC = () => {
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const Activated = useSelector((store: any) => store.FormSlice.Activated)
   const dispatch = useDispatch()
-
+console.log(Auth)
+console.log(Activated)
   useEffect(() => {
     console.log("render")
     const cheskRefresh = async () => {
@@ -68,14 +69,26 @@ const Header: FC = () => {
             width={30}
             height={30}
           />
-          <Image
-            className={style.icon}
-            src={"/user.svg"}
-            alt="cart"
-            width={30}
-            height={30}
-            onClick={() => dispatch(getWindow("account"))}
-          />
+          {Activated === true && Auth === 200 ? (
+            <Link href={"/account"}>
+              <Image
+                className={style.icon}
+                src={"/user.svg"}
+                alt="cart"
+                width={30}
+                height={30}
+              />
+            </Link>
+          ) : (
+            <Image
+              className={style.icon}
+              src={"/user.svg"}
+              alt="cart"
+              width={30}
+              height={30}
+              onClick={() => dispatch(getWindow("account"))}
+            />
+          )}
           {Auth === 200 && (
             <Image
               className={style.icon}
@@ -85,13 +98,12 @@ const Header: FC = () => {
               height={21}
               onClick={() => {
                 logout()
-                dispatch(getAuth(false), localStorage.removeItem("token"))
+                dispatch(getAuth(false))
+                dispatch(getActivated(false))
+                localStorage.removeItem("token")
               }}
             />
           )}
-          {/* <Link  href={item.link}> */}
-
-          {/* </Link> */}
           <LikeGroup />
         </div>
       </header>
@@ -101,9 +113,7 @@ const Header: FC = () => {
         </h2>
       )}
 
-      {formVisible === "account" && !Activated && Auth !== 200 && (
-        <FormAccount />
-      )}
+      {formVisible === "account" && <FormAccount />}
       {formVisible === "registrarion" && <FormRegistration />}
       {formVisible === "login" && <FormLogin />}
     </>
