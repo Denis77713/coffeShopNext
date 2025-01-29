@@ -9,7 +9,7 @@ import { handleSubmit, login } from "../../FormRegistration/api/api"
 import { inputSecurity } from "@/security"
 import { IError } from "@/features/FormRegistration/ui/FormRegistration"
 import { useDispatch, useSelector } from "react-redux"
-import { getActivated, getAuth } from "@/shared/Form/ui/FormSlice"
+import { getActivated, getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
 
 const FormLogin = () => {
   const [email, setEmail] = useState<string>("")
@@ -18,7 +18,7 @@ const FormLogin = () => {
   const [status, setStatus] = useState<string | null>(null)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const dispatch = useDispatch()
-
+  const [ErrorMessage, setErrorMessage] = useState("")
   const props = { email, password, setError, setEmail, setPassword, setStatus }
   const loginProps = { email, password, setEmail, setPassword }
 
@@ -42,12 +42,21 @@ const FormLogin = () => {
       />
       <div className={style.error}>{error?.text}</div>
       {status && <div className={style.status}>{status}</div>}
+      
+      {Auth === 400 && <div className={style.error}>{ErrorMessage + " !"}</div>}
 
       <Button
         handleClick={async (e: any) => {
           const data = await handleSubmit(e, login(loginProps), props)
+          if(data.status === 200){
+            dispatch(getWindow(false))
+            dispatch(getActivated(data.data.user.isActivated))
+          }
+          if(data.status === 400){
+            setErrorMessage(data.response.data.message)
+          }
           dispatch(getAuth(data.status))
-          dispatch(getActivated(data.data.user.isActivated))
+          console.log(Auth)
         }}
       >
         Войти

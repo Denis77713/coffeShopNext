@@ -25,8 +25,7 @@ const FormRegistration = () => {
 
   const props = { email, password, setError, setEmail, setPassword, setStatus }
   const registrarionProps = {email, password,setEmail,setPassword,setStatus}
-console.log(password)
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   return (
     <Form>

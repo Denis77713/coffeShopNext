@@ -1,5 +1,4 @@
 import axios from "axios"
-import { prisma } from "../../../../prisma/prisma-client"
 
 export const api = axios.create({
   withCredentials: true,
