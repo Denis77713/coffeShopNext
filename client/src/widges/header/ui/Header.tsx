@@ -26,7 +26,6 @@ const Header: FC = () => {
       if (token) {
         try {
           const AuthorizasionData = await Authorizasion()
-          document.cookie = `accessToken=${token}`
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
         } catch (e:any) {
@@ -35,7 +34,6 @@ const Header: FC = () => {
             dispatch(getAuth(e.status))
             const data = await refresh()
             localStorage.setItem("token", data.data.accessToken)
-            document.cookie = `accessToken=${data.data.accessToken}`
             const AuthorizasionData = await Authorizasion()
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))

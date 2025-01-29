@@ -15,7 +15,6 @@ export async function login(loginProps: any) {
     res = await api.post("/login", { email, password })
     if (res.data.accessToken) {
       localStorage.setItem("token", res.data.accessToken)
-      document.cookie = `accessToken=${res.data.accessToken}`
     }
     setEmail("")
     setPassword("")
@@ -38,7 +37,6 @@ export async function registration(registrationProps: any) {
      res = await api.post("/registration", { email, password })
     if (res.data.accessToken) {
       localStorage.setItem("token", res.data.accessToken)
-      document.cookie = `accessToken=${res.data.accessToken}`
     }
       setEmail("")
       setPassword("")
