@@ -17,7 +17,6 @@ const FormLogin = () => {
   const [error, setError] = useState<IError | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
-  const Activated = useSelector((store: any) => store.FormSlice.Activated)
 
   const dispatch = useDispatch()
   const [ErrorMessage, setErrorMessage] = useState("")

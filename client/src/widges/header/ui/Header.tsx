@@ -28,7 +28,7 @@ const Header: FC = () => {
           const AuthorizasionData = await Authorizasion()
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
-        } catch (e) {
+        } catch (e:any) {
           try {
             const data = await refresh()
             dispatch(getAuth(e.status))
@@ -105,6 +105,8 @@ const Header: FC = () => {
                   dispatch(getActivated(false))
                   localStorage.removeItem("token")
                   redirectAction("/")
+                  dispatch(getWindow(false))
+                  
                 }}
               />
             </div>
