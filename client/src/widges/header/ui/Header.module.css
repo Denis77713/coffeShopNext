@@ -1,7 +1,7 @@
-.headerImage{
+.headerImage {
   cursor: pointer;
 }
-.headerFlex{
+.headerFlex {
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
@@ -9,16 +9,16 @@
   justify-content: space-between;
   position: relative;
 }
-.icons{
+.icons {
   display: flex;
 }
-.icon{
+.icon {
   margin-right: 15px;
   cursor: pointer;
 }
 .skeleton {
   border-radius: 20px;
- margin-right: 10px;
+  margin-right: 10px;
   height: 40px;
   width: 40px;
   background: #eee;
@@ -26,13 +26,48 @@
   background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
 }
-.errActivated{
+.errActivated {
   text-align: center;
-  color: #18653D;
+  color: #18653d;
 }
 
 @keyframes shine {
   to {
     background-position-x: -200%;
   }
+}
+.logout{
+  height: 100%;
+}
+.account,
+.like,
+.exit,
+.cart {
+  position: relative;
+}
+.account:hover::before,
+.like:hover::before,
+.exit:hover::before,
+.cart:hover::before {
+  content: "Личный кабинет";
+  padding: 5px;
+  border-radius: 10px;
+  position: absolute;
+  background: black;
+  color: white;
+  font-size: 10px;
+  z-index: 999999;
+  top: 40px;
+  right: 5px;
+  text-align: center;
+}
+
+.like:hover::before {
+  content: "Избранное";
+}
+.exit:hover::before {
+  content: "Выход";
+}
+.cart:hover::before {
+  content: "Корзина";
 }

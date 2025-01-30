@@ -28,7 +28,7 @@ const Header: FC = () => {
           const AuthorizasionData = await Authorizasion()
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
-        } catch (e:any) {
+        } catch (e) {
           try {
             const data = await refresh()
             dispatch(getAuth(e.status))
@@ -36,8 +36,7 @@ const Header: FC = () => {
             const AuthorizasionData = await Authorizasion()
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
-          } catch (e:any) {
-          }
+          } catch (e) {}
         }
       }
     }
@@ -58,27 +57,33 @@ const Header: FC = () => {
           />
         </Link>
         <div className={style.icons}>
-          <Image
-            className={style.icon}
-            onClick={() => refresh()}
-            src={"/cart.svg"}
-            alt="cart"
-            width={30}
-            height={30}
-          />
-          {Activated === true && Auth === 200 ? (
-            <Link href={"/account"}>
+          {Activated === true && Auth === 200 && (
+            <div className={style.cart}>
               <Image
                 className={style.icon}
-                src={"/user.svg"}
+                onClick={() => refresh()}
+                src={"/cart.svg"}
                 alt="cart"
                 width={30}
                 height={30}
               />
+            </div>
+          )}
+          {Activated === true && Auth === 200 ? (
+            <Link href={"/account"}>
+              <div className={style.account}>
+                <Image
+                  className={`${style.icon} ${style.account}`}
+                  src={"/user.svg"}
+                  alt="cart"
+                  width={30}
+                  height={30}
+                />
+              </div>
             </Link>
           ) : (
             <Image
-              className={style.icon}
+              className={`${style.icon}`}
               src={"/user.svg"}
               alt="cart"
               width={30}
@@ -87,27 +92,26 @@ const Header: FC = () => {
             />
           )}
           {Activated === true && Auth === 200 && (
-            <Image
-              className={style.icon}
-              src={"/logout.svg"}
-              alt="cart"
-              width={21}
-              height={21}
-              onClick={() => {
-                logout()
-                dispatch(getAuth(false))
-                dispatch(getActivated(false))
-                localStorage.removeItem("token")
-                redirectAction('/')
-              }}
-            />
+            <div className={style.exit}>
+              <Image
+                className={`${style.icon} ${style.logout}`}
+                src={"/logout.svg"}
+                alt="cart"
+                width={21}
+                height={21}
+                onClick={() => {
+                  logout()
+                  dispatch(getAuth(false))
+                  dispatch(getActivated(false))
+                  localStorage.removeItem("token")
+                  redirectAction("/")
+                }}
+              />
+            </div>
           )}
           <LikeGroup />
         </div>
       </header>
-    
-      
-
       {formVisible === "account" && <FormAccount />}
       {formVisible === "registrarion" && <FormRegistration />}
       {formVisible === "login" && <FormLogin />}

@@ -17,6 +17,8 @@ const FormLogin = () => {
   const [error, setError] = useState<IError | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
+  const Activated = useSelector((store: any) => store.FormSlice.Activated)
+
   const dispatch = useDispatch()
   const [ErrorMessage, setErrorMessage] = useState("")
   const props = { email, password, setError, setEmail, setPassword, setStatus }
@@ -48,6 +50,11 @@ const FormLogin = () => {
       <Button
         handleClick={async (e: any) => {
           const data = await handleSubmit(e, login(loginProps), props)
+          if(data && data?.status === 200 
+            && !data.data.user.isActivated
+          ){
+            alert('Активируйте аккаунт !')
+          }
           if(data && data?.status === 200){
             dispatch(getWindow(false))
             dispatch(getActivated(data.data.user.isActivated))
