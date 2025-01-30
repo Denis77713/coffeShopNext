@@ -50,7 +50,7 @@ const FormRegistration = () => {
 
       <Button handleClick={async (e:any) => {
        const data = await handleSubmit(e,registration(registrarionProps), props)
-       dispatch(getAuth(data.status))
+       data && dispatch(getAuth(data.status))
 
       }}>Регистрация</Button>
     </Form>

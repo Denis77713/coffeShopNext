@@ -48,15 +48,14 @@ const FormLogin = () => {
       <Button
         handleClick={async (e: any) => {
           const data = await handleSubmit(e, login(loginProps), props)
-          if(data.status === 200){
+          if(data && data?.status === 200){
             dispatch(getWindow(false))
             dispatch(getActivated(data.data.user.isActivated))
           }
-          if(data.status === 400){
+          if(data && data.status === 400){
             setErrorMessage(data.response.data.message)
           }
-          dispatch(getAuth(data.status))
-          console.log(Auth)
+          data && dispatch(getAuth(data.status))
         }}
       >
         Войти

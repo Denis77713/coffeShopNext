@@ -29,16 +29,14 @@ const Header: FC = () => {
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
         } catch (e:any) {
-          console.log(e)
           try {
-            dispatch(getAuth(e.status))
             const data = await refresh()
+            dispatch(getAuth(e.status))
             localStorage.setItem("token", data.data.accessToken)
             const AuthorizasionData = await Authorizasion()
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
           } catch (e:any) {
-            console.log(e)
           }
         }
       }
@@ -88,7 +86,7 @@ const Header: FC = () => {
               onClick={() => dispatch(getWindow("account"))}
             />
           )}
-          {Auth === 200 && (
+          {Activated === true && Auth === 200 && (
             <Image
               className={style.icon}
               src={"/logout.svg"}
@@ -107,11 +105,7 @@ const Header: FC = () => {
           <LikeGroup />
         </div>
       </header>
-      {!Activated && Auth === 200 && (
-        <h2 className={style.errActivated}>
-          Активируйте аккаунт перейдя по ссылке на почте !
-        </h2>
-      )}
+    
       
 
       {formVisible === "account" && <FormAccount />}
