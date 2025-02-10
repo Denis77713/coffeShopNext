@@ -30,6 +30,7 @@ const Header: FC = () => {
           dispatch(getActivated(AuthorizasionData.data.isActivated))
         } catch (e:any) {
           localStorage.removeItem("token")
+          // 
           try {
             const data = await refresh()
             console.log(data)
