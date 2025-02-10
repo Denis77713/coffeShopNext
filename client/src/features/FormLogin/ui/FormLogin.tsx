@@ -12,8 +12,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getActivated, getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
 
 const FormLogin = () => {
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+  const [email, setEmail] = useState<string>("zarvirovdenis@mail.ru")
+  const [password, setPassword] = useState<string>("denis2000")
   const [error, setError] = useState<IError | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)

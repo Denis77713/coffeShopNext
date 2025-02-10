@@ -78,7 +78,7 @@ class tokenServiseClass {
   }
   async findToken(refreshToken:string){
     const token = await prisma.token.findFirst({where:{refreshToken:refreshToken}})
-    return token
+    if(token!==null) return token
   }
 }
 

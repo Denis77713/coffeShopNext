@@ -72,11 +72,9 @@ class UserControllerClass {
       const { refreshToken } = req.cookies
       const userData = await userService.refresh(refreshToken)
       if (userData) {
-        res.cookie("refreshToken", userData.refreshToken, {
+        res.cookie("refreshToken", userData?.refreshToken, {
           maxAge: 30 * 24 * 60 * 60 * 1000,
           httpOnly: true,
-          methods: ['GET', 'PUT', 'POST'],
-          allowedHeaders: ['Content-Type', '*']
         })
         // Вернуть Юзера
         return res.json(userData)

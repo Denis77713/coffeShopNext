@@ -29,14 +29,17 @@ const Header: FC = () => {
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
         } catch (e:any) {
+          localStorage.removeItem("token")
           try {
             const data = await refresh()
+            console.log(data)
             dispatch(getAuth(e.status))
             localStorage.setItem("token", data.data.accessToken)
             const AuthorizasionData = await Authorizasion()
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
-          } catch (e) {}
+          } catch (e) {
+          }
         }
       }
     }

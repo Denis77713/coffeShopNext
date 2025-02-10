@@ -106,13 +106,15 @@ class userServiceClass {
     return tokenData
   }
   async refresh(refreshToken:string){
+    console.log(refreshToken)
     if(!refreshToken){
       throw ApiError.UnauthorizedError()
     }
     const userData = tokenServise.validateRefreshToken(refreshToken)
+    console.log(userData)
     const tokenFromDB = await tokenServise.findToken(refreshToken)
-    if(!userData || tokenFromDB){
-      await ApiError.UnauthorizedError()
+    if(!userData || !tokenFromDB){
+      throw ApiError.UnauthorizedError()
     }
     const user = await prisma.user.findFirst({
       where: {
