@@ -19,7 +19,7 @@ class UserDtoClass {
 }
 
 class userServiceClass {
-  async registration(email: string, password: string) {
+  async registration(email: string, password: string,name:string,lastName:string) {
     // вывести первого юзера где совпадает email
     const userMail = await prisma.user.findFirst({
       where: { email: email },
@@ -38,6 +38,8 @@ class userServiceClass {
       data: {
         email: email,
         password: hashPassword,
+        name:name,
+        lastName:lastName,
         activationLink: activationLiinkMail,
       },
     })

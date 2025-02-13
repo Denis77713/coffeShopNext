@@ -9,19 +9,23 @@ datasource db {
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
+  id             Int          @id @default(autoincrement())
   // поле уникальное
-  email          String  @unique
+  email          String       @unique
   password       String
-  isActivated    Boolean @default(false)
+  isActivated    Boolean      @default(false)
   activationLink String
+  name           String
+  lastName       String
+  role           String       @default("user")
   token          Token?
+  ProductPay     ProductPay[]
 }
 
 model Token {
-  token       User   @relation(fields: [userId], references: [id]) 
+  token        User   @relation(fields: [userId], references: [id])
   userId       Int    @unique
-  refreshToken String 
+  refreshToken String
 }
 
 model Category {
@@ -35,18 +39,29 @@ model Category {
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   name       String
   imageUrl   String
   // Связь с Category
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category     @relation(fields: [categoryId], references: [id])
   // Связь с Category
   price      String
   best       String
   weight     String
   none       String
   drip       String
+  number     Int          @default(5)
   categoryId Int
+  ProductPay ProductPay[]
+}
+
+model ProductPay {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  productId Int
+  status    String  @default("Успешный заказ")
+  user      User    @relation(fields: [userId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Filter {

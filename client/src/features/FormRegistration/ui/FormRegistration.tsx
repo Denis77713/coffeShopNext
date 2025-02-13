@@ -20,15 +20,33 @@ export interface IError {
 const FormRegistration = () => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
+  const [name, setName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
   const [error, setError] = useState<IError | null>(null)
   const [status, setStatus] = useState<string | null>(null)
 
   const props = { email, password, setError, setEmail, setPassword, setStatus }
-  const registrarionProps = {email, password,setEmail,setPassword,setStatus}
+  const registrarionProps = {email, password,name,lastName,setEmail,setPassword,setName,setLastName,setStatus}
   const dispatch = useDispatch()
 
   return (
     <Form>
+      <input
+        className={`${inputStyle.input} ${error?.emali && style.inputError}`}
+        type="text"
+        name="name"
+        placeholder="Введите свое имя"
+        value={name}
+        onChange={(e) => setName(inputSecurity(e.target.value))}
+      />
+      <input
+        className={`${inputStyle.input} ${error?.emali && style.inputError}`}
+        type="text"
+        name="lastName"
+        placeholder="Введите свое отчество"
+        value={lastName}
+        onChange={(e) => setLastName(inputSecurity(e.target.value))}
+      />
       <input
         className={`${inputStyle.input} ${error?.emali && style.inputError}`}
         type="email"

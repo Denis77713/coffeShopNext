@@ -13,9 +13,9 @@ class UserControllerClass {
     }
     try {
       // Получаю из тела запросса майл и пароль
-      const { email, password } = req.body
+      const { email, password,name,lastName } = req.body
       // Вызываю функцию регистрации, а в userData сохраняю токены и юзера
-      const userData = await userService.registration(email, password)
+      const userData = await userService.registration(email, password,name,lastName)
       // Сохраняю refreshToken в куки и даю ему время жизни,
       // запрещаю refreshToken менять на клиенте через httpOnly: true
       res.cookie("refreshToken", userData.refreshToken, {

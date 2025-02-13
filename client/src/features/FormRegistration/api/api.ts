@@ -27,19 +27,17 @@ export async function login(loginProps: any) {
 export async function registration(registrationProps: any) {
   let res
   const {
-    email,
-    password,
-    setEmail,
-    setPassword,
-    setStatus,
+    email, password,name,lastName,setEmail,setPassword,setName,setLastName,setStatus
   } = registrationProps
   try {
-     res = await api.post("/registration", { email, password })
+     res = await api.post("/registration", { email, password,name,lastName })
     if (res.data.accessToken) {
       localStorage.setItem("token", res.data.accessToken)
     }
       setEmail("")
       setPassword("")
+      setName('')
+      setLastName('')
       res.status === 200 &&
         setStatus("Ссылка для активации отправлена на зарегистрированную почту")
   } catch (e) {
