@@ -1,0 +1,12 @@
+.product{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 15px;
+}
+.productWrapper{
+  background: white;
+  max-height: 500px;
+  overflow-y: scroll;
+}

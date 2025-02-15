@@ -1,6 +1,9 @@
 .bestItem {
   margin: 20px 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .item{
   width: 200px;
@@ -17,6 +20,9 @@
 }
 .wrapper:hover .weight {
   animation: ani 0.1s linear forwards;
+}
+.mb{
+  margin-bottom: 10px;
 }
 .weight {
   position: absolute;

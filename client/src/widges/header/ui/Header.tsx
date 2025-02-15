@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import style from "./Header.module.css"
-import { FC, useEffect } from "react"
+import { FC, useEffect, useState } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
 import LikeGroup from "@/features/likeGroup/ui/likeGroup"
@@ -14,11 +14,17 @@ import { getActivated, getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
 import FormLogin from "@/features/FormLogin/ui/FormLogin"
 import { logout } from "@/features/FormRegistration/api/api"
 import { redirectAction } from "@/pages/account/api/api"
+import CartForm from "@/features/CartForm/ui/CartForm"
+
+
 const Header: FC = () => {
+  const storage = localStorage.getItem("cart")
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const Activated = useSelector((store: any) => store.FormSlice.Activated)
+  const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
+  const [cart, setCart] = useState(storage ? JSON.parse(storage) : null)
 
   useEffect(() => {
     const cheskRefresh = async () => {
@@ -44,7 +50,15 @@ const Header: FC = () => {
       }
     }
     cheskRefresh()
+
   }, [])
+
+
+  useEffect(() => {
+    setCart((storage ? JSON.parse(storage) : null))
+}, [renderCart]);
+
+
   return (
     <>
       <header className={`${style.headerFlex} container`}>
@@ -61,7 +75,10 @@ const Header: FC = () => {
         </Link>
         <div className={style.icons}>
           {Activated === true && Auth === 200 && (
-            <div className={style.cart}>
+            <div className={style.cart} onClick={()=> 
+              dispatch(getWindow('cart'), 
+              setCart((storage ? JSON.parse(storage) : null))
+              )}>
               <Image
                 className={style.icon}
                 onClick={() => refresh()}
@@ -69,6 +86,7 @@ const Header: FC = () => {
                 alt="cart"
                 width={30}
                 height={30}
+        
               />
             </div>
           )}
@@ -78,7 +96,7 @@ const Header: FC = () => {
                 <Image
                   className={`${style.icon} ${style.account}`}
                   src={"/user.svg"}
-                  alt="cart"
+                  alt="user"
                   width={30}
                   height={30}
                 />
@@ -88,7 +106,7 @@ const Header: FC = () => {
             <Image
               className={`${style.icon}`}
               src={"/user.svg"}
-              alt="cart"
+              alt="user"
               width={30}
               height={30}
               onClick={() => dispatch(getWindow("account"))}
@@ -99,7 +117,7 @@ const Header: FC = () => {
               <Image
                 className={`${style.icon} ${style.logout}`}
                 src={"/logout.svg"}
-                alt="cart"
+                alt="logout"
                 width={21}
                 height={21}
                 onClick={() => {
@@ -120,6 +138,7 @@ const Header: FC = () => {
       {formVisible === "account" && <FormAccount />}
       {formVisible === "registrarion" && <FormRegistration />}
       {formVisible === "login" && <FormLogin />}
+      {cart && cart.length !== 0 && formVisible === 'cart' && <CartForm/>}
     </>
   )
 }
