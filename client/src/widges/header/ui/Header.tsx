@@ -16,18 +16,18 @@ import { logout } from "@/features/FormRegistration/api/api"
 import { redirectAction } from "@/pages/account/api/api"
 import CartForm from "@/features/CartForm/ui/CartForm"
 
-
 const Header: FC = () => {
-  const storage = localStorage.getItem("cart")
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const Activated = useSelector((store: any) => store.FormSlice.Activated)
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
-  const [cart, setCart] = useState(storage ? JSON.parse(storage) : null)
+  const [cart, setCart] = useState([])
 
   useEffect(() => {
     const cheskRefresh = async () => {
+      const storage = localStorage.getItem("cart")
+      setCart(storage ? JSON.parse(storage) : null)
       const token = localStorage.getItem("token")
       if (token) {
         try {
@@ -44,20 +44,18 @@ const Header: FC = () => {
             const AuthorizasionData = await Authorizasion()
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
-          } catch (e) {
-          }
+          } catch (e) {}
         }
       }
     }
     cheskRefresh()
-
   }, [])
 
-
   useEffect(() => {
-    setCart((storage ? JSON.parse(storage) : null))
-}, [renderCart]);
+    const storage = localStorage.getItem("cart")
 
+    setCart(storage ? JSON.parse(storage) : null)
+  }, [renderCart])
 
   return (
     <>
@@ -75,10 +73,7 @@ const Header: FC = () => {
         </Link>
         <div className={style.icons}>
           {Activated === true && Auth === 200 && (
-            <div className={style.cart} onClick={()=> 
-              dispatch(getWindow('cart'), 
-              setCart((storage ? JSON.parse(storage) : null))
-              )}>
+            <div className={style.cart} onClick={() => handleClickCart()}>
               <Image
                 className={style.icon}
                 onClick={() => refresh()}
@@ -86,7 +81,6 @@ const Header: FC = () => {
                 alt="cart"
                 width={30}
                 height={30}
-        
               />
             </div>
           )}
@@ -127,7 +121,6 @@ const Header: FC = () => {
                   localStorage.removeItem("token")
                   redirectAction("/")
                   dispatch(getWindow(false))
-                  
                 }}
               />
             </div>
@@ -138,9 +131,15 @@ const Header: FC = () => {
       {formVisible === "account" && <FormAccount />}
       {formVisible === "registrarion" && <FormRegistration />}
       {formVisible === "login" && <FormLogin />}
-      {cart && cart.length !== 0 && formVisible === 'cart' && <CartForm/>}
+      {cart && cart.length !== 0 && formVisible === "cart" && <CartForm />}
     </>
   )
+  function handleClickCart() {
+    const storage = localStorage.getItem("cart")
+    dispatch(getWindow("cart"))
+
+    setCart(storage ? JSON.parse(storage) : null)
+  }
 }
 
 export default Header
