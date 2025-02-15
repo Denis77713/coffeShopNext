@@ -15,25 +15,30 @@ const Form = ({ children }: IForm) => {
   const dispatch = useDispatch()
 
   return (
-    <div className={`${style.wrapper}`}>
-      <Image
-        className={`${style.close}`}
-        src={"/close.svg"}
-        alt="close"
-        width={30}
-        height={30}
-        onClick={()=>dispatch(getWindow(false))}
-      />
-      <form
-        ref={ref}
-        id="formData"
-        className={style.formProduct}
-        
-      >
-        {children}
-      </form>
+    <div className={style.dark} onClick={() => dispatch(getWindow(false))}>
+      <div className={`${style.wrapper}`}>
+        <Image
+          className={`${style.close}`}
+          src={"/close.svg"}
+          alt="close"
+          width={30}
+          height={30}
+          onClick={() => dispatch(getWindow(false))}
+        />
+        <form
+          ref={ref}
+          id="formData"
+          className={`formData ${style.formProduct}`}
+          onClick={(e) => handleclick(e)}
+        >
+          {children}
+        </form>
+      </div>
     </div>
   )
+  function handleclick(e: any) {
+    e.stopPropagation()
+  }
 }
 
 export default Form
