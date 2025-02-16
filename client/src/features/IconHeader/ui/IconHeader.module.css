@@ -1,10 +1,10 @@
-.icon{
+.icon {
   cursor: pointer;
 }
-.wrapper{
+.wrapper {
   position: relative;
 }
-.num{
+.num {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,4 +17,5 @@
   background: red;
   color: white;
   border-radius: 50%;
+  cursor: pointer;
 }

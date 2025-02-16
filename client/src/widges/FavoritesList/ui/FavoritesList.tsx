@@ -8,12 +8,12 @@ import {
   getProductNum,
   getProductSum,
 } from "@/pages/favorites/ui/FavoriteSlice"
-import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
+import { getLike } from "@/features/IconHeader/ui/SlicelikeGroup"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 
-const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
+const FavoritesList: FC<{ category: TypeCategory[] }> = ({ category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
       setCount(storageDataFilter)
     }
   }, [state])
-  
+
   useEffect(() => {
     const price = count
       .map((item) => Number(item.price))
@@ -47,7 +47,7 @@ const FavoritesList:FC <{category: TypeCategory[]}>= ({category}) => {
   return (
     <div className={` ${bestStyle.bestList}`} onClick={() => setState(!state)}>
       {count.map((item) => (
-        <Product key={item.id} item={item} category={category}/>
+        <Product key={item.id} item={item} category={category} />
       ))}
     </div>
   )

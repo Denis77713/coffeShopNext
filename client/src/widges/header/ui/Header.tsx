@@ -5,7 +5,6 @@ import style from "./Header.module.css"
 import { FC, useEffect, useState } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
-import LikeGroup from "@/features/likeGroup/ui/likeGroup"
 import { Authorizasion, refresh } from "../api/api"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
 import FormAccount from "@/features/FormAccount/ui/FormAccount"
@@ -15,6 +14,8 @@ import FormLogin from "@/features/FormLogin/ui/FormLogin"
 import { logout } from "@/features/FormRegistration/api/api"
 import { redirectAction } from "@/pages/account/api/api"
 import CartForm from "@/features/CartForm/ui/CartForm"
+import { IntStorageData } from "@/shared/like/ui/Like"
+import IconHeader from "@/features/IconHeader/ui/IconHeader"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
@@ -23,6 +24,8 @@ const Header: FC = () => {
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
+  const data = useSelector((store: any) => store.like.storage)
+  const num = data.filter((item: IntStorageData) => item.like === true)
 
   useEffect(() => {
     const cheskRefresh = async () => {
@@ -34,12 +37,12 @@ const Header: FC = () => {
           const AuthorizasionData = await Authorizasion()
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
-        } catch (e:any) {
+        } catch (e) {
           localStorage.removeItem("token")
           try {
             const data = await refresh()
             console.log(data)
-            dispatch(getAuth(e.status))
+            dispatch(getAuth(401))
             localStorage.setItem("token", data.data.accessToken)
             const AuthorizasionData = await Authorizasion()
             dispatch(getAuth(AuthorizasionData.status))
@@ -74,13 +77,10 @@ const Header: FC = () => {
         <div className={style.icons}>
           {Activated === true && Auth === 200 && (
             <div className={style.cart} onClick={() => handleClickCart()}>
-              <Image
-                className={style.icon}
-                onClick={() => refresh()}
-                src={"/cart.svg"}
-                alt="cart"
-                width={30}
-                height={30}
+              <IconHeader
+                image={"/cart.svg"}
+                alt={"cart"}
+                num={cart ? cart : []}
               />
             </div>
           )}
@@ -125,7 +125,9 @@ const Header: FC = () => {
               />
             </div>
           )}
-          <LikeGroup />
+          <Link href={"/favorites"}>
+            <IconHeader image={"/like.svg"} alt={"like"} num={num} />
+          </Link>
         </div>
       </header>
       {formVisible === "account" && <FormAccount />}
@@ -137,7 +139,6 @@ const Header: FC = () => {
   function handleClickCart() {
     const storage = localStorage.getItem("cart")
     dispatch(getWindow("cart"))
-
     setCart(storage ? JSON.parse(storage) : null)
   }
 }

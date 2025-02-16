@@ -36,7 +36,7 @@
     background-position-x: -200%;
   }
 }
-.logout{
+.logout {
   height: 100%;
 }
 .account,
@@ -44,6 +44,9 @@
 .exit,
 .cart {
   position: relative;
+}
+.cart {
+  margin-right: 15px;
 }
 .account:hover::before,
 .like:hover::before,

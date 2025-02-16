@@ -12,9 +12,12 @@ import { Item } from "./ProductType"
 import Button from "@/shared/ui/Button"
 import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
-import { getRenderCart } from "@/shared/Form/ui/FormSlice"
+import { getRenderCart, getWindow } from "@/shared/Form/ui/FormSlice"
 
-const Product: FC<{ item: Item; category: TypeCategory[] }> = ({item,category}) => {
+const Product: FC<{ item: Item; category: TypeCategory[] }> = ({
+  item,
+  category,
+}) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
 
@@ -22,7 +25,7 @@ const Product: FC<{ item: Item; category: TypeCategory[] }> = ({item,category}) 
   const url = getPageCategory(item, category, pathname)
   return (
     <div className={style.bestItem} key={item.id}>
-      <div className = {style.mb}>
+      <div className={style.mb}>
         <div className={style.wrapper}>
           <Link href={url}>
             <Image
@@ -41,10 +44,15 @@ const Product: FC<{ item: Item; category: TypeCategory[] }> = ({item,category}) 
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
-      <Button handleClick={() => {
-        addProductCard(item)
-        dispatch(getRenderCart(!renderCart))
-        }}>Купить</Button>
+      <Button
+        handleClick={() => {
+          addProductCard(item)
+          dispatch(getRenderCart(!renderCart))
+          dispatch(getWindow(""))
+        }}
+      >
+        Купить
+      </Button>
     </div>
   )
 }
