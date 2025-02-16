@@ -8,18 +8,20 @@ import { getRenderCart } from "@/shared/Form/ui/FormSlice"
 
 const CartForm = () => {
   const storage = localStorage.getItem("cart")
-  const [isClient, setIsClient] = useState(storage ? JSON.parse(storage) : null)
+  const [dataStorage, setDataStorage] = useState(
+    storage ? JSON.parse(storage) : null
+  )
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setIsClient(storage ? JSON.parse(storage) : null)
+    setDataStorage(storage ? JSON.parse(storage) : null)
   }, [renderCart])
 
   return (
     <Form>
       <div className={style.productWrapper}>
-        {isClient?.map((item: Item) => (
+        {dataStorage?.map((item: Item) => (
           <div className={style.product} key={item.id}>
             <Image
               src={`/product/${item.imageUrl}.png`}
@@ -29,7 +31,7 @@ const CartForm = () => {
             />
             <p>{item.name}</p>
             <p>{item.price}</p>
-            <div onClick={()=>deleteProduct(item.id)}>
+            <div onClick={() => deleteProduct(item.id)}>
               <Image src={`/close.svg`} alt="cart" width={20} height={20} />
             </div>
           </div>
@@ -37,11 +39,11 @@ const CartForm = () => {
       </div>
     </Form>
   )
-  function deleteProduct(id:number){
-    const newData = isClient.filter((item:Item) => item.id !== id)
-    setIsClient(newData)
-    localStorage.removeItem('cart')
-    localStorage.setItem('cart',JSON.stringify(newData))
+  function deleteProduct(id: number) {
+    const newData = dataStorage.filter((item: Item) => item.id !== id)
+    setDataStorage(newData)
+    localStorage.removeItem("cart")
+    localStorage.setItem("cart", JSON.stringify(newData))
     dispatch(getRenderCart(!renderCart))
   }
 }
