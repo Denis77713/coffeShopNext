@@ -13,9 +13,14 @@ class UserControllerClass {
     }
     try {
       // Получаю из тела запросса майл и пароль
-      const { email, password,name,lastName } = req.body
+      const { email, password, name, lastName } = req.body
       // Вызываю функцию регистрации, а в userData сохраняю токены и юзера
-      const userData = await userService.registration(email, password,name,lastName)
+      const userData = await userService.registration(
+        email,
+        password,
+        name,
+        lastName
+      )
       // Сохраняю refreshToken в куки и даю ему время жизни,
       // запрещаю refreshToken менять на клиенте через httpOnly: true
       res.cookie("refreshToken", userData.refreshToken, {
@@ -89,6 +94,29 @@ class UserControllerClass {
 
       const users = await userService.getAllUsers(refreshToken)
       res.json(users)
+    } catch (e) {
+      next(e)
+    }
+  }
+  async getCartPay(req: any, res: any, next: any) {
+    try {
+      const { refreshToken } = req.cookies
+      const data = req.body
+      const user = await prisma.token.findFirst({
+        where: { refreshToken: refreshToken },
+      })
+      console.log(data)
+      console.log(user)
+      if (user && data && refreshToken) {
+        const product = await prisma.productPay.create({
+          data: {
+            userId: 2,
+            productId: 2,
+          },
+        })
+        res.json(product)
+        console.log(product)
+      }
     } catch (e) {
       next(e)
     }

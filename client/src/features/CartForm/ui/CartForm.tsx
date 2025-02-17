@@ -6,22 +6,32 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart } from "@/shared/Form/ui/FormSlice"
 import Button from "@/shared/ui/Button"
+import { getCartPay } from "../api/api"
+
+export interface IProductCart {
+  id: number
+  imageUrl: string
+  price: string
+  name: string
+  number: number
+}
 
 const CartForm = () => {
-  const storage = localStorage.getItem("cart")
-  const [dataStorage, setDataStorage] = useState(
+  const storage: string | null = localStorage.getItem("cart")
+  const [dataStorage, setDataStorage] = useState<IProductCart[]>(
     storage ? JSON.parse(storage) : null
   )
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
   const [sum, setSum] = useState(0)
-  let data = 0
+  //
   useEffect(() => {
     setDataStorage(storage ? JSON.parse(storage) : null)
+    console.log(dataStorage)
     if (dataStorage) {
       setSum(
         dataStorage
-          .map((item: Item) => Number(item.price))
+          .map((item: IProductCart) => Number(item.price))
           .reduce((acc: any, number: number) => acc + number, 0)
       )
     }
@@ -30,7 +40,7 @@ const CartForm = () => {
   return (
     <Form>
       <div className={style.productWrapper}>
-        {dataStorage?.map((item: Item) => (
+        {dataStorage?.map((item: IProductCart) => (
           <div className={style.product} key={item.id}>
             <div className={style.wrapperImgName}>
               <Image
@@ -54,16 +64,18 @@ const CartForm = () => {
         ))}
         <div className={style.pay}>
           <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
-          <Button handleClick={(e: any) => handleClick(e)}>Купить</Button>
+          <Button
+            handleClick={async (e: any) => await getCartPay(e, dataStorage)}
+          >
+            Купить
+          </Button>
         </div>
       </div>
     </Form>
   )
-  function handleClick(e: any) {
-    e.preventDefault()
-  }
+
   function deleteProduct(id: number) {
-    const newData = dataStorage.filter((item: Item) => item.id !== id)
+    const newData = dataStorage.filter((item: IProductCart) => item.id !== id)
     setDataStorage(newData)
     localStorage.removeItem("cart")
     localStorage.setItem("cart", JSON.stringify(newData))
