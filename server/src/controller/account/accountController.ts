@@ -109,7 +109,7 @@ class UserControllerClass {
   async getCartPay(req: any, res: any, next: any) {
     try {
       const { refreshToken } = req.cookies
-      const data = req.body
+      const { data, sum } = req.body
       const user = await prisma.token.findFirst({
         where: { refreshToken: refreshToken },
       })
@@ -119,6 +119,7 @@ class UserControllerClass {
           data: {
             userId: user.userId,
             productId: arrId,
+            sum: sum,
           },
         })
         res.json(res.status)

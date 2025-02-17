@@ -58,6 +58,7 @@ model ProductPay {
   id        Int    @id @default(autoincrement())
   userId    Int
   productId Int[]
+  sum       Int
   status    String @default("Успешный заказ")
   user      User   @relation(fields: [userId], references: [id])
 }

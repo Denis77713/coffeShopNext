@@ -78,7 +78,7 @@ const CartForm = () => {
               <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
               <Button
                 handleClick={async (e: any) =>
-                  await getCartPay(e, dataStorage, setComplitePay)
+                  await getCartPay(e, dataStorage, sum, setComplitePay)
                 }
               >
                 Купить
