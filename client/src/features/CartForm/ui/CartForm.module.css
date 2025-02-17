@@ -1,12 +1,38 @@
-.product{
+.product {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   margin-bottom: 15px;
 }
-.productWrapper{
+.productWrapper {
   background: white;
   max-height: 500px;
   overflow-y: scroll;
+  padding-right: 10px;
+}
+.wrapperPrise {
+  display: flex;
+}
+.wrapperPrise__Prise {
+  margin: 0 10px;
+}
+.pointer {
+  cursor: pointer;
+}
+.wrapperImgName {
+  display: flex;
+  align-items: center;
+}
+.wrapperImgName img {
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.pay {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.sum {
+  margin-right: 20px;
 }
