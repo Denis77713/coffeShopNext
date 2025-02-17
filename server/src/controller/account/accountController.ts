@@ -121,7 +121,7 @@ class UserControllerClass {
             productId: arrId,
           },
         })
-        res.json(product)
+        res.json(res.status)
       }
     } catch (e) {
       next(e)

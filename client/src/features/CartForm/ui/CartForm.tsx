@@ -1,4 +1,3 @@
-import { Item } from "@/entities/Product/ui/ProductType"
 import Form from "@/shared/Form/ui/Form"
 import Image from "next/image"
 import style from "./CartForm.module.css"
@@ -24,6 +23,8 @@ const CartForm = () => {
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
   const [sum, setSum] = useState(0)
+  const [complitePay, setComplitePay] = useState(null)
+
   //
   useEffect(() => {
     setDataStorage(storage ? JSON.parse(storage) : null)
@@ -38,40 +39,55 @@ const CartForm = () => {
   }, [renderCart])
 
   return (
-    <Form>
-      <div className={style.productWrapper}>
-        {dataStorage?.map((item: IProductCart) => (
-          <div className={style.product} key={item.id}>
-            <div className={style.wrapperImgName}>
-              <Image
-                src={`/product/${item.imageUrl}.png`}
-                alt="cart"
-                width={80}
-                height={80}
-              />
-              <p>{item.name}</p>
-            </div>
-            <div className={style.wrapperPrise}>
-              <p className={style.wrapperPrise__Prise}>{item.price}</p>
-              <div
-                className={style.pointer}
-                onClick={() => deleteProduct(item.id)}
-              >
-                <Image src={`/close.svg`} alt="cart" width={20} height={20} />
+    <>
+      {complitePay ? (
+        <Form>
+          <div className={style.paygreen}>Оплата прошла успешно!</div>
+        </Form>
+      ) : (
+        <Form>
+          <div className={style.productWrapper}>
+            {dataStorage?.map((item: IProductCart) => (
+              <div className={style.product} key={item.id}>
+                <div className={style.wrapperImgName}>
+                  <Image
+                    src={`/product/${item.imageUrl}.png`}
+                    alt="cart"
+                    width={80}
+                    height={80}
+                  />
+                  <p>{item.name}</p>
+                </div>
+                <div className={style.wrapperPrise}>
+                  <p className={style.wrapperPrise__Prise}>{item.price}</p>
+                  <div
+                    className={style.pointer}
+                    onClick={() => deleteProduct(item.id)}
+                  >
+                    <Image
+                      src={`/close.svg`}
+                      alt="cart"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                </div>
               </div>
+            ))}
+            <div className={style.pay}>
+              <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
+              <Button
+                handleClick={async (e: any) =>
+                  await getCartPay(e, dataStorage, setComplitePay)
+                }
+              >
+                Купить
+              </Button>
             </div>
           </div>
-        ))}
-        <div className={style.pay}>
-          <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
-          <Button
-            handleClick={async (e: any) => await getCartPay(e, dataStorage)}
-          >
-            Купить
-          </Button>
-        </div>
-      </div>
-    </Form>
+        </Form>
+      )}
+    </>
   )
 
   function deleteProduct(id: number) {

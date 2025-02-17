@@ -28,6 +28,11 @@
   border-radius: 10px;
   margin-right: 10px;
 }
+.paygreen {
+  margin: 20px 0;
+  color: #17673e;
+  text-align: center;
+}
 .pay {
   display: flex;
   align-items: center;
