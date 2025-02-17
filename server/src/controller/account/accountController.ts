@@ -3,6 +3,14 @@ import { userService } from "../../service/account/userSevice"
 import { validationResult } from "express-validator"
 import { ApiError } from "../../errors/api.error"
 
+export type IProductCart = {
+  id: number
+  imageUrl: string
+  price: string
+  name: string
+  number: number
+}
+
 class UserControllerClass {
   async registrarion(req: any, res: any, next: any) {
     // Результат валидации с роута регистрации, проверяет тело запросса
@@ -105,17 +113,15 @@ class UserControllerClass {
       const user = await prisma.token.findFirst({
         where: { refreshToken: refreshToken },
       })
-      console.log(data)
-      console.log(user)
+      const arrId = data.map((item: IProductCart) => item.id)
       if (user && data && refreshToken) {
         const product = await prisma.productPay.create({
           data: {
-            userId: 2,
-            productId: 2,
+            userId: user.userId,
+            productId: arrId,
           },
         })
         res.json(product)
-        console.log(product)
       }
     } catch (e) {
       next(e)

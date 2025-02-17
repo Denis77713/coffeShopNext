@@ -39,29 +39,27 @@ model Category {
 }
 
 model Product {
-  id         Int          @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   name       String
   imageUrl   String
   // Связь с Category
-  category   Category     @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
   // Связь с Category
   price      String
   best       String
   weight     String
   none       String
   drip       String
-  number     Int          @default(5)
+  number     Int      @default(5)
   categoryId Int
-  ProductPay ProductPay[]
 }
 
 model ProductPay {
-  id        Int     @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   userId    Int
-  productId Int
-  status    String  @default("Успешный заказ")
-  user      User    @relation(fields: [userId], references: [id])
-  product   Product @relation(fields: [productId], references: [id])
+  productId Int[]
+  status    String @default("Успешный заказ")
+  user      User   @relation(fields: [userId], references: [id])
 }
 
 model Filter {
