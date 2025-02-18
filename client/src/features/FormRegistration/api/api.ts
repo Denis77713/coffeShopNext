@@ -7,21 +7,6 @@ type TProps = {
   lastName: string
   setError: any
 }
-export async function login(loginProps: any) {
-  const { email, password, setEmail, setPassword } = loginProps
-  let res
-  try {
-    res = await api.post("/login", { email, password })
-    if (res.data.accessToken) {
-      localStorage.setItem("token", res.data.accessToken)
-    }
-    setEmail("")
-    setPassword("")
-  } catch (e) {
-    res = e
-  }
-  return res
-}
 
 export async function registration(registrationProps: any) {
   let res
@@ -53,7 +38,7 @@ export async function registration(registrationProps: any) {
   }
   return res
 }
-export async function handleSubmit(e: any, props: TProps) {
+export async function registrationValidate(e: any, props: TProps) {
   e.preventDefault()
   let resolve
   try {
@@ -100,7 +85,7 @@ export async function logout() {
   const result = await api.post("/logout")
   if (result.status === 200) return false
 }
-function validateEmail(email: string) {
+export function validateEmail(email: string) {
   const result = String(email)
     .toLowerCase()
     .match(

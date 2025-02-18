@@ -5,7 +5,7 @@ import style from "./FormRegistration.module.css"
 import inputStyle from "../../../features/Search/ui/Search.module.css"
 import Button from "@/shared/ui/Button"
 import Form from "@/shared/Form/ui/Form"
-import { handleSubmit, registration } from "../api/api"
+import { registrationValidate, registration } from "../api/api"
 import { inputSecurity } from "@/security"
 import { getAuth } from "@/shared/Form/ui/FormSlice"
 import { useDispatch } from "react-redux"
@@ -97,7 +97,7 @@ const FormRegistration = () => {
 
       <Button
         handleClick={async (e: any) => {
-          await handleSubmit(e, props)
+          await registrationValidate(e, props)
         }}
       >
         Регистрация
