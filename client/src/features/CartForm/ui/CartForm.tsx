@@ -15,7 +15,7 @@ export interface IProductCart {
   number: number
 }
 
-const CartForm = () => {
+const CartForm = ({ setCart }: any) => {
   const storage: string | null = localStorage.getItem("cart")
   const [dataStorage, setDataStorage] = useState<IProductCart[]>(
     storage ? JSON.parse(storage) : null
@@ -38,6 +38,14 @@ const CartForm = () => {
     }
   }, [renderCart])
 
+  useEffect(() => {
+    if (complitePay) {
+      localStorage.removeItem("cart")
+      setSum(0)
+      setDataStorage(storage ? JSON.parse(storage) : null)
+      setCart(null)
+    }
+  }, [complitePay])
   return (
     <>
       {complitePay ? (

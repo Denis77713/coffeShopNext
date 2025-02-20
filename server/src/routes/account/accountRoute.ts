@@ -16,6 +16,7 @@ router.post("/logout", UserController.logout)
 router.get("/activated/:link", UserController.activated)
 router.get("/refresh", UserController.refresh)
 router.post("/getCartPay", isAuth, UserController.getCartPay)
+router.get("/product", isAuth, UserController.getProduct)
 router.get("/users", isAuth, UserController.getUsers)
 
 export const accountRouter = router

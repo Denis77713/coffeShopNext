@@ -1,18 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-
 export interface LikeState {
   window: boolean
   Auth: number | boolean
   Activated: boolean
   renderCart: boolean
+  userId: number | null
 }
 
 const initialState: LikeState = {
   window: false,
-  Auth:false,
+  Auth: false,
   Activated: false,
-  renderCart: false
+  renderCart: false,
+  userId: null,
 }
 
 export const FormSlice = createSlice({
@@ -24,17 +25,25 @@ export const FormSlice = createSlice({
     },
     getAuth: (state, action) => {
       state.Auth = action.payload
-    },    
+    },
     getActivated: (state, action) => {
       state.Activated = action.payload
     },
     getRenderCart: (state, action) => {
       state.renderCart = action.payload
     },
-    
+    getUserId: (state, action) => {
+      state.userId = action.payload
+    },
   },
 })
 
-export const { getWindow, getAuth, getActivated,getRenderCart } = FormSlice.actions
+export const {
+  getWindow,
+  getAuth,
+  getActivated,
+  getRenderCart,
+  getUserId,
+} = FormSlice.actions
 
 export default FormSlice.reducer

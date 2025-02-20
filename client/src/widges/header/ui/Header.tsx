@@ -56,7 +56,6 @@ const Header: FC = () => {
 
   useEffect(() => {
     const storage = localStorage.getItem("cart")
-
     setCart(storage ? JSON.parse(storage) : null)
   }, [renderCart])
 
@@ -133,7 +132,9 @@ const Header: FC = () => {
       {formVisible === "account" && <FormAccount />}
       {formVisible === "registrarion" && <FormRegistration />}
       {formVisible === "login" && <FormLogin />}
-      {cart && cart.length !== 0 && formVisible === "cart" && <CartForm />}
+      {cart && cart.length !== 0 && formVisible === "cart" && (
+        <CartForm setCart={setCart} />
+      )}
     </>
   )
   function handleClickCart() {

@@ -10,7 +10,23 @@ export type IProductCart = {
   name: string
   number: number
 }
-
+function getFilter(productPay: any, text: string) {
+  const getUserProduct = productPay
+    .filter((item: any) => item.status === text)
+    .map((item: any) => item.productId)
+    .flat()
+  return getUserProduct
+}
+async function getDataUser(params: any) {
+  const posts = await prisma.product.findMany({
+    where: {
+      id: {
+        in: params,
+      },
+    },
+  })
+  return posts
+}
 class UserControllerClass {
   async registrarion(req: any, res: any, next: any) {
     // Результат валидации с роута регистрации, проверяет тело запросса
@@ -115,7 +131,7 @@ class UserControllerClass {
       })
       const arrId = data.map((item: IProductCart) => item.id)
       if (user && data && refreshToken) {
-        const product = await prisma.productPay.create({
+        await prisma.productPay.create({
           data: {
             userId: user.userId,
             productId: arrId,
@@ -126,6 +142,32 @@ class UserControllerClass {
       }
     } catch (e) {
       next(e)
+    }
+  }
+  async getProduct(req: any, res: any, next: any) {
+    const { refreshToken } = req.cookies
+    const userId = await prisma.token.findFirst({
+      where: { refreshToken: refreshToken },
+    })
+    if (userId) {
+      const productPay = await prisma.productPay.findMany({
+        where: {
+          userId: userId.userId,
+        },
+      })
+      const getUserProduct = getFilter(productPay, "Получен")
+      const getComplitePdoduct = getFilter(productPay, "Успешный заказ")
+      const getDevelery = getFilter(productPay, "Доставлен")
+      //
+      const userProduct = await getDataUser(getUserProduct)
+      const complitePdoduct = await getDataUser(getComplitePdoduct)
+      const develery = await getDataUser(getDevelery)
+      console.log(userProduct)
+      res.json({
+        userProduct: userProduct,
+        complitePdoduct: complitePdoduct,
+        develery: develery,
+      })
     }
   }
 }

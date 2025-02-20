@@ -1,12 +1,8 @@
-import IsLogin from "./isLogin"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
-import { headers } from 'next/headers'
+import AccountProductList from "../../../widges/AccountProductList/ui/AccountProductList"
 const Account = async () => {
-  
   return (
     <>
-      <IsLogin />
+      <AccountProductList />
       <h1>account</h1>
     </>
   )
