@@ -10,23 +10,7 @@ export type IProductCart = {
   name: string
   number: number
 }
-function getFilter(productPay: any, text: string) {
-  const getUserProduct = productPay
-    .filter((item: any) => item.status === text)
-    .map((item: any) => item.productId)
-    .flat()
-  return getUserProduct
-}
-async function getDataUser(params: any) {
-  const posts = await prisma.product.findMany({
-    where: {
-      id: {
-        in: params,
-      },
-    },
-  })
-  return posts
-}
+
 class UserControllerClass {
   async registrarion(req: any, res: any, next: any) {
     // Результат валидации с роута регистрации, проверяет тело запросса
@@ -145,29 +129,19 @@ class UserControllerClass {
     }
   }
   async getProduct(req: any, res: any, next: any) {
-    const { refreshToken } = req.cookies
-    const userId = await prisma.token.findFirst({
-      where: { refreshToken: refreshToken },
-    })
-    if (userId) {
-      const productPay = await prisma.productPay.findMany({
-        where: {
-          userId: userId.userId,
-        },
-      })
-      const getUserProduct = getFilter(productPay, "Получен")
-      const getComplitePdoduct = getFilter(productPay, "Успешный заказ")
-      const getDevelery = getFilter(productPay, "Доставлен")
-      //
-      const userProduct = await getDataUser(getUserProduct)
-      const complitePdoduct = await getDataUser(getComplitePdoduct)
-      const develery = await getDataUser(getDevelery)
-      console.log(userProduct)
-      res.json({
-        userProduct: userProduct,
-        complitePdoduct: complitePdoduct,
-        develery: develery,
-      })
+    try {
+      const { refreshToken } = req.cookies
+      const getProductData = await userService.getProductService(refreshToken)
+      if (getProductData) {
+        const { userProduct, complitePdoduct, develery } = getProductData
+        res.json({
+          userProduct: userProduct,
+          complitePdoduct: complitePdoduct,
+          develery: develery,
+        })
+      }
+    } catch (e) {
+      next(e)
     }
   }
 }

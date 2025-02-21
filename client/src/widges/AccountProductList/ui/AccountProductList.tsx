@@ -11,23 +11,15 @@ const AccountProductList = () => {
   useEffect(() => {
     async function Login() {
       try {
-        const AuthorizasionData = await Authorizasion()
-        setstate(AuthorizasionData)
+        await Authorizasion()
+        const data = await getProcuctAccount()
+        setstate(data)
       } catch (e) {
         redirectAction("/")
       }
     }
     Login()
   }, [])
-  useEffect(() => {
-    async function getData() {
-      if (state) {
-        const data = await getProcuctAccount()
-        console.log(data)
-      }
-    }
-    getData()
-  }, [state])
 
   return <></>
 }
