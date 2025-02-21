@@ -25,7 +25,6 @@ export default async function Home() {
     <Skeleton number={4} wrapper={bestList} inner={bestItem} />
   )
   const category = await getCategoryes()
-  const cookie =  getCookie()
   return (
     <div>
       <main>
@@ -49,4 +48,3 @@ export default async function Home() {
     </div>
   )
 }
-

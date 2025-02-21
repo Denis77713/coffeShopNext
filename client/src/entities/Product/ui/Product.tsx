@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { FC } from "react"
 import style from "./Product.module.css"
 import Like from "@/shared/like/ui/Like"
 import Link from "next/link"
@@ -14,10 +13,13 @@ import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart, getWindow } from "@/shared/Form/ui/FormSlice"
 
-const Product: FC<{ item: Item; category: TypeCategory[] }> = ({
-  item,
-  category,
-}) => {
+interface IProduct {
+  item: Item
+  category: TypeCategory[]
+  pay?: boolean
+}
+
+const Product = ({ item, category, pay = true }: IProduct) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
 
@@ -44,15 +46,17 @@ const Product: FC<{ item: Item; category: TypeCategory[] }> = ({
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
-      <Button
-        handleClick={() => {
-          addProductCard(item)
-          dispatch(getRenderCart(!renderCart))
-          dispatch(getWindow(""))
-        }}
-      >
-        Купить
-      </Button>
+      {pay && (
+        <Button
+          handleClick={() => {
+            addProductCard(item)
+            dispatch(getRenderCart(!renderCart))
+            dispatch(getWindow(""))
+          }}
+        >
+          Купить
+        </Button>
+      )}
     </div>
   )
 }

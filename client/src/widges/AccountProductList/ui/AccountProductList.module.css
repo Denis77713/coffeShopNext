@@ -1,0 +1,13 @@
+.wrapper {
+  border: 10px solid black;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.wrapper ul {
+  display: flex;
+  justify-content: center;
+}
+.wrapper ul li {
+}

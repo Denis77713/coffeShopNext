@@ -5,9 +5,8 @@ import style from "./CarouselSlider.module.css"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import { useEffect, useState } from "react"
-import img from '@/../public/slider/slide1.jpg'
+import img from "@/../public/slider/slide1.jpg"
 const CarouselSlider = () => {
-
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
@@ -44,13 +43,13 @@ const CarouselSlider = () => {
       ) : (
         <Carousel responsive={responsive} infinite={true}>
           <Image
-              className={style.sliderItem}
-              width={1000}
-              height={400}
-              src={img}
-              alt={'slid-one'}
-              placeholder='blur'
-            />
+            className={style.sliderItem}
+            width={1000}
+            height={400}
+            src={img}
+            alt={"slid-one"}
+            placeholder="blur"
+          />
           {images?.map((item) => (
             <Image
               className={style.sliderItem}
