@@ -1,13 +1,15 @@
-.wrapper {
-  border: 10px solid black;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+.item {
   position: relative;
+  max-width: 200px;
+  margin: 0 auto;
 }
-.wrapper ul {
-  display: flex;
-  justify-content: center;
-}
-.wrapper ul li {
+.text {
+  position: absolute;
+  top: 120px;
+  color: green;
+  background: white;
+  text-align: center;
+  left: 20px;
+  right: 20px;
+  border-radius: 10px;
 }

@@ -10,8 +10,10 @@ import BestProductList from "@/widges/BestProductList/ui/BestProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
-import { getCookie, getProduct } from "../api/api"
+import { getProduct } from "../api/api"
 import { getCategoryes } from "@/widges/CategoryList/api/api"
+import img from "@/../public/slider/slide1.jpg"
+import Image from "next/image"
 
 export default async function Home() {
   // Лучшие продусты
@@ -25,11 +27,44 @@ export default async function Home() {
     <Skeleton number={4} wrapper={bestList} inner={bestItem} />
   )
   const category = await getCategoryes()
+  const images = [
+    { id: 2, src: "/slider/slide2.jpg" },
+    { id: 3, src: "/slider/slide3.jpg" },
+  ]
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+  }
   return (
     <div>
       <main>
         <Title coffeNum={"true"}>Кофейни:</Title>
-        <CarouselSlider />
+        <CarouselSlider responsive={responsive}>
+          <Image
+            className={style.sliderItem}
+            width={1000}
+            height={400}
+            src={img}
+            alt={"slid-one"}
+            placeholder="blur"
+          />
+          {images?.map((item) => (
+            <Image
+              className={style.sliderItem}
+              width={1000}
+              height={400}
+              key={item.id}
+              src={item.src}
+              alt={item.src}
+            />
+          ))}
+        </CarouselSlider>
         <LocationsList />
         <Title coffeNum={"false"} styles={style.title}>
           Асcортимент

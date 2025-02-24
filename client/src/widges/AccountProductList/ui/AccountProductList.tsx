@@ -1,14 +1,13 @@
 "use client"
 
-import { Authorizasion } from "@/widges/header/api/api"
 import { FC, useEffect, useState } from "react"
-import { redirectAction } from "../../../pages/account/api/api"
 import { getProcuctAccount } from "../api/api"
 import { AxiosResponse } from "axios"
 import Product from "@/entities/Product/ui/Product"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
-import Carousel from "react-multi-carousel"
+import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
+import { useSelector } from "react-redux"
 
 interface IProductPayItem {
   id: number
@@ -36,54 +35,44 @@ const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
     null | IDataProductPay | AxiosResponse<null, IDataProductPay>
   >(null)
   //
-  const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 1,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  }
+  const Auth = useSelector((store: any) => store.FormSlice.Auth)
+
   useEffect(() => {
     async function Login() {
-      try {
-        await Authorizasion()
+      if (Auth) {
         const data = await getProcuctAccount()
         setstate(data)
-      } catch (e) {
-        redirectAction("/")
       }
     }
     Login()
-  }, [])
-  console.log(state)
+  }, [Auth])
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 1000 },
+      items: 3,
+    },
+    desktop: {
+      breakpoint: { max: 1000, min: 540 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 540, min: 0 },
+      items: 1,
+    },
+  }
   return (
     <div>
       {state?.data && (
         <div>
-          <h2>История</h2>
-          <Carousel
-            className={style.wrapper}
-            responsive={responsive}
-            infinite={true}
-          >
+          <h2>История заказов</h2>
+          <CarouselSlider responsive={responsive}>
             {state?.data?.userProduct.map((item: IProductPayItem) => (
-              <div key={item.id}>
+              <div className={style.item} key={item.id}>
                 <Product item={item} category={category} pay={false} />
+                <div className={style.text}>Оплачен</div>
               </div>
             ))}
-          </Carousel>
+          </CarouselSlider>
         </div>
       )}
     </div>
