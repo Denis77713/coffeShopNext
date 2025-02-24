@@ -9,7 +9,7 @@ import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
 import { useSelector } from "react-redux"
 
-interface IProductPayItem {
+export interface IProductPayItem {
   id: number
   name: string
   imageUrl: string
@@ -21,12 +21,12 @@ interface IProductPayItem {
   number: number
   categoryId: number
 }
-interface IProductPay {
+export interface IProductPay {
   userProduct: IProductPayItem[]
   complitePdoduct: IProductPayItem[]
   develery: IProductPayItem[]
 }
-interface IDataProductPay {
+export interface IDataProductPay {
   data: IProductPay
 }
 
@@ -64,7 +64,7 @@ const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
     <div>
       {state?.data && (
         <div>
-          <h2>История заказов</h2>
+          <h2 className={style.title}>История заказов</h2>
           <CarouselSlider responsive={responsive}>
             {state?.data?.userProduct.map((item: IProductPayItem) => (
               <div className={style.item} key={item.id}>

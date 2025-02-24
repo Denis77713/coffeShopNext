@@ -10,23 +10,28 @@ import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 
 export type TypeCategory = {
-    id: number;
-    name: string;
-    image: string;
-    page: string;
+  id: number
+  name: string
+  image: string
+  page: string
 }
 
-const ProductList: FC<{ res: Item[],category:TypeCategory[]  }> = ({ res,category }) => {
+const ProductList: FC<{ res: Item[]; category: TypeCategory[] }> = ({
+  res,
+  category,
+}) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
 
   useStorage(state, setCount)
   addLikeInList(res, count)
   return (
-    <div className={`${style.bestList} ${bestStyle.bestList}`} onClick={() => setState(!state)}>
+    <div
+      className={`${style.bestList} ${bestStyle.bestList}`}
+      onClick={() => setState(!state)}
+    >
       {res.map((item) => (
-        <Product key={item.id} item={item} category={category}
-        />
+        <Product key={item.id} item={item} category={category} />
       ))}
     </div>
   )
