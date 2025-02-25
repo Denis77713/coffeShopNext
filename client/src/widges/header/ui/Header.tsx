@@ -24,12 +24,21 @@ const Header: FC = () => {
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
+  const [like, setLike] = useState([])
   const data = useSelector((store: any) => store.like.storage)
   const num = data.filter((item: IntStorageData) => item.like === true)
 
+  console.log(like)
   useEffect(() => {
     const cheskRefresh = async () => {
       const storage = localStorage.getItem("cart")
+      const storageLike = localStorage.getItem("like")
+      if (storageLike) {
+        const parse = JSON.parse(storageLike)
+        const num = parse.filter((item: IntStorageData) => item.like === true)
+        setLike(num ? num : null)
+      }
+
       setCart(storage ? JSON.parse(storage) : null)
       const token = localStorage.getItem("token")
       if (token) {
@@ -57,6 +66,12 @@ const Header: FC = () => {
   useEffect(() => {
     const storage = localStorage.getItem("cart")
     setCart(storage ? JSON.parse(storage) : null)
+    const storageLike = localStorage.getItem("like")
+    if (storageLike) {
+      const parse = JSON.parse(storageLike)
+      const num = parse.filter((item: IntStorageData) => item.like === true)
+      setLike(num ? num : null)
+    }
   }, [renderCart])
 
   return (
@@ -125,7 +140,7 @@ const Header: FC = () => {
             </div>
           )}
           <Link href={"/favorites"}>
-            <IconHeader image={"/like.svg"} alt={"like"} num={num} />
+            <IconHeader image={"/like.svg"} alt={"like"} num={like} />
           </Link>
         </div>
       </header>
