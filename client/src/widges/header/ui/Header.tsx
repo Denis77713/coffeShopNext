@@ -15,7 +15,6 @@ import { redirectAction } from "@/pages/account/api/api"
 import CartForm from "@/features/CartForm/ui/CartForm"
 import { IntStorageData } from "@/shared/like/ui/Like"
 import IconHeader from "@/features/IconHeader/ui/IconHeader"
-import UseLogin from "@/shared/api/UseLogin"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
@@ -26,7 +25,6 @@ const Header: FC = () => {
   const [cart, setCart] = useState([])
   const [like, setLike] = useState([])
 
-  UseLogin()
   useEffect(() => {
     const storage = localStorage.getItem("cart")
     const storageLike = localStorage.getItem("like")
