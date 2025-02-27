@@ -25,7 +25,6 @@ const Header: FC = () => {
   const [cart, setCart] = useState([])
   const [like, setLike] = useState([])
 
-  const token = localStorage.getItem("token")
   useEffect(() => {
     const storage = localStorage.getItem("cart")
     const storageLike = localStorage.getItem("like")
