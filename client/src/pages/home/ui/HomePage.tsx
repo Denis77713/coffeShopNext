@@ -14,6 +14,7 @@ import { getProduct } from "../api/api"
 import { getCategoryes } from "@/widges/CategoryList/api/api"
 import img from "@/../public/slider/slide1.jpg"
 import Image from "next/image"
+import IsToken from "@/shared/Hookcs/IsToken"
 
 export default async function Home() {
   // Лучшие продусты
@@ -44,6 +45,7 @@ export default async function Home() {
   return (
     <div>
       <main>
+        <IsToken />
         <Title coffeNum={"true"}>Кофейни:</Title>
         <CarouselSlider responsive={responsive}>
           <Image

@@ -1,10 +1,12 @@
 import CategoryList from "@/widges/CategoryList/ui/CategoryList"
-import style from './AdminPanelPage.module.css'
+import style from "./AdminPanelPage.module.css"
+import IsToken from "@/shared/Hookcs/IsToken"
 
 const AdminPanelPage = async () => {
   return (
     <div className={style.list}>
-      <CategoryList  page={"adminPanel"} />
+      <IsToken />
+      <CategoryList page={"adminPanel"} />
     </div>
   )
 }

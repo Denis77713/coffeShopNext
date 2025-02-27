@@ -5,6 +5,7 @@ import { getCategory } from "./getProductAndFilters"
 import { FC } from "react"
 import { getCategoryes } from "@/widges/CategoryList/api/api"
 import Pagination from "@/features/Pagination/ui/Pagination"
+import IsToken from "@/shared/Hookcs/IsToken"
 
 export type IParams = {
   id: string
@@ -20,6 +21,7 @@ const ProductsPage: FC<{ params: IParams; searchParams: string }> = async ({
   // const numProduct = res.numProduct / numProductInPage
   return (
     <main className="container">
+      <IsToken />
       <Search />
       <FilterList filters={res.filtersData} />
       <ProductList res={res.productData} category={category} />

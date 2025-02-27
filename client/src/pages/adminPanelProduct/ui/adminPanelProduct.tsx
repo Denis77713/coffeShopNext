@@ -6,20 +6,25 @@ import Link from "next/link"
 import Button from "@/shared/ui/Button"
 import Search from "@/features/Search/ui/Search"
 import Pagination from "@/features/Pagination/ui/Pagination"
+import IsToken from "@/shared/Hookcs/IsToken"
 
-const adminPanelProduct: FC<{ params: IParams,searchParams: string }> = async ({ params, searchParams }) => {
+const adminPanelProduct: FC<{
+  params: IParams
+  searchParams: string
+}> = async ({ params, searchParams }) => {
   // const res = await getCategory(`/${params.id}`, searchParams)
   return (
     <div className={`${style.wrapper}`}>
-      <div className = {style.mB}>
-        <Search/>
+      <IsToken />
+      <div className={style.mB}>
+        <Search />
       </div>
       <Link href={"/adminPanel"}>
         <Button>Админ панель</Button>
       </Link>
       <FormAddProduct />
       {/* <AdminProductList data={res.productData}  /> */}
-      <Pagination/>
+      <Pagination />
     </div>
   )
 }
