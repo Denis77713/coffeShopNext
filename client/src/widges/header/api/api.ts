@@ -16,6 +16,11 @@ export async function refresh() {
 }
 
 export async function Authorizasion() {
-const res = api.get('/users',)
-return res
+  let res
+  try {
+    res = api.get("/users")
+  } catch (e) {
+    res = e
+  }
+  return res
 }

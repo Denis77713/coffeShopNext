@@ -25,7 +25,9 @@ const Header: FC = () => {
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
   const [like, setLike] = useState([])
-  // UseLogin()
+
+  const token = localStorage.getItem("token")
+  if (token) UseLogin()
   useEffect(() => {
     const storage = localStorage.getItem("cart")
     const storageLike = localStorage.getItem("like")

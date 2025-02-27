@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { getActivated, getAuth } from "../Form/ui/FormSlice"
-import { Authorizasion, refresh } from "@/widges/header/api/api"
+import { api } from "@/widges/header/api/api"
 import { useDispatch } from "react-redux"
 
 const UseLogin = () => {
@@ -12,21 +12,23 @@ const UseLogin = () => {
       const token = localStorage.getItem("token")
       if (token) {
         try {
-          const AuthorizasionData = await Authorizasion()
+          const AuthorizasionData = await api.get("/users")
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
         } catch (e) {
           localStorage.removeItem("token")
           try {
-            const data = await refresh()
-            dispatch(getAuth(401))
+            await api.get("/refresh")
+          } catch {
+            const data = await api.get("/refresh")
             localStorage.setItem("token", data.data.accessToken)
-            const AuthorizasionData = await Authorizasion()
+            const AuthorizasionData = await api.get("/users")
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
-          } catch (e) {}
+          }
         }
       } else {
+        await api.post("/logout")
         dispatch(getAuth(401))
       }
     }
