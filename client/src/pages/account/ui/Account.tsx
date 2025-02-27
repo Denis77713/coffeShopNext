@@ -1,7 +1,8 @@
 import { getCategoryes } from "@/widges/CategoryList/api/api"
 import AccountProductList from "../../../widges/AccountProductList/ui/AccountProductList"
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
-import IsLogin from "@/features/IsLogin/ui/IsLogin"
+import IsLogin from "@/shared/Hookcs/IsLogin"
+
 const Account = async () => {
   const category = await getCategoryes()
 

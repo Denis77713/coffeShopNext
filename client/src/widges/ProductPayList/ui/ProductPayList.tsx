@@ -24,7 +24,7 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
 
   useEffect(() => {
     async function Login() {
-      if (Auth) {
+      if (Auth === 200) {
         const data = await getProcuctAccount()
         setData(data)
         setVisible(
@@ -35,7 +35,6 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
     }
     Login()
   }, [Auth])
-  console.log(data?.data?.complitePdoduct)
   return (
     <div className={visible ? `container` : `${style.dnone}`}>
       {data?.data?.complitePdoduct.length !== 0 && (

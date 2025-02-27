@@ -8,6 +8,7 @@ import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
 import { useSelector } from "react-redux"
+import IsLogin from "@/shared/Hookcs/IsLogin"
 
 export interface IProductPayItem {
   id: number
@@ -36,10 +37,9 @@ const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
   >(null)
   //
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
-
   useEffect(() => {
     async function Login() {
-      if (Auth) {
+      if (Auth === 200) {
         const data = await getProcuctAccount()
         setstate(data)
       }
