@@ -7,7 +7,7 @@ import Button from "@/shared/ui/Button"
 import Form from "@/shared/Form/ui/Form"
 import { registrationValidate, registration } from "../api/api"
 import { inputSecurity } from "@/security"
-import { getAuth } from "@/shared/Form/ui/FormSlice"
+import { getAuth } from "@/shared/reducers/FormSlice"
 import { useDispatch } from "react-redux"
 
 export interface IError {

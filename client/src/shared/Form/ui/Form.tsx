@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useRef } from "react"
 import style from "./Form.module.css"
 import { useDispatch } from "react-redux"
-import { getWindow } from "./FormSlice"
+import { getWindow } from "../../reducers/FormSlice"
 
 type IForm = {
   children: React.ReactNode

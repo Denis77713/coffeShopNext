@@ -8,7 +8,7 @@ import Form from "@/shared/Form/ui/Form"
 import { inputSecurity } from "@/security"
 import { IError } from "@/features/FormRegistration/ui/FormRegistration"
 import { useDispatch, useSelector } from "react-redux"
-import { getActivated, getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
+import { getActivated, getAuth, getWindow } from "@/shared/reducers/FormSlice"
 import { LoginValidation, login } from "../api/api"
 
 const FormLogin = () => {

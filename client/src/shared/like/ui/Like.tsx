@@ -3,8 +3,10 @@
 import { FC, useEffect, useState } from "react"
 import Image from "next/image"
 import style from "./like.module.css"
-import { handleclick,getState } from "./FunctionsLike"
+import { handleclick, getState } from "./FunctionsLike"
 import { Item } from "@/entities/Product/ui/ProductType"
+import { useDispatch, useSelector } from "react-redux"
+import { getRenderCart } from "@/shared/reducers/FormSlice"
 
 export type IntStorageData = {
   id: number
@@ -17,7 +19,9 @@ const Like: FC<{ item: Item }> = ({ item }) => {
   useEffect(() => {
     setState(getState(item))
   })
-  
+  const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
+
+  const dispatch = useDispatch()
   return (
     <Image
       className={style.like}
@@ -28,9 +32,9 @@ const Like: FC<{ item: Item }> = ({ item }) => {
       onClick={() => {
         getState(item)
         handleclick(item, setState)
+        dispatch(getRenderCart(!renderCart))
       }}
     />
   )
-  
 }
 export default Like

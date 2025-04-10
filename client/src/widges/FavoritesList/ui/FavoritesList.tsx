@@ -4,11 +4,8 @@ import Product from "@/entities/Product/ui/Product"
 import { FC, useEffect, useState } from "react"
 import style from "./FavoritesList.module.css"
 import { useDispatch } from "react-redux"
-import {
-  getProductNum,
-  getProductSum,
-} from "@/pages/favorites/ui/FavoriteSlice"
-import { getLike } from "@/features/IconHeader/ui/SlicelikeGroup"
+import { getProductNum, getProductSum } from "@/shared/reducers/FavoriteSlice"
+import { getLike } from "@/shared/reducers/SlicelikeGroup"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"

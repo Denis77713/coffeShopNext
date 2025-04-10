@@ -11,7 +11,7 @@ import { Item } from "./ProductType"
 import Button from "@/shared/ui/Button"
 import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
-import { getRenderCart, getWindow } from "@/shared/Form/ui/FormSlice"
+import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
 
 interface IProduct {
   item: Item

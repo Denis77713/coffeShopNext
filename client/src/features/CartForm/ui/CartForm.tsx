@@ -3,7 +3,7 @@ import Image from "next/image"
 import style from "./CartForm.module.css"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getRenderCart } from "@/shared/Form/ui/FormSlice"
+import { getRenderCart } from "@/shared/reducers/FormSlice"
 import Button from "@/shared/ui/Button"
 import { getCartPay } from "../api/api"
 

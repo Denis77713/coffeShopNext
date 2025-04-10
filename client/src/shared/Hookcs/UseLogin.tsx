@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { getActivated, getAuth } from "../Form/ui/FormSlice"
+import { getActivated, getAuth } from "../reducers/FormSlice"
 import { api } from "@/widges/header/api/api"
 import { useDispatch } from "react-redux"
 
