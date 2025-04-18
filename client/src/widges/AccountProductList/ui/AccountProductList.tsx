@@ -64,6 +64,7 @@ const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
                   category={category}
                   pay={false}
                   path="products/"
+                  isLike={false}
                 />
                 <div className={style.text}>Оплачен</div>
               </div>

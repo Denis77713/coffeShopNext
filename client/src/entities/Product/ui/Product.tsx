@@ -18,9 +18,16 @@ interface IProduct {
   category: TypeCategory[]
   pay?: boolean
   path?: string
+  isLike?: boolean
 }
 
-const Product = ({ item, category, pay = true, path }: IProduct) => {
+const Product = ({
+  item,
+  category,
+  pay = true,
+  path,
+  isLike = true,
+}: IProduct) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
 
@@ -41,7 +48,7 @@ const Product = ({ item, category, pay = true, path }: IProduct) => {
               onClick={() => addCookie(item.id)}
             />
           </Link>
-          <Like item={item} />
+          {isLike && <Like item={item} />}
           <div className={style.weight}>{`${item.weight} г.`}</div>
         </div>
         <div>{item.name}</div>
