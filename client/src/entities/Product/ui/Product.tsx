@@ -17,9 +17,10 @@ interface IProduct {
   item: Item
   category: TypeCategory[]
   pay?: boolean
+  path?: string
 }
 
-const Product = ({ item, category, pay = true }: IProduct) => {
+const Product = ({ item, category, pay = true, path }: IProduct) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
 
@@ -29,7 +30,7 @@ const Product = ({ item, category, pay = true }: IProduct) => {
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
         <div className={style.wrapper}>
-          <Link href={url}>
+          <Link href={path ? `${path}${url}` : url}>
             <Image
               src={`/product/${item.imageUrl}.png`}
               alt={item.imageUrl}

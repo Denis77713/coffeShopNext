@@ -59,7 +59,12 @@ const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
           <CarouselSlider responsive={responsive}>
             {state?.data?.userProduct.map((item: IProductPayItem) => (
               <div className={style.item} key={item.id}>
-                <Product item={item} category={category} pay={false} />
+                <Product
+                  item={item}
+                  category={category}
+                  pay={false}
+                  path="products/"
+                />
                 <div className={style.text}>Оплачен</div>
               </div>
             ))}

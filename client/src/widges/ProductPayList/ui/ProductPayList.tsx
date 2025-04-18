@@ -29,7 +29,7 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
         data?.data?.develery.length !== 0
     )
   }, [data])
-
+  console.log(category)
   return (
     <div className={visible ? `container` : `${style.dnone}`}>
       {data?.data?.complitePdoduct.length !== 0 && (
@@ -38,7 +38,12 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
       <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
         {data?.data?.complitePdoduct.map((item: IProductPayItem) => (
           <div className={styleCart.item} key={item.id}>
-            <Product item={item} category={category} pay={false} />
+            <Product
+              item={item}
+              category={category}
+              pay={false}
+              path="products/"
+            />
             <div className={styleCart.text}>Товар в пути</div>
           </div>
         ))}
@@ -49,7 +54,12 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
       <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
         {data?.data?.develery.map((item: IProductPayItem) => (
           <div className={styleCart.item} key={item.id}>
-            <Product item={item} category={category} pay={false} />
+            <Product
+              item={item}
+              category={category}
+              pay={false}
+              path="products/"
+            />
             <div className={styleCart.text}>Доставлен</div>
           </div>
         ))}
