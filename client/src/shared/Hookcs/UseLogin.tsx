@@ -28,7 +28,6 @@ const UseLogin = () => {
           }
         }
       } else {
-        // await api.post("/logout")
         dispatch(getAuth(401))
       }
     }

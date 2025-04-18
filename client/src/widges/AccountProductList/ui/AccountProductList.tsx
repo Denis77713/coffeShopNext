@@ -1,13 +1,12 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import { getProcuctAccount } from "../api/api"
 import { AxiosResponse } from "axios"
 import Product from "@/entities/Product/ui/Product"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
-import { useSelector } from "react-redux"
 import IsLogin from "@/shared/Hookcs/IsLogin"
 
 export interface IProductPayItem {
@@ -32,20 +31,12 @@ export interface IDataProductPay {
 }
 
 const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
-  const [state, setstate] = useState<
+  const [state, setState] = useState<
     null | IDataProductPay | AxiosResponse<null, IDataProductPay>
   >(null)
-  //
-  const Auth = useSelector((store: any) => store.FormSlice.Auth)
-  useEffect(() => {
-    async function Login() {
-      if (Auth === 200) {
-        const data = await getProcuctAccount()
-        setstate(data)
-      }
-    }
-    Login()
-  }, [Auth])
+
+  IsLogin(setState, getProcuctAccount)
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1000 },

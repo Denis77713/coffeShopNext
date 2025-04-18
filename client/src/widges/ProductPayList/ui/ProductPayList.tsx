@@ -9,32 +9,27 @@ import {
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { AxiosResponse } from "axios"
 import { FC, useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import styleCart from "../../../widges/AccountProductList/ui/AccountProductList.module.css"
 import style from "./ProductPayList.module.css"
 import bestList from "../../ProductList/ui/ProductList.module.css"
 import bestStyle from "../../BestProductList/ui/BestProductList.module.css"
+import IsLogin from "@/shared/Hookcs/IsLogin"
 
 const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
-  const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const [visible, setVisible] = useState(false)
   const [data, setData] = useState<
     null | IDataProductPay | AxiosResponse<null, IDataProductPay>
   >(null)
 
+  IsLogin(setData, getProcuctAccount)
+
   useEffect(() => {
-    async function Login() {
-      if (Auth === 200) {
-        const data = await getProcuctAccount()
-        setData(data)
-        setVisible(
-          data?.data?.complitePdoduct.length !== 0 ||
-            data?.data?.develery.length !== 0
-        )
-      }
-    }
-    Login()
-  }, [Auth])
+    setVisible(
+      data?.data?.complitePdoduct.length !== 0 ||
+        data?.data?.develery.length !== 0
+    )
+  }, [data])
+
   return (
     <div className={visible ? `container` : `${style.dnone}`}>
       {data?.data?.complitePdoduct.length !== 0 && (

@@ -1,16 +1,30 @@
-"use client"
-
-import { redirectAction } from "@/pages/account/api/api"
-import UseLogin from "@/shared/Hookcs/UseLogin"
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import UseLogin from "./UseLogin"
+import { api } from "@/widges/header/api/api"
 
-const IsLogin = () => {
+const IsLogin = (setCategory: any, func: any) => {
   UseLogin()
-  const Auth = useSelector((store: any) => store.FormSlice.Auth)
   useEffect(() => {
-    Auth === 401 && redirectAction("/")
-  }, [Auth])
+    async function Login() {
+      try {
+        const data = await func()
+        setCategory(data)
+      } catch {
+        localStorage.removeItem("token")
+        try {
+          await api.get("/refresh")
+        } catch {
+          const data = await api.get("/refresh")
+          localStorage.setItem("token", data.data.accessToken)
+          await api.get("/users")
+          const qwe = await func()
+          setCategory(qwe)
+        }
+      }
+    }
+    Login()
+  }, [])
+
   return null
 }
 
