@@ -15,6 +15,7 @@ import { getCategoryes } from "@/widges/CategoryList/api/api"
 import img from "@/../public/slider/slide1.jpg"
 import Image from "next/image"
 import IsToken from "@/shared/Hookcs/IsToken"
+import GradeStar from "./GradeStar"
 
 export default async function Home() {
   // Лучшие продусты
@@ -45,6 +46,7 @@ export default async function Home() {
   return (
     <div>
       <main>
+        <GradeStar grade={5} />
         <IsToken />
         <Title coffeNum={"true"}>Кофейни:</Title>
         <CarouselSlider responsive={responsive}>
