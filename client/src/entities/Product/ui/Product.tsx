@@ -12,6 +12,7 @@ import Button from "@/shared/ui/Button"
 import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
+import GradeStar from "@/shared/Star/GradeStar"
 
 interface IProduct {
   item: Item
@@ -54,6 +55,7 @@ const Product = ({
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
+      <GradeStar grade={1} productId={item.id} />
       {pay && (
         <Button
           handleClick={() => {
