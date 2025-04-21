@@ -7,12 +7,19 @@ import Button from "@/shared/ui/Button"
 import Search from "@/features/Search/ui/Search"
 import Pagination from "@/features/Pagination/ui/Pagination"
 import IsToken from "@/shared/Hookcs/IsToken"
+import AdminProductList from "@/widges/AdminProductList/ui/AdminProductList"
+import { getCategory } from "@/pages/products/ui/getProductAndFilters"
 
 const adminPanelProduct: FC<{
   params: IParams
   searchParams: string
 }> = async ({ params, searchParams }) => {
-  // const res = await getCategory(`/${params.id}`, searchParams)
+  //
+  //
+  const numProductInPage = 8
+  const res = await getCategory(`/${params.id}`, searchParams, numProductInPage)
+  //
+  //
   return (
     <div className={`${style.wrapper}`}>
       <IsToken />
@@ -23,8 +30,8 @@ const adminPanelProduct: FC<{
         <Button>Админ панель</Button>
       </Link>
       <FormAddProduct />
-      {/* <AdminProductList data={res.productData}  /> */}
-      <Pagination />
+      <AdminProductList data={res.productData} />
+      <Pagination numProduct={res.numProduct / numProductInPage} />
     </div>
   )
 }

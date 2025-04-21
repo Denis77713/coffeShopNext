@@ -9,11 +9,15 @@ import { getLike } from "@/shared/reducers/SlicelikeGroup"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
+import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 
 const FavoritesList: FC<{ category: TypeCategory[] }> = ({ category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
   const dispatch = useDispatch()
+  const [grade, setGrade] = useState([])
+
+  UseGetGrade(setGrade, count)
 
   useEffect(() => {
     const storageJson: string | null = localStorage.getItem("like")
@@ -44,7 +48,12 @@ const FavoritesList: FC<{ category: TypeCategory[] }> = ({ category }) => {
   return (
     <div className={` ${bestStyle.bestList}`} onClick={() => setState(!state)}>
       {count.map((item) => (
-        <Product key={item.id} item={item} category={category} />
+        <Product
+          key={item.id}
+          item={item}
+          category={category}
+          grade={grade && grade}
+        />
       ))}
     </div>
   )

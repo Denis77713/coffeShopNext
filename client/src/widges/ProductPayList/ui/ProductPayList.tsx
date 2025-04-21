@@ -1,6 +1,6 @@
 "use client"
 
-import Product from "@/entities/Product/ui/Product"
+import Product, { Star } from "@/entities/Product/ui/Product"
 import { getProcuctAccount } from "@/widges/AccountProductList/api/api"
 import {
   IDataProductPay,
@@ -15,21 +15,23 @@ import bestList from "../../ProductList/ui/ProductList.module.css"
 import bestStyle from "../../BestProductList/ui/BestProductList.module.css"
 import IsLogin from "@/shared/Hookcs/IsLogin"
 
-const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
+const ProductPayList: FC<{
+  category: TypeCategory[]
+  gradeStar: Star[]
+}> = ({ category, gradeStar }) => {
   const [visible, setVisible] = useState(false)
   const [data, setData] = useState<
     null | IDataProductPay | AxiosResponse<null, IDataProductPay>
   >(null)
 
   IsLogin(setData, getProcuctAccount)
-
   useEffect(() => {
     setVisible(
       data?.data?.complitePdoduct.length !== 0 ||
         data?.data?.develery.length !== 0
     )
   }, [data])
-  console.log(category)
+
   return (
     <div className={visible ? `container` : `${style.dnone}`}>
       {data?.data?.complitePdoduct.length !== 0 && (
@@ -43,6 +45,7 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
               category={category}
               pay={false}
               path="products/"
+              grade={gradeStar && gradeStar}
             />
             <div className={styleCart.text}>Товар в пути</div>
           </div>
@@ -59,6 +62,7 @@ const ProductPayList: FC<{ category: TypeCategory[] }> = ({ category }) => {
               category={category}
               pay={false}
               path="products/"
+              grade={gradeStar && gradeStar}
             />
             <div className={styleCart.text}>Доставлен</div>
           </div>

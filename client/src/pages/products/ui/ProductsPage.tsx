@@ -15,10 +15,13 @@ const ProductsPage: FC<{ params: IParams; searchParams: string }> = async ({
   params,
   searchParams,
 }) => {
+  //
+  //
   const numProductInPage = 8
   const res = await getCategory(`/${params.id}`, searchParams, numProductInPage)
   const category = await getCategoryes()
-  // const numProduct = res.numProduct / numProductInPage
+  //
+  //
   return (
     <main className="container">
       <IsToken />

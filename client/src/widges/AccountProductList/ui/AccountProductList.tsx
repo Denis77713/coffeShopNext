@@ -3,7 +3,7 @@
 import { FC, useState } from "react"
 import { getProcuctAccount } from "../api/api"
 import { AxiosResponse } from "axios"
-import Product from "@/entities/Product/ui/Product"
+import Product, { Star } from "@/entities/Product/ui/Product"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
@@ -30,7 +30,10 @@ export interface IDataProductPay {
   data: IProductPay
 }
 
-const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
+const AccountProductList: FC<{
+  category: TypeCategory[]
+  gradeStar: Star[]
+}> = ({ category, gradeStar }) => {
   const [state, setState] = useState<
     null | IDataProductPay | AxiosResponse<null, IDataProductPay>
   >(null)
@@ -65,6 +68,7 @@ const AccountProductList: FC<{ category: TypeCategory[] }> = ({ category }) => {
                   pay={false}
                   path="products/"
                   isLike={false}
+                  grade={gradeStar && gradeStar}
                 />
                 <div className={style.text}>Оплачен</div>
               </div>

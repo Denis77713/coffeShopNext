@@ -211,5 +211,13 @@ class userServiceClass {
     }
     return result
   }
+  async getGradeServise(databody: number[]) {
+    const grade = await prisma.gradeStar.findMany({
+      where: {
+        productId: { in: databody },
+      },
+    })
+    return grade
+  }
 }
 export const userService = new userServiceClass()

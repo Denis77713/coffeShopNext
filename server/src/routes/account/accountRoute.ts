@@ -18,5 +18,7 @@ router.get("/refresh", UserController.refresh)
 router.post("/getCartPay", isAuth, UserController.getCartPay)
 router.get("/product", isAuth, UserController.getProduct)
 router.get("/users", isAuth, UserController.getUsers)
+router.post("/getGrade", UserController.getGrade)
+router.post("/postGrade", UserController.postGrade)
 
 export const accountRouter = router

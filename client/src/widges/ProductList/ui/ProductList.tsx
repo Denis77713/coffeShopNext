@@ -8,6 +8,7 @@ import style from "./ProductList.module.css"
 import { Item } from "@/entities/Product/ui/ProductType"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
+import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 
 export type TypeCategory = {
   id: number
@@ -22,6 +23,9 @@ const ProductList: FC<{ res: Item[]; category: TypeCategory[] }> = ({
 }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
+  const [grade, setGrade] = useState([])
+
+  UseGetGrade(setGrade, res)
 
   useStorage(state, setCount)
   addLikeInList(res, count)
@@ -31,7 +35,12 @@ const ProductList: FC<{ res: Item[]; category: TypeCategory[] }> = ({
       onClick={() => setState(!state)}
     >
       {res.map((item) => (
-        <Product key={item.id} item={item} category={category} />
+        <Product
+          key={item.id}
+          item={item}
+          category={category}
+          grade={grade && grade}
+        />
       ))}
     </div>
   )

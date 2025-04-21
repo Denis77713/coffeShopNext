@@ -20,6 +20,16 @@ interface IProduct {
   pay?: boolean
   path?: string
   isLike?: boolean
+  grade: Star[]
+}
+
+export interface Star {
+  comment: string | null
+  grade: number
+  id: number
+  productId: number
+  userAnonim: boolean
+  userId: number | null
 }
 
 const Product = ({
@@ -28,12 +38,14 @@ const Product = ({
   pay = true,
   path,
   isLike = true,
+  grade,
 }: IProduct) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
 
   const pathname = usePathname()
   const url = getPageCategory(item, category, pathname)
+  const newGrade = grade.filter((inner: any) => item.id === inner.productId)
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
@@ -55,7 +67,7 @@ const Product = ({
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
-      <GradeStar grade={1} productId={item.id} />
+      <GradeStar grade={newGrade[0]?.grade} productId={item.id} />
       {pay && (
         <Button
           handleClick={() => {
