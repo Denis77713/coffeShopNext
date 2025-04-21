@@ -22,6 +22,7 @@ const BestProductList: FC<{ dataList: Item[]; category: TypeCategory[] }> = ({
   useStorage(state, setCount)
   addLikeInList(dataList, count)
   UseGetGrade(setGrade, dataList)
+
   return (
     <div
       className={`container ${style.bestList}`}
@@ -38,5 +39,4 @@ const BestProductList: FC<{ dataList: Item[]; category: TypeCategory[] }> = ({
     </div>
   )
 }
-
 export default BestProductList

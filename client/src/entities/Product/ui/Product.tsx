@@ -13,6 +13,7 @@ import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
 import GradeStar from "@/shared/Star/GradeStar"
+import { useEffect, useState } from "react"
 
 interface IProduct {
   item: Item
@@ -42,10 +43,21 @@ const Product = ({
 }: IProduct) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
-
   const pathname = usePathname()
   const url = getPageCategory(item, category, pathname)
   const newGrade = grade.filter((inner: any) => item.id === inner.productId)
+  //
+
+  const [state, setState] = useState(0)
+  //
+  useEffect(() => {
+    const newGradeSum = newGrade.reduce((acc, number) => acc + number.grade, 0)
+    const reStar =
+      newGrade.length !== 0 ? Math.round(newGradeSum / newGrade.length) : 0
+    setState(reStar)
+  }, [newGrade])
+  //
+  //
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
@@ -67,7 +79,7 @@ const Product = ({
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
-      <GradeStar grade={newGrade[0]?.grade} productId={item.id} />
+      <GradeStar grade={state >= 5 ? 5 : state} productId={item.id} />
       {pay && (
         <Button
           handleClick={() => {

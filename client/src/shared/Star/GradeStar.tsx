@@ -1,18 +1,44 @@
 "use client"
 
 import style from "./GradeStar.module.css"
-import { FC } from "react"
+import { FC, useState } from "react"
 import Star from "./Star"
+import { api } from "@/widges/header/api/api"
+import { useDispatch, useSelector } from "react-redux"
+import { getUserRender } from "../reducers/FormSlice"
+
+interface Iuser {
+  activationLink: string
+  email: string
+  id: number
+  isActivated: boolean
+  lastName: string
+  name: string
+  password: string
+  role: "user" | "admin" | "manager" | "hr"
+}
 
 const GradeStar: FC<{ grade: number; productId: number }> = ({
   grade,
   productId,
 }) => {
-  const arr = getArr(grade)
+  const User = useSelector((store: any) => store.FormSlice.User)
+  const UserRender = useSelector((store: any) => store.FormSlice.UserRender)
+  const dispatch = useDispatch()
+  const [render, setRender] = useState(0)
+  const arr = getArr(render !== 0 ? render : grade)
+  console.log(render)
+
   return (
     <div className={style.wrapperStar}>
       {arr.map((item) => (
-        <div key={item.num} onClick={() => postGrade(item.num, productId)}>
+        <div
+          key={item.num}
+          onClick={() => {
+            postGrade(item.num, productId, User, render, setRender)
+            dispatch(getUserRender(!UserRender))
+          }}
+        >
           <Star
             className={style.star}
             fill={item.value ? "yellow" : "transparent"}
@@ -26,9 +52,32 @@ const GradeStar: FC<{ grade: number; productId: number }> = ({
 
 export default GradeStar
 
-function postGrade(num: number, productId: number) {
-  console.log(num)
-  console.log(productId)
+async function postGrade(
+  grade: number,
+  productId: number,
+  User: string | Iuser,
+  render: number,
+  setRender: any
+) {
+  try {
+    const res = await api.post("postGrade", {
+      grade: grade,
+      productId: productId,
+      User: User,
+    })
+    // console.log(res)
+    const newGradeSum = res.data.reduce(
+      (acc: any, number: any) => acc + number.grade,
+      0
+    )
+    const reStar =
+      res.data.length !== 0 ? Math.round(newGradeSum / res.data.length) : 0
+
+    // console.log(reStar)
+    setRender(reStar)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 function getArr(grade: number) {

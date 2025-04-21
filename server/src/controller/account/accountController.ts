@@ -146,14 +146,17 @@ class UserControllerClass {
   }
   async getGrade(req: any, res: any, next: any) {
     const databody = req.body.data
-    console.log(databody)
     try {
       const data = await userService.getGradeServise(databody)
       res.json(data)
     } catch (e) {}
   }
   async postGrade(req: any, res: any, next: any) {
+    const dataBody = req.body
+
     try {
+      const data = await userService.postGradeAuthorizedServise(dataBody)
+      res.json(data)
     } catch (e) {}
   }
 }

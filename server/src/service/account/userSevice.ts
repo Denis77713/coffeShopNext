@@ -217,7 +217,48 @@ class userServiceClass {
         productId: { in: databody },
       },
     })
+    // console.log(grade)
     return grade
+  }
+  async postGradeUnauthorizedServise(data: any) {}
+  async postGradeAuthorizedServise(data: any) {
+    const userId = data.User.id
+    if (userId) {
+      const res = await prisma.gradeStar.findMany({
+        where: {
+          userId: userId,
+          productId: data.productId,
+        },
+      })
+      // console.log(res)
+      if (res.length === 0) {
+        await prisma.gradeStar.create({
+          data: {
+            grade: data.grade,
+            comment: null,
+            userAnonim: true,
+            productId: data.productId,
+            userId: data.User.id,
+          },
+        })
+      } else {
+        await prisma.gradeStar.updateMany({
+          where: {
+            userId: data.User.id,
+            productId: data.productId,
+          },
+          data: {
+            grade: data.grade,
+          },
+        })
+      }
+    }
+    const result = await prisma.gradeStar.findMany({
+      where: {
+        productId: data.productId,
+      },
+    })
+    return result
   }
 }
 export const userService = new userServiceClass()

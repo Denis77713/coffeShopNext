@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { getActivated, getAuth } from "../reducers/FormSlice"
+import { getActivated, getAuth, getUser } from "../reducers/FormSlice"
 import { api } from "@/widges/header/api/api"
 import { useDispatch } from "react-redux"
 
@@ -15,6 +15,7 @@ const UseLogin = () => {
           const AuthorizasionData = await api.get("/users")
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
+          dispatch(getUser(AuthorizasionData.data))
         } catch (e) {
           localStorage.removeItem("token")
           try {
@@ -25,6 +26,7 @@ const UseLogin = () => {
             const AuthorizasionData = await api.get("/users")
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
+            dispatch(getUser(AuthorizasionData))
           }
         }
       } else {
