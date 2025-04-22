@@ -27,7 +27,6 @@ const GradeStar: FC<{ grade: number; productId: number }> = ({
   const dispatch = useDispatch()
   const [render, setRender] = useState(0)
   const arr = getArr(render !== 0 ? render : grade)
-  console.log(render)
 
   return (
     <div className={style.wrapperStar}>

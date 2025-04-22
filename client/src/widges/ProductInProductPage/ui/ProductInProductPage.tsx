@@ -1,26 +1,40 @@
 import { cookies } from "next/headers"
 import { getProductId } from "./getProductId"
 import Image from "next/image"
-import style from './ProductInProductPage.module.css'
+import style from "./ProductInProductPage.module.css"
+import GradeStar from "@/shared/Star/GradeStar"
+import axios from "axios"
+import { apiServer } from "@/widges/header/api/api"
 
 const ProductInProductPage = async () => {
   const cookieStore = cookies()
   const cookieId = cookieStore.get("number")
   let result: any = null
+  let star = null
   if (typeof cookieId !== "undefined") {
     const id = Number(cookieId.value)
     result = await getProductId(id)
+    const grade = await apiServer.post("/getGrade", { data: [result[0].id] })
+    console.log(grade)
+    const newGradeSum = grade.data.reduce(
+      (acc: any, number: any) => acc + number.grade,
+      0
+    )
+    star =
+      grade.data.length !== 0 ? Math.round(newGradeSum / grade.data.length) : 0
+    // console.log(star)
   } else {
     result = false
   }
-
+  if (star) star >= 5 ? (star = 5) : star
   const item = result[0]
+
   return (
     <>
       {result ? (
         <div className={style.productWrapper}>
           <Image
-          className={style.img}
+            className={style.img}
             src={`/product/${item.imageUrl}.png`}
             alt={item.imageUrl}
             width={500}
@@ -32,6 +46,7 @@ const ProductInProductPage = async () => {
             <h1>{item.name}</h1>
             <div>{item.price}</div>
           </div>
+          <GradeStar grade={star ? star : 0} productId={item.id} />
         </div>
       ) : (
         <div>none</div>
