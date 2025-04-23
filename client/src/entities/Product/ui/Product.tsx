@@ -24,7 +24,7 @@ interface IProduct {
   grade: Star[]
 }
 
-export interface Star {
+export type Star = {
   comment: string | null
   grade: number
   id: number

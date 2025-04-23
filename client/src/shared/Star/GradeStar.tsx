@@ -18,24 +18,26 @@ interface Iuser {
   role: "user" | "admin" | "manager" | "hr"
 }
 
-const GradeStar: FC<{ grade: number; productId: number }> = ({
+const GradeStar: FC<{ grade: number; productId?: number; setState?: any }> = ({
   grade,
   productId,
+  setState,
 }) => {
   const User = useSelector((store: any) => store.FormSlice.User)
   const UserRender = useSelector((store: any) => store.FormSlice.UserRender)
   const dispatch = useDispatch()
   const [render, setRender] = useState(0)
   const arr = getArr(render !== 0 ? render : grade)
-
   return (
     <div className={style.wrapperStar}>
       {arr.map((item) => (
         <div
           key={item.num}
           onClick={() => {
-            postGrade(item.num, productId, User, render, setRender)
-            dispatch(getUserRender(!UserRender))
+            productId && postGrade(item.num, productId, User, render, setRender)
+            productId && dispatch(getUserRender(!UserRender))
+            setState && setState(item.num)
+            setState && setRender(item.num)
           }}
         >
           <Star
@@ -64,7 +66,6 @@ async function postGrade(
       productId: productId,
       User: User,
     })
-    // console.log(res)
     const newGradeSum = res.data.reduce(
       (acc: any, number: any) => acc + number.grade,
       0
