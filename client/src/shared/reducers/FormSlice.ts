@@ -8,6 +8,7 @@ export interface LikeState {
   userId: number | null
   User: any
   UserRender: boolean
+  CommentAndStar: any
 }
 
 const initialState: LikeState = {
@@ -18,15 +19,19 @@ const initialState: LikeState = {
   userId: null,
   User: "Unauthorized",
   UserRender: false,
+  CommentAndStar: false,
 }
 
 export const FormSlice = createSlice({
   name: "Form",
   initialState,
   reducers: {
+    getCommentAndStar: (state, action) => {
+      state.CommentAndStar = action.payload
+      console.log(action.payload)
+    },
     getUserRender: (state, action) => {
       state.UserRender = action.payload
-      console.log(state.UserRender)
     },
     getWindow: (state, action) => {
       state.window = action.payload
@@ -50,6 +55,7 @@ export const FormSlice = createSlice({
 })
 
 export const {
+  getCommentAndStar,
   getUserRender,
   getWindow,
   getAuth,

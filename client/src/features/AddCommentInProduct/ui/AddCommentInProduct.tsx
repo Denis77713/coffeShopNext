@@ -3,28 +3,29 @@
 import { Star } from "@/entities/Product/ui/Product"
 import Button from "@/shared/ui/Button"
 import { FC, useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import style from "./AddCommentInProduct.module.css"
 import TextareaAutosize from "react-textarea-autosize"
 import GradeStar from "@/shared/Star/GradeStar"
 import { postComment } from "../api/api"
+import { getCommentAndStar } from "@/shared/reducers/FormSlice"
 
-const AddCommentInProduct: FC<{ grade: Star[]; product: any }> = ({
-  grade,
-  product,
-}) => {
+const AddCommentInProduct: FC<{
+  grade: Star[]
+  product: any
+}> = ({ grade, product }) => {
   const User = useSelector((store: any) => store.FormSlice.User)
 
   const [Visible, setVisible] = useState(false)
   const [filteResult, setFilteResult] = useState<any>([])
   const [input, setInput] = useState<string>("")
   const [state, setState] = useState(12)
-
+  const dispatch = useDispatch()
   useEffect(() => {
     const result = grade.filter((item) => item.userId === User.id)
     setFilteResult(result)
   }, [])
-
+  console.log(state)
   return (
     <>
       {filteResult.length === 0 ? (
@@ -51,6 +52,15 @@ const AddCommentInProduct: FC<{ grade: Star[]; product: any }> = ({
                   setVisible(false)
                   setInput("")
                   postComment(input, state, User.id, product[0].id)
+                  dispatch(
+                    getCommentAndStar([
+                      {
+                        comment: input,
+                        grade: state,
+                        user: User.name,
+                      },
+                    ])
+                  )
                 }}
               >
                 Отправить
