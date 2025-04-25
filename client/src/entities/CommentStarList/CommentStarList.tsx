@@ -39,7 +39,11 @@ const CommentStarList = (gradeUsers: any | IgradeStars | null) => {
               <div className={style.grade}>
                 <UserSVG className={style.img} />
                 <div className={style.user}>{item.user}</div>
-                <GradeStar grade={item.grade} productId={item.grade} />
+                <GradeStar
+                  grade={item.grade}
+                  productId={item.grade}
+                  clicked={false}
+                />
               </div>
               <div>{item.comment}</div>
             </div>

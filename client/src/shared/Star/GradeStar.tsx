@@ -18,11 +18,14 @@ interface Iuser {
   role: "user" | "admin" | "manager" | "hr"
 }
 
-const GradeStar: FC<{ grade: number; productId?: number; setState?: any }> = ({
-  grade,
-  productId,
-  setState,
-}) => {
+const GradeStar: FC<{
+  grade: number
+  productId?: number
+  setState?: any
+  clicked?: boolean
+}> = ({ grade, productId, setState, clicked = true }) => {
+  //
+  //
   const User = useSelector((store: any) => store.FormSlice.User)
   const UserRender = useSelector((store: any) => store.FormSlice.UserRender)
   const dispatch = useDispatch()
@@ -34,14 +37,16 @@ const GradeStar: FC<{ grade: number; productId?: number; setState?: any }> = ({
         <div
           key={item.num}
           onClick={() => {
-            productId && postGrade(item.num, productId, User, render, setRender)
-            productId && dispatch(getUserRender(!UserRender))
-            setState && setState(item.num)
-            setState && setRender(item.num)
+            clicked &&
+              productId &&
+              postGrade(item.num, productId, User, render, setRender)
+            clicked && productId && dispatch(getUserRender(!UserRender))
+            clicked && setState && setState(item.num)
+            clicked && setState && setRender(item.num)
           }}
         >
           <Star
-            className={style.star}
+            className={clicked && style.star}
             fill={item.value ? "yellow" : "transparent"}
             stroke={item.value ? "yellow" : "black"}
           />

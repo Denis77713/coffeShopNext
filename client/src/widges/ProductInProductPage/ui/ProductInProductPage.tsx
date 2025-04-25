@@ -46,7 +46,11 @@ const ProductInProductPage: FC<{
               <div>{item.price}</div>
             </div>
           </div>
-          <GradeStar grade={star ? star : 0} productId={item.id} />
+          <GradeStar
+            grade={star ? star : 0}
+            productId={item.id}
+            clicked={false}
+          />
           <AddCommentInProduct
             grade={grade && grade.data}
             product={result && result}

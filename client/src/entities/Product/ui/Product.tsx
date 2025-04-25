@@ -62,13 +62,14 @@ const Product = ({
   //
   //
   return (
-    <div
-      className={style.bestItem}
-      key={item.id}
-      onClick={() => productIdInURL(url, item, searchParams, pathName, replace)}
-    >
+    <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
-        <div className={style.wrapper}>
+        <div
+          className={style.wrapper}
+          onClick={() =>
+            productIdInURL(url, item, searchParams, pathName, replace)
+          }
+        >
           <Link href={path ? `${path}${url}` : url}>
             <Image
               src={`/product/${item.imageUrl}.png`}
