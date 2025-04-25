@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import style from "./AddCommentInProduct.module.css"
 import TextareaAutosize from "react-textarea-autosize"
 import GradeStar from "@/shared/Star/GradeStar"
-import { postComment } from "../api/api"
+import { postComment, updateComment } from "../api/api"
 import { getCommentAndStar } from "@/shared/reducers/FormSlice"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
@@ -24,10 +24,11 @@ const AddCommentInProduct: FC<{
   const pathName = usePathname()
   const { replace } = useRouter()
   const filteResult = grade.filter((item) => item.userId === User.id)
+  const dataRender = getDataRender()
 
   return (
     <>
-      {filteResult.length === 0 ? (
+      {dataRender ? (
         <div className={style.wrapperComment}>
           {!Visible && (
             <div className={style.wrapperBtn}>
@@ -50,7 +51,9 @@ const AddCommentInProduct: FC<{
                 handleClick={() => {
                   setVisible(false)
                   setInput("")
-                  postComment(input, state, User.id, product[0].id)
+                  grade[0].comment === null
+                    ? updateComment(input, state, User.id, product[0].id)
+                    : postComment(input, state, User.id, product[0].id)
                   postSearch(state, input)
                 }}
               >
@@ -68,6 +71,12 @@ const AddCommentInProduct: FC<{
     const params = new URLSearchParams(searchParams)
     params.set("grade", String(state))
     replace(`${pathName}?${params.toString()}`)
+  }
+  function getDataRender() {
+    let dataRender = false
+    if (grade[0].comment === null && filteResult.length !== 0) dataRender = true
+    if (filteResult.length === 0) dataRender = true
+    return dataRender
   }
 }
 export default AddCommentInProduct

@@ -19,3 +19,21 @@ export async function postComment(
   })
   return result
 }
+
+export async function updateComment(
+  comment: string,
+  grade: number,
+  userId: number,
+  productId: number
+) {
+  const result = await prisma.gradeStar.updateMany({
+    where: {
+      userId: userId,
+      productId: productId,
+    },
+    data: {
+      comment: comment,
+      grade: grade,
+    },
+  })
+}

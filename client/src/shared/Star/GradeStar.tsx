@@ -46,7 +46,7 @@ const GradeStar: FC<{
           }}
         >
           <Star
-            className={clicked && style.star}
+            className={clicked ? style.star : ""}
             fill={item.value ? "yellow" : "transparent"}
             stroke={item.value ? "yellow" : "black"}
           />

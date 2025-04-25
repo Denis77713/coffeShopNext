@@ -87,7 +87,11 @@ const Product = ({
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
-      <GradeStar grade={state >= 5 ? 5 : state} productId={item.id} />
+      <GradeStar
+        grade={state >= 5 ? 5 : state}
+        productId={item.id}
+        clicked={false}
+      />
       {pay && (
         <Button
           handleClick={() => {
