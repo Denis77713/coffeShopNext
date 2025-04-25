@@ -4,7 +4,7 @@ import Image from "next/image"
 import style from "./Product.module.css"
 import Like from "@/shared/like/ui/Like"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { addCookie, getPageCategory } from "./ProductController"
 import { Item } from "./ProductType"
@@ -49,7 +49,10 @@ const Product = ({
   //
 
   const [state, setState] = useState(0)
-  //
+  const searchParams: any = useSearchParams()
+  const pathName = usePathname()
+  const { replace } = useRouter()
+
   useEffect(() => {
     const newGradeSum = newGrade.reduce((acc, number) => acc + number.grade, 0)
     const reStar =
@@ -59,7 +62,11 @@ const Product = ({
   //
   //
   return (
-    <div className={style.bestItem} key={item.id}>
+    <div
+      className={style.bestItem}
+      key={item.id}
+      onClick={() => productIdInURL(url, item, searchParams, pathName, replace)}
+    >
       <div className={style.mb}>
         <div className={style.wrapper}>
           <Link href={path ? `${path}${url}` : url}>
@@ -94,5 +101,19 @@ const Product = ({
     </div>
   )
 }
-
+function productIdInURL(
+  url: string,
+  item: any,
+  searchParams: any,
+  pathName: any,
+  replace: any
+) {
+  const params = new URLSearchParams(searchParams)
+  if (item) {
+    params.set("productID", String(item.id))
+  } else {
+    params.delete("productID")
+  }
+  replace(`${url}?${params.toString()}`)
+}
 export default Product

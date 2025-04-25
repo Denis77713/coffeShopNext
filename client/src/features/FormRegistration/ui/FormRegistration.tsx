@@ -51,13 +51,11 @@ const FormRegistration = () => {
     async function reistr() {
       if (error === null) {
         const data: any = await registration(registrarionProps)
-        console.log(data)
         data && dispatch(getAuth(data.status))
       }
     }
     reistr()
   }, [error])
-  console.log(error)
   return (
     <Form>
       <input

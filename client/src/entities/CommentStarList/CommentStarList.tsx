@@ -19,10 +19,8 @@ const CommentStarList = (gradeUsers: any | IgradeStars | null) => {
 
   const [state, setState] = useState([])
   useEffect(() => {
-    console.log(CommentAndStar)
     setState(CommentAndStar)
   }, [CommentAndStar])
-  console.log(gradeUsers)
   return (
     <>
       {state.length === 1

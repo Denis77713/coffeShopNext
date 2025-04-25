@@ -28,7 +28,6 @@ export const FormSlice = createSlice({
   reducers: {
     getCommentAndStar: (state, action) => {
       state.CommentAndStar = action.payload
-      console.log(action.payload)
     },
     getUserRender: (state, action) => {
       state.UserRender = action.payload

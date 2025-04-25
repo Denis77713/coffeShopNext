@@ -51,7 +51,6 @@ const FormLogin = () => {
           await LoginValidation(e, props)
           if (error === null) {
             const data: any = await login(loginProps)
-            console.log(data)
             data && dispatch(getAuth(data.status))
 
             if (data && data?.status === 200 && !data.data.user.isActivated) {

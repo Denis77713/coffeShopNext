@@ -1,12 +1,18 @@
+import { IParams } from "@/pages/products/ui/ProductsPage"
 import IsToken from "@/shared/Hookcs/IsToken"
-import ProductInProductPage from "@/widges/ProductInProductPage/ui/ProductInProductPage"
+import ProductInProductPage, {
+  IproductID,
+} from "@/widges/ProductInProductPage/ui/ProductInProductPage"
 import { FC } from "react"
 
-const ProductPage: FC = () => {
+const ProductPage: FC<{ params: IParams; searchParams: IproductID }> = async ({
+  params,
+  searchParams,
+}) => {
   return (
     <main className="container">
       <IsToken />
-      <ProductInProductPage />
+      <ProductInProductPage params={params} searchParams={searchParams} />
     </main>
   )
 }

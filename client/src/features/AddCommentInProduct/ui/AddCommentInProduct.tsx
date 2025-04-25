@@ -2,13 +2,14 @@
 
 import { Star } from "@/entities/Product/ui/Product"
 import Button from "@/shared/ui/Button"
-import { FC, useEffect, useState } from "react"
+import { FC, use, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import style from "./AddCommentInProduct.module.css"
 import TextareaAutosize from "react-textarea-autosize"
 import GradeStar from "@/shared/Star/GradeStar"
 import { postComment } from "../api/api"
 import { getCommentAndStar } from "@/shared/reducers/FormSlice"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 const AddCommentInProduct: FC<{
   grade: Star[]
@@ -17,15 +18,13 @@ const AddCommentInProduct: FC<{
   const User = useSelector((store: any) => store.FormSlice.User)
 
   const [Visible, setVisible] = useState(false)
-  const [filteResult, setFilteResult] = useState<any>([])
   const [input, setInput] = useState<string>("")
-  const [state, setState] = useState(12)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    const result = grade.filter((item) => item.userId === User.id)
-    setFilteResult(result)
-  }, [])
-  console.log(state)
+  const [state, setState] = useState(0)
+  const searchParams: any = useSearchParams()
+  const pathName = usePathname()
+  const { replace } = useRouter()
+  const filteResult = grade.filter((item) => item.userId === User.id)
+
   return (
     <>
       {filteResult.length === 0 ? (
@@ -52,15 +51,7 @@ const AddCommentInProduct: FC<{
                   setVisible(false)
                   setInput("")
                   postComment(input, state, User.id, product[0].id)
-                  dispatch(
-                    getCommentAndStar([
-                      {
-                        comment: input,
-                        grade: state,
-                        user: User.name,
-                      },
-                    ])
-                  )
+                  postSearch(state, input)
                 }}
               >
                 Отправить
@@ -73,6 +64,10 @@ const AddCommentInProduct: FC<{
       )}
     </>
   )
+  function postSearch(state: number, input: string) {
+    const params = new URLSearchParams(searchParams)
+    params.set("grade", String(state))
+    replace(`${pathName}?${params.toString()}`)
+  }
 }
-
 export default AddCommentInProduct

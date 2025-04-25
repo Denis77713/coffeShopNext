@@ -7,32 +7,26 @@ import { apiServer } from "@/widges/header/api/api"
 import { getComment } from "../api/api"
 import CommentStarList from "@/entities/CommentStarList/CommentStarList"
 import AddCommentInProduct from "@/features/AddCommentInProduct/ui/AddCommentInProduct"
+import { IParams } from "@/pages/products/ui/ProductsPage"
+import { FC } from "react"
 
-const ProductInProductPage = async () => {
-  const cookieStore = cookies()
-  const cookieId = cookieStore.get("number")
-  let result: any = null
-  let star = null
-  let gradeUsers = null
-  let grade = null
+export interface IproductID {
+  productID: string
+}
 
-  if (typeof cookieId !== "undefined") {
-    const id = Number(cookieId.value)
-    result = await getProductId(id)
-    grade = await apiServer.post("/getGrade", { data: [result[0].id] })
-    const newGradeSum = grade.data.reduce(
-      (acc: any, number: any) => acc + number.grade,
-      0
-    )
-    star =
-      grade.data.length !== 0 ? Math.round(newGradeSum / grade.data.length) : 0
-    gradeUsers = await getComment(grade.data)
-  } else {
-    result = false
-  }
-  if (star) star >= 5 ? (star = 5) : star
+const ProductInProductPage: FC<{
+  params: IParams
+  searchParams: IproductID
+}> = async ({ params, searchParams }) => {
+  //
+  //
+  const idProduct = Number(searchParams.productID)
+  //
+  const result = await getProductId(idProduct)
+  const grade = await apiServer.post("/getGrade", { data: [result[0].id] })
+  const gradeUsers = await getComment(grade.data)
   const item = result[0]
-  console.log(gradeUsers)
+  const star = getStarAndGrade()
   return (
     <>
       {result ? (
@@ -64,6 +58,18 @@ const ProductInProductPage = async () => {
       )}
     </>
   )
+
+  function getStarAndGrade() {
+    const newGradeSum = grade.data.reduce(
+      (acc: any, number: any) => acc + number.grade,
+      0
+    )
+    let star =
+      grade.data.length !== 0 ? Math.round(newGradeSum / grade.data.length) : 0
+    if (star) star >= 5 ? (star = 5) : star
+
+    return star
+  }
 }
 
 export default ProductInProductPage
