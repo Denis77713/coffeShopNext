@@ -49,9 +49,6 @@ const Product = ({
   //
   //
   const [state, setState] = useState(0)
-  const searchParams: any = useSearchParams()
-  const pathName = usePathname()
-  const { replace } = useRouter()
   //
   //
   UseGetStar(grade, setState, item)
@@ -60,12 +57,7 @@ const Product = ({
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
-        <div
-          className={style.wrapper}
-          onClick={() =>
-            productIdInURL(url, item, searchParams, pathName, replace)
-          }
-        >
+        <div className={style.wrapper}>
           <Link
             href={
               path
@@ -107,20 +99,5 @@ const Product = ({
       )}
     </div>
   )
-}
-function productIdInURL(
-  url: string,
-  item: any,
-  searchParams: any,
-  pathName: any,
-  replace: any
-) {
-  const params = new URLSearchParams(searchParams)
-  if (item) {
-    params.set("productID", String(item.id))
-  } else {
-    params.delete("productID")
-  }
-  replace(`${url}?${params.toString()}`)
 }
 export default Product
