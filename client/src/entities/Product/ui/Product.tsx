@@ -66,7 +66,13 @@ const Product = ({
             productIdInURL(url, item, searchParams, pathName, replace)
           }
         >
-          <Link href={path ? `${path}${url}` : url}>
+          <Link
+            href={
+              path
+                ? `${path}${url}?productID=${item.id}`
+                : `${url}?productID=${item.id}`
+            }
+          >
             <Image
               src={`/product/${item.imageUrl}.png`}
               alt={item.imageUrl}
