@@ -27,6 +27,7 @@ export async function getComment(grade: Grade[]) {
     for (let q = 0; q < grade.length; q++) {
       if (users[i].id === grade[q].userId) {
         result.push({
+          id: grade[q].id,
           user: users[i].name,
           grade: grade[q].grade,
           comment: grade[q].comment,

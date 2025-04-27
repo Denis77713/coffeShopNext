@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
 import GradeStar from "@/shared/Star/GradeStar"
 import { useEffect, useState } from "react"
+import UseGetStar from "@/shared/Hookcs/UseGetStar"
 
 interface IProduct {
   item: Item
@@ -45,20 +46,15 @@ const Product = ({
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const pathname = usePathname()
   const url = getPageCategory(item, category, pathname)
-  const newGrade = grade.filter((inner: any) => item.id === inner.productId)
   //
-
+  //
   const [state, setState] = useState(0)
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
-
-  useEffect(() => {
-    const newGradeSum = newGrade.reduce((acc, number) => acc + number.grade, 0)
-    const reStar =
-      newGrade.length !== 0 ? Math.round(newGradeSum / newGrade.length) : 0
-    setState(reStar)
-  }, [newGrade])
+  //
+  //
+  UseGetStar(grade, setState, item)
   //
   //
   return (

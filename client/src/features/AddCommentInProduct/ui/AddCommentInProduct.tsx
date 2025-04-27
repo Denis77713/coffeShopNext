@@ -25,15 +25,22 @@ const AddCommentInProduct: FC<{
   const { replace } = useRouter()
   const filteResult = grade.filter((item) => item.userId === User.id)
   const dataRender = getDataRender()
-
+  //
+  //
+  // console.log(filteResult.length !== 0 && grade[0].comment === null)
+  // console.log(grade[0].comment === null)
+  // console.log(filteResult)
+  //
   return (
     <>
-      {dataRender ? (
+      {User !== "Unauthorized" && dataRender && (
         <div className={style.wrapperComment}>
           {!Visible && (
             <div className={style.wrapperBtn}>
               <Button handleClick={() => setVisible(true)}>
-                Добавить комментарий
+                {grade.length !== 0 && grade[0].comment === ""
+                  ? "Редактировать комментарий"
+                  : "Добавить комментарий"}
               </Button>
             </div>
           )}
@@ -51,7 +58,7 @@ const AddCommentInProduct: FC<{
                 handleClick={() => {
                   setVisible(false)
                   setInput("")
-                  grade[0].comment === null
+                  grade.length !== 0 && grade[0].comment === ""
                     ? updateComment(input, state, User.id, product[0].id)
                     : postComment(input, state, User.id, product[0].id)
                   postSearch(state, input)
@@ -62,8 +69,6 @@ const AddCommentInProduct: FC<{
             </div>
           )}
         </div>
-      ) : (
-        <></>
       )}
     </>
   )
@@ -74,8 +79,12 @@ const AddCommentInProduct: FC<{
   }
   function getDataRender() {
     let dataRender = false
-    if (grade[0].comment === null && filteResult.length !== 0) dataRender = true
-    if (filteResult.length === 0) dataRender = true
+    if (grade.length !== 0) {
+      if (filteResult.length === 0) dataRender = true
+      if (filteResult.length !== 0 && grade[0].comment === null)
+        dataRender = true
+    }
+
     return dataRender
   }
 }

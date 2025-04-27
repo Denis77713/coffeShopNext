@@ -27,6 +27,9 @@ const ProductInProductPage: FC<{
   const gradeUsers = await getComment(grade.data)
   const item = result[0]
   const star = getStarAndGrade()
+  //
+  // console.log(grade.data)
+  //
   return (
     <>
       {result ? (
@@ -55,7 +58,8 @@ const ProductInProductPage: FC<{
             grade={grade && grade.data}
             product={result && result}
           />
-          {gradeUsers && <CommentStarList gradeUsers={gradeUsers} />}
+
+          <CommentStarList gradeUsers={gradeUsers} />
         </div>
       ) : (
         <div>none</div>

@@ -1,23 +1,30 @@
-'use client'
+"use client"
 
 import { Item } from "@/entities/Product/ui/ProductType"
 import AdminProduct from "@/features/AdminProduct/ui/AdminProduct"
 import { FC, useEffect, useState } from "react"
 import style from "@/widges/ProductList/ui/ProductList.module.css"
-import styles from './AdminProductList.module.css'
+import styles from "./AdminProductList.module.css"
+import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 
 const AdminProductList: FC<{ data: Item[] }> = ({ data }) => {
-  
-const [dataArr, setDataArr] = useState(data) 
+  const [dataArr, setDataArr] = useState(data)
+  const [grade, setGrade] = useState([])
 
-useEffect(() => {
-  setDataArr(data)
-}, [data]);
-
+  useEffect(() => {
+    setDataArr(data)
+  }, [data])
+  UseGetGrade(setGrade, dataArr)
   return (
     <div className={`${style.bestList} ${styles.container}`}>
       {dataArr.map((item) => (
-        <AdminProduct key={item.id} item={item} dataArr = {dataArr} setDataArr={setDataArr} />
+        <AdminProduct
+          key={item.id}
+          item={item}
+          dataArr={dataArr}
+          setDataArr={setDataArr}
+          grade={grade && grade}
+        />
       ))}
     </div>
   )
