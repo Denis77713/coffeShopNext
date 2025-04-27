@@ -27,10 +27,10 @@ const AddCommentInProduct: FC<{
   const dataRender = getDataRender()
   //
   //
-  // console.log(filteResult.length !== 0 && grade[0].comment === null)
-  // console.log(grade[0].comment === null)
-  // console.log(filteResult)
-  //
+
+  // console.log(filteResult.length === 0)
+  // console.log(dataRender)
+  console.log(grade.length !== 0)
   return (
     <>
       {User !== "Unauthorized" && dataRender && (
@@ -38,7 +38,7 @@ const AddCommentInProduct: FC<{
           {!Visible && (
             <div className={style.wrapperBtn}>
               <Button handleClick={() => setVisible(true)}>
-                {grade.length !== 0 && grade[0].comment === ""
+                {grade.length !== 0 && grade[0].comment === null
                   ? "Редактировать комментарий"
                   : "Добавить комментарий"}
               </Button>
@@ -79,8 +79,8 @@ const AddCommentInProduct: FC<{
   }
   function getDataRender() {
     let dataRender = false
+    if (filteResult.length === 0) dataRender = true
     if (grade.length !== 0) {
-      if (filteResult.length === 0) dataRender = true
       if (filteResult.length !== 0 && grade[0].comment === null)
         dataRender = true
     }
