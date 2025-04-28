@@ -11,7 +11,6 @@ import Form from "@/shared/Form/ui/Form"
 import { useDispatch, useSelector } from "react-redux"
 import { getWindow } from "@/shared/reducers/FormSlice"
 const FormAddProduct = () => {
-  // const [formVisible, setFormVisible] = useState<null|string>(null)
   const [weight, setWeight] = useState(10)
   const [best, setBest] = useState("false")
   const [inputName, setInputName] = useState("")
