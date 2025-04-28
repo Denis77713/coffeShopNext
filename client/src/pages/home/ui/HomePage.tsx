@@ -11,7 +11,7 @@ import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
 import { getProduct } from "../api/api"
-import { getCategoryes } from "@/widges/CategoryList/api/api"
+import { getCategory, getCategoryes } from "@/widges/CategoryList/api/api"
 import img from "@/../public/slider/slide1.jpg"
 import Image from "next/image"
 import IsToken from "@/shared/Hookcs/IsToken"
@@ -19,6 +19,8 @@ import IsToken from "@/shared/Hookcs/IsToken"
 export default async function Home() {
   // Лучшие продусты
   const bestProductList = await getProduct()
+  const categoryMarket = await getCategory("Shop")
+  console.log(categoryMarket)
   const list = assortiment.cartList
   const cart = assortiment.cart
   const bestList = bestStyle.bestList
@@ -69,11 +71,17 @@ export default async function Home() {
         </CarouselSlider>
         <LocationsList />
         <Title coffeNum={"false"} styles={style.title}>
-          Асcортимент
+          Асcортимент интернет магазина
         </Title>
         <Suspense fallback={CategorySkeleton}>
-          <CategoryList page={"products"} />
+          <CategoryList page={"shop"} category={categoryMarket} />
         </Suspense>
+        <Title coffeNum={"false"} styles={style.title}>
+          Асcортимент кофейни
+        </Title>
+        {/* <Suspense fallback={CategorySkeleton}> */}
+        {/* <CategoryList page={"products"} /> */}
+        {/* </Suspense> */}
         <Title coffeNum={"false"} styles={style.title}>
           Хиты продаж
         </Title>

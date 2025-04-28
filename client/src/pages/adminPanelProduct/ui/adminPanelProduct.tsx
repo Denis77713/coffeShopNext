@@ -1,6 +1,6 @@
 import FormAddProduct from "@/widges/FormAddProduct/ui/FormAddProduct"
 import { FC } from "react"
-import { IParams } from "@/pages/products/ui/ProductsPage"
+import { IParams } from "@/pages/shop/ui/ProductsPage"
 import style from "./adminPanelProduct.module.css"
 import Link from "next/link"
 import Button from "@/shared/ui/Button"
@@ -8,7 +8,7 @@ import Search from "@/features/Search/ui/Search"
 import Pagination from "@/features/Pagination/ui/Pagination"
 import IsToken from "@/shared/Hookcs/IsToken"
 import AdminProductList from "@/widges/AdminProductList/ui/AdminProductList"
-import { getCategory } from "@/pages/products/ui/getProductAndFilters"
+import { getCategory } from "@/pages/shop/ui/getProductAndFilters"
 
 const adminPanelProduct: FC<{
   params: IParams

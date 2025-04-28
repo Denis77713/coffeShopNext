@@ -66,7 +66,7 @@ const AccountProductList: FC<{
                   item={item}
                   category={category}
                   pay={false}
-                  path="products/"
+                  path="shop/"
                   isLike={false}
                   grade={gradeStar && gradeStar}
                 />

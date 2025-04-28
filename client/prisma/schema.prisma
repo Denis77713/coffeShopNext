@@ -37,6 +37,7 @@ model Category {
   page     String
   products Product[]
   filters  Filter[]
+  category String    @default("Shop")
 }
 
 model Product {

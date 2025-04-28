@@ -1,4 +1,4 @@
-import { IParams } from "@/pages/products/ui/ProductsPage"
+import { IParams } from "@/pages/shop/ui/ProductsPage"
 import IsToken from "@/shared/Hookcs/IsToken"
 import ProductInProductPage, {
   IproductID,

@@ -44,7 +44,7 @@ const ProductPayList: FC<{
               item={item}
               category={category}
               pay={false}
-              path="products/"
+              path="shop/"
               grade={gradeStar && gradeStar}
             />
             <div className={styleCart.text}>Товар в пути</div>
@@ -61,7 +61,7 @@ const ProductPayList: FC<{
               item={item}
               category={category}
               pay={false}
-              path="products/"
+              path="shop/"
               grade={gradeStar && gradeStar}
             />
             <div className={styleCart.text}>Доставлен</div>

@@ -30,7 +30,7 @@ const AdminProduct: FC<{
   //
   const category = pathName?.replace("/adminPanel/", "")
   //
-  const url = `/products/${category}/${item.name}?productID=${item.id}`
+  const url = `/shop/${category}/${item.name}?productID=${item.id}`
   UseGetStar(grade, setState, item)
   return (
     <div className={style.bestItem} key={item.id}>
