@@ -11,7 +11,7 @@ export type IParams = {
   id: string
 }
 
-const ProductsPage: FC<{ params: IParams; searchParams: string }> = async ({
+const ShopPage: FC<{ params: IParams; searchParams: string }> = async ({
   params,
   searchParams,
 }) => {
@@ -33,4 +33,4 @@ const ProductsPage: FC<{ params: IParams; searchParams: string }> = async ({
   )
 }
 
-export default ProductsPage
+export default ShopPage

@@ -7,7 +7,7 @@ import { apiServer } from "@/widges/header/api/api"
 import { getComment } from "../api/api"
 import CommentStarList from "@/entities/CommentStarList/CommentStarList"
 import AddCommentInProduct from "@/features/AddCommentInProduct/ui/AddCommentInProduct"
-import { IParams } from "@/pages/shop/ui/ProductsPage"
+import { IParams } from "@/pages/shop/ui/ShopPage"
 import { FC } from "react"
 
 export interface IproductID {

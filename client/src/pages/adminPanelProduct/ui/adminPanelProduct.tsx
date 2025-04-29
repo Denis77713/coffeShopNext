@@ -1,6 +1,6 @@
 import FormAddProduct from "@/widges/FormAddProduct/ui/FormAddProduct"
 import { FC } from "react"
-import { IParams } from "@/pages/shop/ui/ProductsPage"
+import { IParams } from "@/pages/shop/ui/ShopPage"
 import style from "./adminPanelProduct.module.css"
 import Link from "next/link"
 import Button from "@/shared/ui/Button"

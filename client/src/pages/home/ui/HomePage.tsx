@@ -20,7 +20,8 @@ export default async function Home() {
   // Лучшие продусты
   const bestProductList = await getProduct()
   const categoryMarket = await getCategory("Shop")
-  console.log(categoryMarket)
+  const categoryCaffe = await getCategory("Cafe")
+  console.log(categoryCaffe)
   const list = assortiment.cartList
   const cart = assortiment.cart
   const bestList = bestStyle.bestList
@@ -79,9 +80,9 @@ export default async function Home() {
         <Title coffeNum={"false"} styles={style.title}>
           Асcортимент кофейни
         </Title>
-        {/* <Suspense fallback={CategorySkeleton}> */}
-        {/* <CategoryList page={"products"} /> */}
-        {/* </Suspense> */}
+        <Suspense fallback={CategorySkeleton}>
+          <CategoryList page={"caffe"} category={categoryCaffe} />
+        </Suspense>
         <Title coffeNum={"false"} styles={style.title}>
           Хиты продаж
         </Title>
