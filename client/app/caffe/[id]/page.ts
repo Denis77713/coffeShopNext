@@ -7,4 +7,4 @@ export const metadata: Metadata = {
   description: "Магазин лучшего кофе в Омске!",
 }
 
-export { CaffePage as default } from "@/pages/caffe"
+export { CaffeProductPage as default } from "@/pages/CaffeProductPage"

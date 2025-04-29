@@ -1,5 +1,5 @@
 const CaffePage = () => {
-  return <>123</>
+  return <></>
 }
 
 export default CaffePage
