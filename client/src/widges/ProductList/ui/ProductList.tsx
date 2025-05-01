@@ -9,6 +9,7 @@ import { Item } from "@/entities/Product/ui/ProductType"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
+import { Iproduct } from "@/shared/types/types"
 
 export type TypeCategory = {
   id: number
@@ -17,10 +18,10 @@ export type TypeCategory = {
   page: string
 }
 
-const ProductList: FC<{ res: Item[]; category: TypeCategory[] }> = ({
-  res,
-  category,
-}) => {
+const ProductList: FC<{
+  res: Iproduct[]
+  category: TypeCategory[]
+}> = ({ res, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
   const [grade, setGrade] = useState([])

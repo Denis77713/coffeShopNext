@@ -2,12 +2,15 @@
   cursor: pointer;
 }
 .headerFlex {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  z-index: 20;
+  background: white;
+  padding: 20px 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: fixed;
 }
 .icons {
   display: flex;

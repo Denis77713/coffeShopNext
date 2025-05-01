@@ -10,11 +10,12 @@ import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { ItemStore } from "./BestProductListTypes"
 import { api } from "@/widges/header/api/api"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
+import { Iproduct } from "@/shared/types/types"
 
-const BestProductList: FC<{ dataList: Item[]; category: TypeCategory[] }> = ({
-  dataList,
-  category,
-}) => {
+const BestProductList: FC<{
+  dataList: Iproduct[]
+  category: TypeCategory[]
+}> = ({ dataList, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
   const [state, setState] = useState<boolean>(false)
   const [grade, setGrade] = useState([])

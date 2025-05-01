@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 const AdminProduct: FC<{
-  item: Item
+  item: any
   dataArr: Item[]
   setDataArr: any
   grade: Star[]

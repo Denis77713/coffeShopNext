@@ -6,16 +6,28 @@ import { mailService } from "../../service/account/mailService"
 import { tokenServise } from "../../service/account/tokenService"
 import { ApiError } from "../../errors/api.error"
 
+interface IGradeStar {
+  id: number
+  grade: number
+  comment: string
+  category: any
+  User: any
+  userAnonim: boolean
+  productId: number
+  userId: number
+}
+
 interface IProductPayItem {
   id: number
   name: string
   imageUrl: string
-  price: string
-  best: string
-  weight: string
+  price: string | null
+  best: string | null
+  weight: string | null
   none: string
   drip: string
-  number: number
+  number: number | null
+  secondCategoryId: number | null
   categoryId: number
 }
 interface IProductPay {
@@ -208,6 +220,7 @@ class userServiceClass {
       const complitePdoduct = await getDataUser(getComplitePdoduct)
       const develery = await getDataUser(getDevelery)
       result = { userProduct, complitePdoduct, develery }
+      console.log(result)
     }
     return result
   }

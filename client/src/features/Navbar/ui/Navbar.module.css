@@ -1,0 +1,51 @@
+.container {
+  max-width: 1170px;
+  padding: 0 1.5rem;
+  margin-inline: auto;
+}
+.container .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .row .logo {
+  font-size: 2rem;
+}
+
+.container .row .menuBar {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.container .row .menuBar li a {
+  text-transform: capitalize;
+  /* font-size: 10px; */
+}
+.nav {
+  z-index: 20;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 110px;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  font-size: 20px;
+}
+.list {
+  list-style: none;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+  transition: color 0.3s ease-in-out;
+}
+
+.link:hover,
+.link.active {
+  color: #ff511a;
+}

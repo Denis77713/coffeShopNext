@@ -35,14 +35,14 @@ const Account = () => {
   }, [category])
 
   return (
-    <>
+    <main>
       {category.length !== 0 && (
         <>
           <ProductPayList category={category} gradeStar={grade.data} />
           <AccountProductList category={category} gradeStar={grade.data} />
         </>
       )}
-    </>
+    </main>
   )
 }
 

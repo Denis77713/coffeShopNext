@@ -21,7 +21,7 @@ const adminPanelProduct: FC<{
   //
   //
   return (
-    <div className={`${style.wrapper}`}>
+    <main className={`${style.wrapper}`}>
       <IsToken />
       <div className={style.mB}>
         <Search />
@@ -32,7 +32,7 @@ const adminPanelProduct: FC<{
       <FormAddProduct />
       <AdminProductList data={res.productData} />
       <Pagination numProduct={res.numProduct / numProductInPage} />
-    </div>
+    </main>
   )
 }
 

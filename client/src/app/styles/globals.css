@@ -15,7 +15,7 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-.container{
+.container {
   max-width: 1040px;
   padding: 0 20px;
   margin: auto;
@@ -26,22 +26,26 @@ body {
   height: 100%;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-main{
+main {
   flex: 1 0 auto;
 }
-footer{
+footer {
   flex: 0 0 auto;
 }
 .react-multiple-carousel__arrow {
   background: black !important;
 }
 /* .react-multiple-carousel__arrow--right  */
- /* react-multiple-carousel__arrow--left  */
-.react-multi-carousel-list{
+/* react-multiple-carousel__arrow--left  */
+.react-multi-carousel-list {
   border-radius: 20px;
 }
+main {
+  margin-top: 150px;
+}
+/*  */

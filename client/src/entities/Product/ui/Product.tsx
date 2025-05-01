@@ -17,12 +17,13 @@ import { useEffect, useState } from "react"
 import UseGetStar from "@/shared/Hookcs/UseGetStar"
 
 interface IProduct {
-  item: Item
+  item: Item | any
   category: TypeCategory[]
   pay?: boolean
   path?: string
   isLike?: boolean
   grade: Star[]
+  imageUrl?: any
 }
 
 export type Star = {
@@ -41,6 +42,7 @@ const Product = ({
   path,
   isLike = true,
   grade,
+  imageUrl = null,
 }: IProduct) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
@@ -66,7 +68,7 @@ const Product = ({
             }
           >
             <Image
-              src={`/product/${item.imageUrl}.png`}
+              src={imageUrl ? imageUrl : `/product/${item.imageUrl}.png`}
               alt={item.imageUrl}
               width={200}
               height={200}
