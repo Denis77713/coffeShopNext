@@ -1,8 +1,12 @@
+"use client"
+
 import Product from "@/entities/Product/ui/Product"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
-import { FC } from "react"
+import { FC, useState } from "react"
 import style from "./CaffeList.module.css"
 import { Iproduct } from "@/shared/types/types"
+import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
+import UseLogin from "@/shared/Hookcs/UseLogin"
 
 const CaffeList: FC<{
   products: Iproduct[]
@@ -12,7 +16,9 @@ const CaffeList: FC<{
   const data = products.filter(
     (i: Iproduct) => i.secondCategoryId === categoryId
   )
-
+  const [grade, setGrade] = useState([])
+  UseGetGrade(setGrade, data)
+  UseLogin()
   return (
     <div className={`container ${style.caffeList}`}>
       {data.map((item: Iproduct) => (
@@ -20,8 +26,9 @@ const CaffeList: FC<{
           key={item.id}
           item={item}
           category={category}
-          grade={[]}
+          grade={grade && grade}
           imageUrl={`/cafe/${item.imageUrl}.jpg`}
+          pay={false}
         />
       ))}
     </div>

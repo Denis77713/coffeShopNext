@@ -24,11 +24,11 @@
   /* font-size: 10px; */
 }
 .nav {
-  z-index: 20;
+  z-index: 1;
   position: fixed;
   display: flex;
   justify-content: center;
-  top: 110px;
+  top: 86px;
   left: 0;
   width: 100%;
   padding: 20px;
@@ -43,6 +43,7 @@
   text-decoration: none;
   color: #000;
   transition: color 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .link:hover,
