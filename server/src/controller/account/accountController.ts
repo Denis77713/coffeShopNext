@@ -146,7 +146,6 @@ class UserControllerClass {
   }
   async getGrade(req: any, res: any, next: any) {
     const databody = req.body.data
-    console.log(req.body)
     try {
       const data = await userService.getGradeServise(databody)
       res.json(data)

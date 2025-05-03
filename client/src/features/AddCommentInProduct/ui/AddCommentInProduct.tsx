@@ -28,9 +28,6 @@ const AddCommentInProduct: FC<{
   //
   //
 
-  // console.log(filteResult.length === 0)
-  // console.log(dataRender)
-  console.log(grade.length !== 0)
   return (
     <>
       {User !== "Unauthorized" && dataRender && (

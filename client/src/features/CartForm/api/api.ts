@@ -11,7 +11,5 @@ export async function getCartPay(
   try {
     const res = await api.post("/getCartPay", { data: dataStorage, sum: sum })
     setComplitePay(res.status)
-  } catch (e) {
-    console.log(e)
-  }
+  } catch (e) {}
 }

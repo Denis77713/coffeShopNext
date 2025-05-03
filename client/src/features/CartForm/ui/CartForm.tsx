@@ -28,7 +28,6 @@ const CartForm = ({ setCart }: any) => {
   //
   useEffect(() => {
     setDataStorage(storage ? JSON.parse(storage) : null)
-    console.log(dataStorage)
     if (dataStorage) {
       setSum(
         dataStorage

@@ -78,11 +78,8 @@ async function postGrade(
     const reStar =
       res.data.length !== 0 ? Math.round(newGradeSum / res.data.length) : 0
 
-    // console.log(reStar)
     setRender(reStar)
-  } catch (e) {
-    console.log(e)
-  }
+  } catch (e) {}
 }
 
 function getArr(grade: number) {

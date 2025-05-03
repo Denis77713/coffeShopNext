@@ -1,4 +1,3 @@
-import { cookies } from "next/headers"
 import { getProductId } from "./getProductId"
 import Image from "next/image"
 import style from "./ProductInProductPage.module.css"
@@ -28,7 +27,7 @@ const ProductInProductPage: FC<{
   const item = result[0]
   const star = getStarAndGrade()
   //
-  // console.log(grade.data)
+  console.log(result)
   //
   return (
     <>
@@ -37,7 +36,11 @@ const ProductInProductPage: FC<{
           <div className={style.ImageAndText}>
             <Image
               className={style.img}
-              src={`/product/${item.imageUrl}.png`}
+              src={
+                result[0].secondCategoryId
+                  ? `/cafe/${item.imageUrl}.jpg`
+                  : `/product/${item.imageUrl}.png`
+              }
               alt={item.imageUrl}
               width={500}
               height={500}

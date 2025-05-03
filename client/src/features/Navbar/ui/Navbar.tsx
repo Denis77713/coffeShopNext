@@ -6,7 +6,7 @@ import style from "./Navbar.module.css"
 
 export const NavBar: FC<{ sectionIds: string[] }> = ({ sectionIds }) => {
   //State to track the active link and scroll state
-  const [activeLink, setActiveLink] = useState("hero")
+  const [activeLink, setActiveLink] = useState(sectionIds[0])
   const [isScrolled, setIsScrolled] = useState(false)
   // const sectionIds = ["hero", "about", "testimonial", "contact"]
 
@@ -15,7 +15,7 @@ export const NavBar: FC<{ sectionIds: string[] }> = ({ sectionIds }) => {
     const element = document.getElementById(sectionId)
     if (element) {
       //Adjust the margin Top value as needed
-      const marginTop = 0
+      const marginTop = 200
       const scrollToY =
         element.getBoundingClientRect().top + window.scrollY - marginTop
       window.scrollTo({ top: scrollToY, behavior: "smooth" })
@@ -28,7 +28,7 @@ export const NavBar: FC<{ sectionIds: string[] }> = ({ sectionIds }) => {
       const section = document.getElementById(sectionIds[i])
       if (section) {
         const rect = section.getBoundingClientRect()
-        if (rect.top <= 320 && rect.bottom >= 320) {
+        if (rect.top <= 420 && rect.bottom >= 520) {
           //Set the active link based on the section ID
           setActiveLink(sectionIds[i])
           break
@@ -62,8 +62,8 @@ export const NavBar: FC<{ sectionIds: string[] }> = ({ sectionIds }) => {
           <ul className={`${style.menuBar} ${style.list}`}>
             {sectionIds.map((sectionId, i) => (
               <li key={i} onClick={() => scrollToSection(sectionId)}>
-                <Link
-                  href={`#${sectionId}`}
+                <p
+                  // href={`${sectionId}`}
                   className={
                     activeLink === sectionId
                       ? `${style.active} ${style.link}`
@@ -71,7 +71,7 @@ export const NavBar: FC<{ sectionIds: string[] }> = ({ sectionIds }) => {
                   }
                 >
                   {sectionId}
-                </Link>
+                </p>
               </li>
             ))}
           </ul>

@@ -161,12 +161,10 @@ class userServiceClass {
     return tokenData
   }
   async refresh(refreshToken: string) {
-    console.log(refreshToken)
     if (!refreshToken) {
       throw ApiError.UnauthorizedError()
     }
     const userData = tokenServise.validateRefreshToken(refreshToken)
-    console.log(userData)
     const tokenFromDB = await tokenServise.findToken(refreshToken)
     if (!userData || !tokenFromDB) {
       throw ApiError.UnauthorizedError()
@@ -220,7 +218,6 @@ class userServiceClass {
       const complitePdoduct = await getDataUser(getComplitePdoduct)
       const develery = await getDataUser(getDevelery)
       result = { userProduct, complitePdoduct, develery }
-      console.log(result)
     }
     return result
   }
@@ -230,7 +227,6 @@ class userServiceClass {
         productId: { in: databody },
       },
     })
-    // console.log(databody)
     return grade
   }
   async postGradeUnauthorizedServise(data: any) {}
@@ -243,7 +239,6 @@ class userServiceClass {
           productId: data.productId,
         },
       })
-      // console.log(res)
       if (res.length === 0) {
         await prisma.gradeStar.create({
           data: {

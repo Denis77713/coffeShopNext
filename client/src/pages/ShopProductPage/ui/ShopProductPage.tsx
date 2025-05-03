@@ -4,13 +4,16 @@ import ProductInProductPage, {
   IproductID,
 } from "@/widges/ProductInProductPage/ui/ProductInProductPage"
 import { FC } from "react"
-
+import style from "./ShopProductPage.module.css"
+//
+//
 const ShopProductPage: FC<{
   params: IParams
   searchParams: IproductID
 }> = async ({ params, searchParams }) => {
+  // console.log(123)
   return (
-    <main className="container">
+    <main className={`container ${style.mtop}`}>
       <IsToken />
       <ProductInProductPage params={params} searchParams={searchParams} />
     </main>

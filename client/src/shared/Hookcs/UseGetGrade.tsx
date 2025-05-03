@@ -14,7 +14,6 @@ const UseGetGrade = (
       try {
         const dataListId = dataList.map((item: Item) => item.id)
         const data = await api.post("/getGrade", { data: dataListId })
-        console.log(data)
         setGrade(data.data)
       } catch {
         localStorage.removeItem("token")

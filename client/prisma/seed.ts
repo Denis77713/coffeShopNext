@@ -27,9 +27,7 @@ async function main() {
     await generateWhiList()
     await generateContacts()
     await generateFilters()
-  } catch (e) {
-    console.log(e)
-  }
+  } catch (e) {}
 }
 
 main()

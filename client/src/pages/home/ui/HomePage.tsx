@@ -21,7 +21,6 @@ export default async function Home() {
   const bestProductList = await getProduct()
   const categoryMarket = await getCategory("Shop")
   const categoryCaffe = await getCategory("Cafe")
-  console.log(categoryCaffe)
   const list = assortiment.cartList
   const cart = assortiment.cart
   const bestList = bestStyle.bestList
