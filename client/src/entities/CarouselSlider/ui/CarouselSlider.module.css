@@ -10,7 +10,9 @@
   max-width: 100%;
   height: auto;
 }
-
+.slider button {
+  z-index: 0;
+}
 .skeleton {
   border-radius: 20px;
   height: 400px;
