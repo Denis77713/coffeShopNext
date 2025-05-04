@@ -25,6 +25,10 @@ const FormAddProduct = () => {
 
   return (
     <>
+      <form method="POST" action="/" encType="multipart/form-data">
+        <input type="file" name="file" />
+        <input type="submit" value="Upload" />
+      </form>
       {formVisible === "addProduct" ? (
         <Form>
           <input
