@@ -29,7 +29,7 @@ const adminPanelProduct: FC<{
       <Link href={"/adminPanel"}>
         <Button>Админ панель</Button>
       </Link>
-      <FormAddProduct />
+      <FormAddProduct params={params} />
       <AdminProductList data={res.productData} />
       <Pagination numProduct={res.numProduct / numProductInPage} />
     </main>

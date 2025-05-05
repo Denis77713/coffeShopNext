@@ -27,7 +27,7 @@ const CaffeList: FC<{
           item={item}
           category={category}
           grade={grade && grade}
-          imageUrl={`/cafe/${item.imageUrl}.jpg`}
+          imageUrl={`/product/${item.imageUrl}`}
           pay={false}
         />
       ))}

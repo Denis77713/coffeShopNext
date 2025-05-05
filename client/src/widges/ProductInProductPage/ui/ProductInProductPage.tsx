@@ -22,9 +22,11 @@ const ProductInProductPage: FC<{
   const idProduct = Number(searchParams.productID)
   //
   const result = await getProductId(idProduct)
-  const grade = await apiServer.post("/getGrade", { data: [result[0].id] })
-  const gradeUsers = await getComment(grade.data)
-  const item = result[0]
+
+  const grade =
+    result && (await apiServer.post("/getGrade", { data: [result[0]?.id] }))
+  const gradeUsers = result && (await getComment(grade.data))
+  const item = result && result[0]
   const star = getStarAndGrade()
   //
   console.log(result)
@@ -36,11 +38,7 @@ const ProductInProductPage: FC<{
           <div className={style.ImageAndText}>
             <Image
               className={style.img}
-              src={
-                result[0].secondCategoryId
-                  ? `/cafe/${item.imageUrl}.jpg`
-                  : `/product/${item.imageUrl}.png`
-              }
+              src={`/product/${item.imageUrl}`}
               alt={item.imageUrl}
               width={500}
               height={500}

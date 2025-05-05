@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from "react"
 import style from "@/widges/ProductList/ui/ProductList.module.css"
 import styles from "./AdminProductList.module.css"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
-import { Item } from "@/entities/Product/ui/ProductType"
+import { AdminItemType } from "@/shared/types/types"
 
 const AdminProductList: FC<{ data: any }> = ({ data }) => {
   const [dataArr, setDataArr] = useState(data)
@@ -17,7 +17,7 @@ const AdminProductList: FC<{ data: any }> = ({ data }) => {
   UseGetGrade(setGrade, dataArr)
   return (
     <div className={`${style.bestList} ${styles.container}`}>
-      {dataArr.map((item: Item) => (
+      {dataArr.map((item: AdminItemType) => (
         <AdminProduct
           key={item.id}
           item={item}

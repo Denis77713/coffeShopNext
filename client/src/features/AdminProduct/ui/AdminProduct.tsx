@@ -13,11 +13,11 @@ import UseGetStar from "@/shared/Hookcs/UseGetStar"
 import { Star } from "@/entities/Product/ui/Product"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { Iproduct } from "@/shared/types/types"
+import { AdminItemType, Iproduct } from "@/shared/types/types"
 
 const AdminProduct: FC<{
   item: Item & Iproduct
-  dataArr: Item[] & Iproduct[]
+  dataArr: AdminItemType[]
   setDataArr: any
   grade: Star[]
 }> = ({ item, dataArr, setDataArr, grade }) => {
@@ -27,7 +27,7 @@ const AdminProduct: FC<{
   const [price, setPrice] = useState(item.price)
   const [state, setState] = useState(0)
   const pathName = usePathname()
-  console.log()
+  console.log(dataArr)
   //
   const category = pathName?.replace("/adminPanel/", "")
   //
@@ -48,11 +48,7 @@ const AdminProduct: FC<{
       <div className={style.wrapper}>
         <Link href={url}>
           <Image
-            src={
-              item.secondCategoryId
-                ? `/cafe/${item.imageUrl}.jpg`
-                : `/product/${item.imageUrl}.png`
-            }
+            src={`/product/${item.imageUrl}`}
             alt={item.imageUrl}
             width={200}
             height={200}

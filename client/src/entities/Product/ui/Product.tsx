@@ -68,7 +68,7 @@ const Product = ({
             }
           >
             <Image
-              src={imageUrl ? imageUrl : `/product/${item.imageUrl}.png`}
+              src={imageUrl ? imageUrl : `/product/${item.imageUrl}`}
               alt={item.imageUrl}
               width={200}
               height={200}
