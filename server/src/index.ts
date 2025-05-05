@@ -11,19 +11,6 @@ const upload = require("express-fileupload")
 app.use(express.json())
 app.use(cookieParser())
 app.use(upload())
-app.post("/upload", (req: any, res) => {
-  if (req.files) {
-    const file = req.files.file
-    const fileName = file.name
-    file.mv("../client/public/" + fileName, (err: any) => {
-      if (err) {
-        res.send(err)
-      } else {
-        res.send("File Uploaded")
-      }
-    })
-  }
-})
 app.use(
   cors({
     credentials: true,
