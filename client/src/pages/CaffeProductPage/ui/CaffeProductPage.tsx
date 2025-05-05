@@ -7,6 +7,7 @@ import CaffeList from "@/widges/CaffeList/ui/CaffeList"
 interface Iparams {
   id: string
 }
+
 const CaffeProductPage: FC<{ params: Iparams }> = async ({ params }) => {
   const data = await getProductCaffe(params.id)
   const textNav = data.secondCategory.map((item) => item.text)

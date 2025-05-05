@@ -7,13 +7,14 @@ import { handleclick, getState } from "./FunctionsLike"
 import { Item } from "@/entities/Product/ui/ProductType"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart } from "@/shared/reducers/FormSlice"
+import { Iproduct } from "@/shared/types/types"
 
 export type IntStorageData = {
   id: number
   like: boolean
 }
 
-const Like: FC<{ item: Item }> = ({ item }) => {
+const Like: FC<{ item: Iproduct }> = ({ item }) => {
   const [state, setState] = useState<boolean>()
 
   useEffect(() => {

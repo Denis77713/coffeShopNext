@@ -1,5 +1,6 @@
 "use server"
 
+import { Iproduct } from "@/shared/types/types"
 import { prisma } from "../../../../prisma/prisma-client"
 
 export async function updateProduct(id: number, name: string, price: string) {
@@ -17,6 +18,13 @@ export async function deleteProduct(id: number) {
   await prisma.product.delete({
     where: {
       id: id,
+    },
+  })
+}
+export async function deleteGrade(id: number) {
+  await prisma.gradeStar.deleteMany({
+    where: {
+      productId: id,
     },
   })
 }

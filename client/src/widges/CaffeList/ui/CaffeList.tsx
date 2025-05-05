@@ -9,7 +9,7 @@ import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 
 const CaffeList: FC<{
-  products: Iproduct[]
+  products: Iproduct[] | any
   categoryId: number
   category: TypeCategory[]
 }> = ({ products, categoryId, category }) => {

@@ -17,9 +17,21 @@ export type TypeCategory = {
   image: string
   page: string
 }
-
+interface Iprod {
+  id: number
+  name: string
+  imageUrl: string
+  price: string | null
+  best: string | null
+  weight: string | null
+  none: string
+  drip: string
+  number: number | null
+  secondCategoryId: number | null
+  categoryId: number
+}
 const ProductList: FC<{
-  res: Iproduct[]
+  res: Iprod[]
   category: TypeCategory[]
 }> = ({ res, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])

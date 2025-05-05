@@ -5,7 +5,7 @@ import style from "@/entities/Product/ui/Product.module.css"
 import { FC, useEffect, useState } from "react"
 import { Item } from "@/entities/Product/ui/ProductType"
 import styless from "./AdminProduct.module.css"
-import { deleteProduct, updateProduct } from "../api/api"
+import { deleteGrade, deleteProduct, updateProduct } from "../api/api"
 import { inputSecurity } from "@/security"
 import Button from "@/shared/ui/Button"
 import GradeStar from "@/shared/Star/GradeStar"
@@ -13,11 +13,11 @@ import UseGetStar from "@/shared/Hookcs/UseGetStar"
 import { Star } from "@/entities/Product/ui/Product"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { AdminItemType, Iproduct } from "@/shared/types/types"
+import { Iproduct } from "@/shared/types/types"
 
 const AdminProduct: FC<{
-  item: Item & Iproduct
-  dataArr: AdminItemType[]
+  item: Iproduct
+  dataArr: Iproduct[]
   setDataArr: any
   grade: Star[]
 }> = ({ item, dataArr, setDataArr, grade }) => {
@@ -27,12 +27,13 @@ const AdminProduct: FC<{
   const [price, setPrice] = useState(item.price)
   const [state, setState] = useState(0)
   const pathName = usePathname()
-  console.log(dataArr)
   //
   const category = pathName?.replace("/adminPanel/", "")
   //
   const url = `/shop/${category}/${item.name}?productID=${item.id}`
   UseGetStar(grade, setState, item)
+  //
+  //
   return (
     <div className={style.bestItem} key={item.id}>
       <Link href={url}>
@@ -42,7 +43,7 @@ const AdminProduct: FC<{
           alt="close"
           width={20}
           height={20}
-          onClick={() => handleDelete(item.id)}
+          onClick={() => handleDelete(item.id, item)}
         />
       </Link>
       <div className={style.wrapper}>
@@ -81,12 +82,13 @@ const AdminProduct: FC<{
       <GradeStar grade={state} productId={item.id} clicked={false} />
     </div>
   )
-  async function handleClick(item: number, name: string, price: string) {
-    await updateProduct(item, name, price)
+  async function handleClick(id: number, name: string, price: string) {
+    await updateProduct(id, name, price)
   }
-  async function handleDelete(id: number) {
+  async function handleDelete(id: number, item: Iproduct) {
+    await deleteGrade(id)
     await deleteProduct(id)
-    const filterArr = dataArr.filter((item: Item) => item.id !== id)
+    const filterArr = dataArr.filter((item: Iproduct) => item.id !== id)
     setDataArr(filterArr)
   }
 }

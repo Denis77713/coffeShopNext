@@ -1,20 +1,20 @@
 import { Item } from "@/entities/Product/ui/ProductType"
+import { Iproduct } from "@/shared/types/types"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 
-export function handleclick(item: Item,setState:any) {
+export function handleclick(item: Iproduct, setState: any) {
   const jsonData: string | null = localStorage.getItem("like")
   if (jsonData !== null) {
     const arr: ItemStore[] = JSON.parse(jsonData)
     const filterArr = arr.filter((i) => i.id === item.id)
     if (filterArr.length === 0) {
-      const newArr:any = item
+      const newArr: any = item
       newArr.like = true
       setState(true)
       arr.push(newArr)
       localStorage.setItem("like", JSON.stringify(arr))
-      
     } else {
-      const filterArr2 = arr.filter(itemArr=> itemArr.id !== filterArr[0].id)
+      const filterArr2 = arr.filter((itemArr) => itemArr.id !== filterArr[0].id)
       filterArr[0].like = !filterArr[0].like
       setState(filterArr[0].like)
       filterArr2.push(filterArr[0])
@@ -28,8 +28,7 @@ export function handleclick(item: Item,setState:any) {
   }
 }
 
-
-export function getState(item:Item) {
+export function getState(item: Iproduct) {
   let result: boolean | undefined = false
   if (typeof window !== "undefined") {
     const jsonData: string | null = localStorage.getItem("like")

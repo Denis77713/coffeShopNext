@@ -2,15 +2,17 @@ export type Iproduct = {
   id: number
   name: string
   imageUrl: string
-  price: string | null
+  price: string
   best: string | null
   weight: string | null
   none: string
   drip: string
-  number: number | null
+  number: number
   secondCategoryId: number | null
   categoryId: number
+  like?: boolean
 }
+
 export type fileType = {
   lastModified: number
   lastModifiedDate: any
@@ -18,18 +20,4 @@ export type fileType = {
   size: number
   type: string
   webkitRelativePath: string
-}
-
-export type AdminItemType = {
-  best: string
-  categoryId: number
-  drip: string
-  id: number
-  imageUrl: string
-  name: string
-  none: string
-  number: number
-  price: string
-  secondCategoryId: null
-  weight: string
 }
