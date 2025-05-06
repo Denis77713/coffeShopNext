@@ -6,14 +6,17 @@ import style from "@/widges/ProductList/ui/ProductList.module.css"
 import styles from "./AdminProductList.module.css"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 import { Iproduct } from "@/shared/types/types"
+import { useSelector } from "react-redux"
 
 const AdminProductList: FC<{ data: any }> = ({ data }) => {
   const [dataArr, setDataArr] = useState(data)
   const [grade, setGrade] = useState([])
 
+  const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
+
   useEffect(() => {
     setDataArr(data)
-  }, [data])
+  }, [data, renderCart])
   UseGetGrade(setGrade, dataArr)
   return (
     <div className={`${style.bestList} ${styles.container}`}>

@@ -4,7 +4,7 @@ class fileClass {
       if (req.files) {
         const file = req.files.file
         const fileName = file.name
-        file.mv("../client/public/" + fileName, (err: any) => {
+        file.mv("../client/public/product/" + fileName, (err: any) => {
           if (err) {
             res.send(err)
           } else {

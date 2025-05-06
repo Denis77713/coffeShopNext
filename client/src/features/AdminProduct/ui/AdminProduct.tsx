@@ -36,16 +36,15 @@ const AdminProduct: FC<{
   //
   return (
     <div className={style.bestItem} key={item.id}>
-      <Link href={url}>
-        <Image
-          className={styless.close}
-          src={`/close.svg`}
-          alt="close"
-          width={20}
-          height={20}
-          onClick={() => handleDelete(item.id, item)}
-        />
-      </Link>
+      <Image
+        className={styless.close}
+        src={`/close.svg`}
+        alt="close"
+        width={20}
+        height={20}
+        onClick={() => handleDelete(item.id, item)}
+      />
+      <Link href={url}></Link>
       <div className={style.wrapper}>
         <Link href={url}>
           <Image
