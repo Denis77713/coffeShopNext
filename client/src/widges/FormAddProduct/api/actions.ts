@@ -31,7 +31,7 @@ export async function createProduct(
       none: "false",
       drip: drip,
       categoryId: categoryId ? categoryId.id : 1,
-      secondCategoryId: Number(secCat),
+      secondCategoryId: secCat ? Number(secCat) : null,
     },
   })
   return result
