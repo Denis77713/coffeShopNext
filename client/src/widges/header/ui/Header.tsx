@@ -12,9 +12,9 @@ import { getActivated, getAuth, getWindow } from "@/shared/reducers/FormSlice"
 import FormLogin from "@/features/FormLogin/ui/FormLogin"
 import { logout } from "@/features/FormRegistration/api/api"
 import { redirectAction } from "@/pages/account/api/api"
-import CartForm from "@/features/CartForm/ui/CartForm"
 import { IntStorageData } from "@/shared/like/ui/Like"
 import IconHeader from "@/features/IconHeader/ui/IconHeader"
+import CartForm from "@/features/CartForm/ui/CartForm"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)

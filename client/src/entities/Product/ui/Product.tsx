@@ -56,6 +56,9 @@ const Product = ({
   UseGetStar(grade, setState, item)
   //
   //
+  const Auth = useSelector((store: any) => store.FormSlice.Auth)
+
+  console.log()
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
@@ -88,7 +91,7 @@ const Product = ({
         productId={item.id}
         clicked={false}
       />
-      {pay && (
+      {pay && Auth === 200 && (
         <Button
           handleClick={() => {
             addProductCard(item)

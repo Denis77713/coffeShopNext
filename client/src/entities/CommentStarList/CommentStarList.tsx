@@ -21,6 +21,8 @@ const CommentStarList: FC<{
   //
   //
   //
+  const User = useSelector((store: any) => store.FormSlice.User)
+
   //
   return (
     <>
@@ -34,10 +36,15 @@ const CommentStarList: FC<{
               productId={item.grade}
               clicked={false}
             />
+            {User.role === "admin" && (
+              <div className={style.deleteButton}>
+                <Button handleClick={() => deleteComment(item.id)}>
+                  Удалить
+                </Button>
+              </div>
+            )}
           </div>
           <div>{item.comment}</div>
-
-          <Button handleClick={() => deleteComment(item.id)}>Удалить</Button>
         </div>
       ))}
     </>

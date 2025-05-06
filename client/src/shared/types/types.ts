@@ -21,3 +21,10 @@ export type fileType = {
   type: string
   webkitRelativePath: string
 }
+export type IProductCart = {
+  id: number
+  imageUrl: string
+  price: string
+  name: string
+  number: number
+}

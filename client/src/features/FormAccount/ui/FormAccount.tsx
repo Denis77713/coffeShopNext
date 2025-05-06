@@ -11,11 +11,13 @@ const FormAccount = () => {
 
   return (
     <Form>
-      <Button handleClick={() => dispatch(getWindow("login"))}>Логин</Button>
-      <div className={style.div}></div>
-      <Button handleClick={() => dispatch(getWindow("registrarion"))}>
-        Регистрация
-      </Button>
+      <div className={style.wrapperForm}>
+        <Button handleClick={() => dispatch(getWindow("login"))}>Логин</Button>
+        {/* <div className={style.div}></div> */}
+        <Button handleClick={() => dispatch(getWindow("registrarion"))}>
+          Регистрация
+        </Button>
+      </div>
     </Form>
   )
 }

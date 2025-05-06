@@ -36,6 +36,7 @@ class UserControllerClass {
         httpOnly: true,
       })
       // Вернуть Юзера
+      console.log(userData)
       return res.json(userData)
     } catch (e) {
       next(e)

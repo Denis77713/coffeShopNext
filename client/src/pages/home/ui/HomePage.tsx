@@ -85,9 +85,9 @@ export default async function Home() {
         <Title coffeNum={"false"} styles={style.title}>
           Хиты продаж
         </Title>
-        <Suspense fallback={ProductSkeleton}>
-          <BestProductList dataList={bestProductList} category={category} />
-        </Suspense>
+        {/* <Suspense fallback={ProductSkeleton}> */}
+        <BestProductList dataList={bestProductList} category={category} />
+        {/* </Suspense> */}
         <WhyUsList />
       </main>
     </div>
