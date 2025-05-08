@@ -1,19 +1,30 @@
 "use client"
 
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import style from "./BestProductList.module.css"
 import Product from "@/entities/Product/ui/Product"
 import useStorage from "@/shared/ui/useStorage"
 import { addLikeInList } from "@/shared/ui/addLikeInList"
-import { Item } from "@/entities/Product/ui/ProductType"
 import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { ItemStore } from "./BestProductListTypes"
-import { api } from "@/widges/header/api/api"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
-import { Iproduct } from "@/shared/types/types"
+
+type DataListType = {
+  id: number
+  name: string
+  imageUrl: string
+  price: string | null
+  best: string | null
+  weight: string | null
+  none: string
+  drip: string
+  number: number | null
+  secondCategoryId: number | null
+  categoryId: number
+}
 
 const BestProductList: FC<{
-  dataList: Iproduct[]
+  dataList: DataListType[]
   category: TypeCategory[]
 }> = ({ dataList, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])

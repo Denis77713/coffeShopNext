@@ -5,33 +5,13 @@ import { addLikeInList } from "@/shared/ui/addLikeInList"
 import useStorage from "@/shared/ui/useStorage"
 import { FC, useState } from "react"
 import style from "./ProductList.module.css"
-import { Item } from "@/entities/Product/ui/ProductType"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
-import { Iproduct } from "@/shared/types/types"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 
-export type TypeCategory = {
-  id: number
-  name: string
-  image: string
-  page: string
-}
-interface Iprod {
-  id: number
-  name: string
-  imageUrl: string
-  price: string | null
-  best: string | null
-  weight: string | null
-  none: string
-  drip: string
-  number: number | null
-  secondCategoryId: number | null
-  categoryId: number
-}
 const ProductList: FC<{
-  res: Iprod[]
+  res: Iproduct[]
   category: TypeCategory[]
 }> = ({ res, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])

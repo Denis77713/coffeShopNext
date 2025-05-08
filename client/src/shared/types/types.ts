@@ -28,3 +28,37 @@ export type IProductCart = {
   name: string
   number: number
 }
+export type IProductCartStore = {
+  id: number
+  imageUrl: string
+  price: string
+  name: string
+  number: number
+  numProductsPay?: number | any
+}
+export type Star = {
+  comment: string | null
+  grade: number
+  id: number
+  productId: number
+  userAnonim: boolean
+  userId: number | null
+}
+export type TypeCategory = {
+  id: number
+  name: string
+  image: string
+  page: string
+}
+export type IProductPay = {
+  userProduct: Iproduct[]
+  complitePdoduct: Iproduct[]
+  develery: Iproduct[]
+}
+export type IDataProductPay = {
+  data: {
+    userProduct: Iproduct[]
+    complitePdoduct: Iproduct[]
+    develery: Iproduct[]
+  }
+}

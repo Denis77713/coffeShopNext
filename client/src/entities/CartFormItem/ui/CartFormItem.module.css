@@ -1,9 +1,8 @@
 .product {
-  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  width: 100%;
   margin-bottom: 15px;
+  justify-content: space-between;
 }
 .productWrapper {
   background: white;
@@ -13,6 +12,7 @@
 }
 .wrapperPrise {
   display: flex;
+  margin-top: 15px;
 }
 .wrapperPrise__Prise {
   margin: 0 10px;
@@ -28,16 +28,18 @@
   border-radius: 10px;
   margin-right: 10px;
 }
-.paygreen {
-  margin: 20px 0;
-  color: #17673e;
-  text-align: center;
-}
-.pay {
+.calc {
   display: flex;
   align-items: center;
-  justify-content: end;
 }
-.sum {
-  margin-right: 20px;
+.calc img {
+  margin: 0 10px;
+  cursor: pointer;
+}
+.calc p {
+  margin-right: 10px;
+}
+.wrapperInner {
+  display: flex;
+  justify-content: space-between;
 }

@@ -5,37 +5,25 @@ import style from "./Product.module.css"
 import Like from "@/shared/like/ui/Like"
 import Link from "next/link"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { addCookie, getPageCategory } from "./ProductController"
-import { Item } from "./ProductType"
 import Button from "@/shared/ui/Button"
 import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
 import GradeStar from "@/shared/Star/GradeStar"
-import { useEffect, useState } from "react"
+import { FC, useState } from "react"
 import UseGetStar from "@/shared/Hookcs/UseGetStar"
+import { Iproduct, Star, TypeCategory } from "@/shared/types/types"
 
-interface IProduct {
-  item: Item | any
+const Product: FC<{
+  item: Iproduct
   category: TypeCategory[]
   pay?: boolean
   path?: string
   isLike?: boolean
   grade: Star[]
-  imageUrl?: any
-}
-
-export type Star = {
-  comment: string | null
-  grade: number
-  id: number
-  productId: number
-  userAnonim: boolean
-  userId: number | null
-}
-
-const Product = ({
+  imageUrl?: string
+}> = ({
   item,
   category,
   pay = true,
@@ -43,7 +31,7 @@ const Product = ({
   isLike = true,
   grade,
   imageUrl = null,
-}: IProduct) => {
+}) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const pathname = usePathname()
@@ -58,7 +46,6 @@ const Product = ({
   //
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
 
-  console.log()
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
@@ -86,22 +73,25 @@ const Product = ({
         <div>{item.name}</div>
         <div>{`${item.price} руб.`}</div>
       </div>
-      <GradeStar
-        grade={state >= 5 ? 5 : state}
-        productId={item.id}
-        clicked={false}
-      />
-      {pay && Auth === 200 && (
-        <Button
-          handleClick={() => {
-            addProductCard(item)
-            dispatch(getRenderCart(!renderCart))
-            dispatch(getWindow(""))
-          }}
-        >
-          Купить
-        </Button>
-      )}
+      <div className={style.gradeAndButton}>
+        <GradeStar
+          grade={state >= 5 ? 5 : state}
+          productId={item.id}
+          clicked={false}
+        />
+        {item.number === 0 && pay && <Button>Товара нет в наличии</Button>}
+        {pay && Auth === 200 && item.number !== 0 && (
+          <Button
+            handleClick={() => {
+              addProductCard(item)
+              dispatch(getRenderCart(!renderCart))
+              dispatch(getWindow(""))
+            }}
+          >
+            Купить
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

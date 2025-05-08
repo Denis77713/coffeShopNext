@@ -3,32 +3,17 @@
 import { FC, useState } from "react"
 import { getProcuctAccount } from "../api/api"
 import { AxiosResponse } from "axios"
-import Product, { Star } from "@/entities/Product/ui/Product"
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
+import Product from "@/entities/Product/ui/Product"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
 import IsLogin from "@/shared/Hookcs/IsLogin"
-
-export interface IProductPayItem {
-  id: number
-  name: string
-  imageUrl: string
-  price: string
-  best: string
-  weight: string
-  none: string
-  drip: string
-  number: number
-  categoryId: number
-}
-export interface IProductPay {
-  userProduct: IProductPayItem[]
-  complitePdoduct: IProductPayItem[]
-  develery: IProductPayItem[]
-}
-export interface IDataProductPay {
-  data: IProductPay
-}
+import {
+  IDataProductPay,
+  Iproduct,
+  IProductPay,
+  Star,
+  TypeCategory,
+} from "@/shared/types/types"
 
 const AccountProductList: FC<{
   category: TypeCategory[]
@@ -60,7 +45,7 @@ const AccountProductList: FC<{
         <div>
           <h2 className={style.title}>История заказов</h2>
           <CarouselSlider responsive={responsive}>
-            {state?.data?.userProduct.map((item: IProductPayItem) => (
+            {state?.data?.userProduct.map((item: Iproduct) => (
               <div className={style.item} key={item.id}>
                 <Product
                   item={item}

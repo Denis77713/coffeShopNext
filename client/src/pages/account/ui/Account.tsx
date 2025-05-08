@@ -23,7 +23,6 @@ const Account = () => {
   useEffect(() => {
     async function Login() {
       try {
-        // const dataListId = grade.map((item) => item.id)
         const data = await api.post("/getGrade")
         setGrade(data)
       } catch {

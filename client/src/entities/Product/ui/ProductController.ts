@@ -1,4 +1,4 @@
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 import { Item } from "./ProductType"
 
 export function addCookie(item: number) {
@@ -7,7 +7,7 @@ export function addCookie(item: number) {
 }
 
 export function getPageCategory(
-  item: Item,
+  item: Iproduct,
   category: TypeCategory[],
   pathname: string | null
 ): string {

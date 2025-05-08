@@ -1,5 +1,5 @@
+import { IProductCart } from "@/shared/types/types"
 import { api } from "@/widges/header/api/api"
-import { IProductCart } from "../ui/CartForm"
 
 export async function getCartPay(
   e: any,
@@ -10,6 +10,7 @@ export async function getCartPay(
   e.preventDefault()
   try {
     const res = await api.post("/getCartPay", { data: dataStorage, sum: sum })
+    console.log(res)
     setComplitePay(res.status)
   } catch (e) {}
 }

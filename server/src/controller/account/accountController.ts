@@ -2,13 +2,13 @@ import { prisma } from "../../../../client/prisma/prisma-client"
 import { userService } from "../../service/account/userSevice"
 import { validationResult } from "express-validator"
 import { ApiError } from "../../errors/api.error"
-
-export type IProductCart = {
+export interface IProductCartStore {
   id: number
   imageUrl: string
   price: string
   name: string
   number: number
+  numProductsPay?: number | any
 }
 
 class UserControllerClass {
@@ -36,7 +36,6 @@ class UserControllerClass {
         httpOnly: true,
       })
       // Вернуть Юзера
-      console.log(userData)
       return res.json(userData)
     } catch (e) {
       next(e)
@@ -114,15 +113,45 @@ class UserControllerClass {
       const user = await prisma.token.findFirst({
         where: { refreshToken: refreshToken },
       })
-      const arrId = data.map((item: IProductCart) => item.id)
+      const arrId = data.map((item: IProductCartStore) => item.id)
+      const arrIdAndQuantity = data.map(
+        (item: IProductCartStore) => item.numProductsPay
+      )
       if (user && data && refreshToken) {
         await prisma.productPay.create({
           data: {
             userId: user.userId,
             productId: arrId,
             sum: sum,
+            ProductQuantity: arrIdAndQuantity,
           },
         })
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //
+        const productArr = await prisma.product.findMany({
+          where: {
+            id: { in: arrId },
+          },
+        })
+        // productArr.forEach((item) => {
+        const newNumbers = productArr.map(
+          (item, index) => item.number && item.number - arrIdAndQuantity[index]
+        )
+        productArr.forEach(async (item, index) => {
+          const users = await prisma.product.update({
+            where: {
+              id: arrId[index],
+            },
+            data: {
+              number: newNumbers[index],
+            },
+          })
+        })
+
+        //
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        console.log(res)
         res.json(res.status)
       }
     } catch (e) {

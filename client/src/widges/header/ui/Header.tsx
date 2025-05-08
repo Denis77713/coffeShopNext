@@ -14,7 +14,7 @@ import { logout } from "@/features/FormRegistration/api/api"
 import { redirectAction } from "@/pages/account/api/api"
 import { IntStorageData } from "@/shared/like/ui/Like"
 import IconHeader from "@/features/IconHeader/ui/IconHeader"
-import CartForm from "@/features/CartForm/ui/CartForm"
+import CartForm from "@/widges/CartForm/ui/CartForm"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
