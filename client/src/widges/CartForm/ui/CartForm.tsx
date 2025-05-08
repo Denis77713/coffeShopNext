@@ -7,7 +7,8 @@ import { getRenderCart } from "@/shared/reducers/FormSlice"
 import Button from "@/shared/ui/Button"
 import { getCartPay } from "../api/api"
 import CartFormItem from "@/entities/CartFormItem/ui/CartFormItem"
-import { IProductCartStore } from "@/shared/types/types"
+import { Iproduct, IProductCartStore } from "@/shared/types/types"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 const CartForm = ({ setCart }: any) => {
   const storage: string | null = localStorage.getItem("cart")
@@ -16,14 +17,40 @@ const CartForm = ({ setCart }: any) => {
   )
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
-  const [sum, setSum] = useState(0)
+  const [sum, setSum] = useState(
+    dataStorage &&
+      dataStorage
+        .map(
+          (item: IProductCartStore) => Number(item.price) * item.numProductsPay
+        )
+        .reduce((acc: any, number: number) => acc + number, 0)
+  )
+
   const [complitePay, setComplitePay] = useState(null)
   const [render, setRender] = useState(false)
+  const [dataPay, setDataPay] = useState<any>(null)
+  const searchParams: any = useSearchParams()
+  const pathName = usePathname()
+  const { replace } = useRouter()
+  useEffect(() => {
+    if (dataPay) {
+      const params = new URLSearchParams(searchParams)
+      if (dataPay) {
+        params.set("payIdProduct", dataPay.id)
+      } else {
+        params.delete("payIdProduct")
+      }
+      replace(`${pathName}?${params.toString()}`)
+    }
+  }, [dataPay])
   //
   //
   useEffect(() => {
     setDataStorage(storage ? JSON.parse(storage) : null)
-    if (dataStorage) {
+    const tesuInUndefinded = dataStorage
+      .map((item) => item.numProductsPay)
+      .filter((item) => item === undefined)
+    if (dataStorage && tesuInUndefinded.length === 0) {
       setSum(
         dataStorage
           .map(
@@ -65,7 +92,9 @@ const CartForm = ({ setCart }: any) => {
               <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
               <Button
                 handleClick={async (e: any) =>
-                  await getCartPay(e, dataStorage, sum, setComplitePay)
+                  setDataPay(
+                    await getCartPay(e, dataStorage, sum, setComplitePay)
+                  )
                 }
               >
                 Купить

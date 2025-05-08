@@ -118,7 +118,7 @@ class UserControllerClass {
         (item: IProductCartStore) => item.numProductsPay
       )
       if (user && data && refreshToken) {
-        await prisma.productPay.create({
+        const newDataPay = await prisma.productPay.create({
           data: {
             userId: user.userId,
             productId: arrId,
@@ -151,8 +151,7 @@ class UserControllerClass {
 
         //
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        console.log(res)
-        res.json(res.status)
+        res.json({ data: newDataPay, status: res.status })
       }
     } catch (e) {
       next(e)

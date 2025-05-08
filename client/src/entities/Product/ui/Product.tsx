@@ -45,7 +45,6 @@ const Product: FC<{
   //
   //
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
-
   return (
     <div className={style.bestItem} key={item.id}>
       <div className={style.mb}>
@@ -79,8 +78,8 @@ const Product: FC<{
           productId={item.id}
           clicked={false}
         />
-        {item.number === 0 && pay && <Button>Товара нет в наличии</Button>}
-        {pay && Auth === 200 && item.number !== 0 && (
+        {item.number <= 0 && pay && <Button>Товара нет в наличии</Button>}
+        {pay && Auth === 200 && item.number > 0 && (
           <Button
             handleClick={() => {
               addProductCard(item)

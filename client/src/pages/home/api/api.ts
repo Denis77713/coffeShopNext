@@ -1,20 +1,22 @@
 import { prisma } from "../../../../prisma/prisma-client"
-import { cookies } from 'next/headers'
+import { cookies } from "next/headers"
 
-export const getProduct = async () => {
+export const getProduct = async (searchParams: any) => {
   await new Promise((resolve) => setTimeout(resolve, 1))
 
+  if (searchParams.pay) {
+  }
   const result = await prisma.product.findMany({
     where: {
-      best: 'true'
+      best: "true",
     },
   })
   return result
 }
 // const result = await getProduct()
- 
-export  async function getCookie() {
+
+export async function getCookie() {
   const cookieStore = await cookies()
-  const theme = cookieStore.get('refreshToken')
+  const theme = cookieStore.get("refreshToken")
   return theme
 }

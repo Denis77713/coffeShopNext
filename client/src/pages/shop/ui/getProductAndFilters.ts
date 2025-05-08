@@ -2,11 +2,16 @@ import { prisma } from "../../../../prisma/prisma-client"
 
 export type category = { id: number; name: string; image: string; page: string }
 
-export const getCategory = async (page: string, query: any, numProductInPage: number) => {
+export const getCategory = async (
+  page: string,
+  query: any,
+  numProductInPage: number
+) => {
   await new Promise((resolve) => setTimeout(resolve, 1))
   // Получить категорию
   const category = await getCategoryProdusct(page)
   // Получить товары и число товаров учитывая фильтры
+  delete query.payIdProduct
   const data = await getFilter(query, category, numProductInPage)
   // Возвращает фильтры с чекбоксом для конкретных товаров
   const filtersData = await getFilters(category)
@@ -18,10 +23,15 @@ export const getCategory = async (page: string, query: any, numProductInPage: nu
   return { productData, filtersData, numProduct }
 }
 
-async function getFilter(query: any, category: category[],numProductInPage: number) {
+async function getFilter(
+  query: any,
+  category: category[],
+  numProductInPage: number
+) {
   let result
   let numRecord
   const newQery = query
+  console.log(query)
   let pagination = 0
   let search = ""
   if (newQery.hasOwnProperty("query") === true) {
@@ -31,10 +41,10 @@ async function getFilter(query: any, category: category[],numProductInPage: numb
   }
   if (newQery.hasOwnProperty("delete") === true) delete newQery.delete
   if (newQery.hasOwnProperty("page") === true) {
-    if(Number(newQery.page)===1){
-      pagination = 0  
-    }else{
-      pagination = (Number(newQery.page)-1)*numProductInPage
+    if (Number(newQery.page) === 1) {
+      pagination = 0
+    } else {
+      pagination = (Number(newQery.page) - 1) * numProductInPage
     }
     delete newQery.page
   }

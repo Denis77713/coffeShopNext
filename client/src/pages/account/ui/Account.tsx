@@ -6,6 +6,7 @@ import IsLogin from "@/shared/Hookcs/IsLogin"
 import { useEffect, useState } from "react"
 import { getCategoryes } from "../api/api"
 import { api } from "@/widges/header/api/api"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 const Account = () => {
   type Icategory = {
@@ -14,12 +15,14 @@ const Account = () => {
     image: string
     page: string
   }
-
+  const searchParams: any = useSearchParams()
+  const pathName = usePathname()
+  const { replace } = useRouter()
   const [category, setCategory] = useState<Icategory[]>([])
   const [grade, setGrade] = useState<any>([])
 
   IsLogin(setCategory, getCategoryes)
-
+  console.log(searchParams)
   useEffect(() => {
     async function Login() {
       try {

@@ -11,7 +11,7 @@ import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 import { Iproduct, TypeCategory } from "@/shared/types/types"
 
 const ProductList: FC<{
-  res: Iproduct[]
+  res: Iproduct[] | any
   category: TypeCategory[]
 }> = ({ res, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
@@ -27,7 +27,7 @@ const ProductList: FC<{
       className={`${style.bestList} ${bestStyle.bestList}`}
       onClick={() => setState(!state)}
     >
-      {res.map((item) => (
+      {res.map((item: Iproduct) => (
         <Product
           key={item.id}
           item={item}

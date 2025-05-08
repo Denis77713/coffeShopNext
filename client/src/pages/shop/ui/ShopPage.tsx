@@ -17,6 +17,7 @@ const ShopPage: FC<{ params: IParams; searchParams: string }> = async ({
 }) => {
   //
   //
+  console.log(searchParams)
   const numProductInPage = 8
   const res = await getCategory(`/${params.id}`, searchParams, numProductInPage)
   const category = await getCategoryes()

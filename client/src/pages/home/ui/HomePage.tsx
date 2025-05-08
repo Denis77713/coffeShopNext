@@ -3,7 +3,7 @@ import CategoryList from "@/widges/CategoryList/ui/CategoryList"
 import LocationsList from "@/widges/LocationsList/ui/LocationsList"
 import Title from "@/shared/ui/Title"
 import style from "./HomePage.module.css"
-import { Suspense } from "react"
+import { FC, Suspense } from "react"
 import Skeleton from "@/shared/ui/Skeleton"
 import assortiment from "@/widges/CategoryList/ui/CategoryList.module.css"
 import BestProductList from "@/widges/BestProductList/ui/BestProductList"
@@ -15,10 +15,17 @@ import { getCategory, getCategoryes } from "@/widges/CategoryList/api/api"
 import img from "@/../public/slider/slide1.jpg"
 import Image from "next/image"
 import IsToken from "@/shared/Hookcs/IsToken"
+import { IParams } from "@/pages/shop/ui/ShopPage"
 
-export default async function Home() {
+const Home: FC<{ params: IParams; searchParams: string }> = async ({
+  params,
+  searchParams,
+}) => {
+  console.log("HOME")
+  console.log(searchParams)
+  console.log(params)
   // Лучшие продусты
-  const bestProductList = await getProduct()
+  const bestProductList = await getProduct(searchParams)
   const categoryMarket = await getCategory("Shop")
   const categoryCaffe = await getCategory("Cafe")
   const list = assortiment.cartList
@@ -93,3 +100,5 @@ export default async function Home() {
     </div>
   )
 }
+
+export default Home

@@ -5,9 +5,9 @@ import style from "./BestProductList.module.css"
 import Product from "@/entities/Product/ui/Product"
 import useStorage from "@/shared/ui/useStorage"
 import { addLikeInList } from "@/shared/ui/addLikeInList"
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { ItemStore } from "./BestProductListTypes"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 
 type DataListType = {
   id: number
@@ -24,7 +24,7 @@ type DataListType = {
 }
 
 const BestProductList: FC<{
-  dataList: DataListType[]
+  dataList: Iproduct[] | any
   category: TypeCategory[]
 }> = ({ dataList, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
