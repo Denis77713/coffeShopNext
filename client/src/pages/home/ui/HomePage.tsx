@@ -21,9 +21,6 @@ const Home: FC<{ params: IParams; searchParams: string }> = async ({
   params,
   searchParams,
 }) => {
-  console.log("HOME")
-  console.log(searchParams)
-  console.log(params)
   // Лучшие продусты
   const bestProductList = await getProduct(searchParams)
   const categoryMarket = await getCategory("Shop")

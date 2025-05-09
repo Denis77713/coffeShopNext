@@ -30,6 +30,7 @@ interface IProductPayItem {
   number: number | null
   secondCategoryId: number | null
   categoryId: number
+  numProductsPay?: number
 }
 interface IProductPay {
   userProduct: IProductPayItem[]
@@ -270,42 +271,51 @@ class userServiceClass {
     return result
   }
 
-  async createProductPay(data: any, user: any, sum: any) {
-    const arrId = data.map((item: IProductCartStore) => item.id)
-    const arrIdAndQuantity = data.map(
-      (item: IProductCartStore) => item.numProductsPay
-    )
-    const newDataPay = await prisma.productPay.create({
-      data: {
-        userId: user.userId,
-        productId: arrId,
-        sum: sum,
-        ProductQuantity: arrIdAndQuantity,
+  async createProductPay(data: any, user: any) {
+    data.forEach(async (item: IProductPayItem | any) => {
+      await prisma.productPay.createMany({
+        data: {
+          userId: user.userId,
+          num: item.numProductsPay,
+          productId: item.id,
+          sum: Number(item.price),
+          status: "Успешный заказ",
+        },
+      })
+    })
+  }
+  async ubdateProductInPay(data: any, user: any) {
+    const arrId = data.map((item: any) => item.id)
+    const products = await prisma.product.findMany({
+      where: {
+        id: { in: arrId },
       },
     })
-    return newDataPay
+    products.forEach((item) => {
+      data.forEach(async (inner: IProductPayItem) => {
+        if (item.id === inner.id && item.number && inner.numProductsPay) {
+          await prisma.product.updateMany({
+            where: {
+              id: item.id,
+            },
+            data: {
+              number: item.number - inner.numProductsPay,
+            },
+          })
+        }
+      })
+    })
   }
-  // !!!!!!!!!!!!!!!!!!
-  // !!!!!!!!!!!!!!!!!!!
-  // async ubdateProductInPay() {
-  //   const productArr = await prisma.product.findMany({
-  //     where: {
-  //       id: { in: arrId },
-  //     },
-  //   })
-  //   const newNumbers = productArr.map(
-  //     (item, index) => item.number && item.number - arrIdAndQuantity[index]
-  //   )
-  //   productArr.forEach(async (item, index) => {
-  //     const users = await prisma.product.update({
-  //       where: {
-  //         id: arrId[index],
-  //       },
-  //       data: {
-  //         number: newNumbers[index],
-  //       },
-  //     })
-  //   })
-  // }
+  async getProductInPay(data: any, user: any) {
+    const idArr = data.map((item: IProductPayItem) => item.id)
+    const result = await prisma.productPay.findMany({
+      where: {
+        productId: { in: idArr },
+        userId: user.userId,
+        status: "Успешный заказ",
+      },
+    })
+    return result
+  }
 }
 export const userService = new userServiceClass()

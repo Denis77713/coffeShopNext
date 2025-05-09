@@ -11,7 +11,6 @@ const ShopProductPage: FC<{
   params: IParams
   searchParams: IproductID
 }> = async ({ params, searchParams }) => {
-  // console.log(123)
   return (
     <main className={`container ${style.mtop}`}>
       <IsToken />

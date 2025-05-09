@@ -33,7 +33,6 @@ const ProductPayList: FC<{
         data?.data?.develery.length !== 0
     )
   }, [data])
-  console.log(data)
   return (
     <div className={visible ? `container` : `${style.dnone}`}>
       {data?.data?.complitePdoduct.length !== 0 && (
@@ -50,7 +49,6 @@ const ProductPayList: FC<{
               grade={gradeStar && gradeStar}
             />
             <div className={styleCart.text}>Товар в пути</div>
-            <div>{item.number}</div>
           </div>
         ))}
       </div>

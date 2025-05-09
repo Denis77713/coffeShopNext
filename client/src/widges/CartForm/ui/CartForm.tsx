@@ -34,9 +34,14 @@ const CartForm = ({ setCart }: any) => {
   const { replace } = useRouter()
   useEffect(() => {
     if (dataPay) {
+      const newDataPay = dataPay
+        .map((item: any) => item.sum)
+        .reduce((acc: any, val: any, i: any, arr: any) => {
+          return acc + val
+        }, 0)
       const params = new URLSearchParams(searchParams)
       if (dataPay) {
-        params.set("payIdProduct", dataPay.id)
+        params.set("payIdProduct", newDataPay)
       } else {
         params.delete("payIdProduct")
       }

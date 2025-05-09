@@ -33,7 +33,6 @@ const FormAddProduct: FC<{ params: IParams }> = ({ params }) => {
   const dispatch = useDispatch()
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   //
-  console.log(secCat)
   //
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
 

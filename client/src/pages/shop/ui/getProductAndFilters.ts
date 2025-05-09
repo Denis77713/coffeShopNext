@@ -31,7 +31,6 @@ async function getFilter(
   let result
   let numRecord
   const newQery = query
-  console.log(query)
   let pagination = 0
   let search = ""
   if (newQery.hasOwnProperty("query") === true) {

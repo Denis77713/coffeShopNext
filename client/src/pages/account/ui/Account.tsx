@@ -15,14 +15,13 @@ const Account = () => {
     image: string
     page: string
   }
-  const searchParams: any = useSearchParams()
-  const pathName = usePathname()
-  const { replace } = useRouter()
+  // const searchParams: any = useSearchParams()
+  // const pathName = usePathname()
+  // const { replace } = useRouter()
   const [category, setCategory] = useState<Icategory[]>([])
   const [grade, setGrade] = useState<any>([])
 
   IsLogin(setCategory, getCategoryes)
-  console.log(searchParams)
   useEffect(() => {
     async function Login() {
       try {

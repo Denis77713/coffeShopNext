@@ -113,13 +113,12 @@ class UserControllerClass {
       const user = await prisma.token.findFirst({
         where: { refreshToken: refreshToken },
       })
-
       if (user && data && refreshToken) {
+        await userService.createProductPay(data, user)
         //Создать записи в таблице покупок
-        const newDataPay = await userService.createProductPay(data, user, sum)
         // Обновить количество продуктов в Product
-        // await userService.ubdateProductInPay()
-
+        await userService.ubdateProductInPay(data, user)
+        const newDataPay = await userService.getProductInPay(data, user)
         res.json({ data: newDataPay, status: res.status })
       }
     } catch (e) {

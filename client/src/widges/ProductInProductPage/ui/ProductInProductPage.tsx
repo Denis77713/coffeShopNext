@@ -29,7 +29,6 @@ const ProductInProductPage: FC<{
   const item = result && result[0]
   const star = getStarAndGrade()
   //
-  console.log(result)
   //
   return (
     <>
