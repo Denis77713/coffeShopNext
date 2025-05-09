@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { mailService } from "../../service/account/mailService"
 import { tokenServise } from "../../service/account/tokenService"
 import { ApiError } from "../../errors/api.error"
+import { IProductCartStore } from "../../controller/account/accountController"
 
 interface IGradeStar {
   id: number
@@ -268,5 +269,43 @@ class userServiceClass {
     })
     return result
   }
+
+  async createProductPay(data: any, user: any, sum: any) {
+    const arrId = data.map((item: IProductCartStore) => item.id)
+    const arrIdAndQuantity = data.map(
+      (item: IProductCartStore) => item.numProductsPay
+    )
+    const newDataPay = await prisma.productPay.create({
+      data: {
+        userId: user.userId,
+        productId: arrId,
+        sum: sum,
+        ProductQuantity: arrIdAndQuantity,
+      },
+    })
+    return newDataPay
+  }
+  // !!!!!!!!!!!!!!!!!!
+  // !!!!!!!!!!!!!!!!!!!
+  // async ubdateProductInPay() {
+  //   const productArr = await prisma.product.findMany({
+  //     where: {
+  //       id: { in: arrId },
+  //     },
+  //   })
+  //   const newNumbers = productArr.map(
+  //     (item, index) => item.number && item.number - arrIdAndQuantity[index]
+  //   )
+  //   productArr.forEach(async (item, index) => {
+  //     const users = await prisma.product.update({
+  //       where: {
+  //         id: arrId[index],
+  //       },
+  //       data: {
+  //         number: newNumbers[index],
+  //       },
+  //     })
+  //   })
+  // }
 }
 export const userService = new userServiceClass()

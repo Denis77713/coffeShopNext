@@ -113,44 +113,13 @@ class UserControllerClass {
       const user = await prisma.token.findFirst({
         where: { refreshToken: refreshToken },
       })
-      const arrId = data.map((item: IProductCartStore) => item.id)
-      const arrIdAndQuantity = data.map(
-        (item: IProductCartStore) => item.numProductsPay
-      )
+
       if (user && data && refreshToken) {
-        const newDataPay = await prisma.productPay.create({
-          data: {
-            userId: user.userId,
-            productId: arrId,
-            sum: sum,
-            ProductQuantity: arrIdAndQuantity,
-          },
-        })
+        //Создать записи в таблице покупок
+        const newDataPay = await userService.createProductPay(data, user, sum)
+        // Обновить количество продуктов в Product
+        // await userService.ubdateProductInPay()
 
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //
-        const productArr = await prisma.product.findMany({
-          where: {
-            id: { in: arrId },
-          },
-        })
-        // productArr.forEach((item) => {
-        const newNumbers = productArr.map(
-          (item, index) => item.number && item.number - arrIdAndQuantity[index]
-        )
-        productArr.forEach(async (item, index) => {
-          const users = await prisma.product.update({
-            where: {
-              id: arrId[index],
-            },
-            data: {
-              number: newNumbers[index],
-            },
-          })
-        })
-
-        //
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         res.json({ data: newDataPay, status: res.status })
       }
     } catch (e) {
