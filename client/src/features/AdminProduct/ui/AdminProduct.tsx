@@ -2,18 +2,16 @@
 import Like from "@/shared/like/ui/Like"
 import Image from "next/image"
 import style from "@/entities/Product/ui/Product.module.css"
-import { FC, useEffect, useState } from "react"
-import { Item } from "@/entities/Product/ui/ProductType"
+import { FC, useState } from "react"
 import styless from "./AdminProduct.module.css"
 import { deleteGrade, deleteProduct, updateProduct } from "../api/api"
 import { inputSecurity } from "@/security"
 import Button from "@/shared/ui/Button"
 import GradeStar from "@/shared/Star/GradeStar"
 import UseGetStar from "@/shared/Hookcs/UseGetStar"
-import { Star } from "@/entities/Product/ui/Product"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { Iproduct } from "@/shared/types/types"
+import { Iproduct, Star } from "@/shared/types/types"
 
 const AdminProduct: FC<{
   item: Iproduct

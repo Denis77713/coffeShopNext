@@ -66,6 +66,11 @@ model Product {
   GradeStar        GradeStar[]
 }
 
+model imagesUrlProduct {
+  id       Int    @id @default(autoincrement())
+  imageURL String
+}
+
 // Доставлен, Успешный заказ, Получен
 model ProductPay {
   id        Int    @id @default(autoincrement())
