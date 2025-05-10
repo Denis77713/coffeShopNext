@@ -4,9 +4,10 @@ import AccountProductList from "../../../widges/AccountProductList/ui/AccountPro
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
 import IsLogin from "@/shared/Hookcs/IsLogin"
 import { useEffect, useState } from "react"
-import { getCategoryes } from "../api/api"
+import { getCategoryes, getProductPay } from "../api/api"
 import { api } from "@/widges/header/api/api"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { TypeGrade, TypeProductPay } from "@/shared/types/types"
+import PathProductList from "@/widges/PathProductList/ui/PathProductList"
 
 const Account = () => {
   type Icategory = {
@@ -15,18 +16,19 @@ const Account = () => {
     image: string
     page: string
   }
-  // const searchParams: any = useSearchParams()
-  // const pathName = usePathname()
-  // const { replace } = useRouter()
-  const [category, setCategory] = useState<Icategory[]>([])
-  const [grade, setGrade] = useState<any>([])
 
+  const [category, setCategory] = useState<Icategory[]>([])
+  const [grade, setGrade] = useState<TypeGrade[]>([])
+  //
+  //
   IsLogin(setCategory, getCategoryes)
+  //
+  //
   useEffect(() => {
     async function Login() {
       try {
         const data = await api.post("/getGrade")
-        setGrade(data)
+        setGrade(data.data)
       } catch {
         localStorage.removeItem("token")
       }
@@ -39,8 +41,9 @@ const Account = () => {
     <main>
       {category.length !== 0 && (
         <>
-          <ProductPayList category={category} gradeStar={grade.data} />
-          <AccountProductList category={category} gradeStar={grade.data} />
+          <ProductPayList category={category} gradeStar={grade} />
+          <PathProductList category={category} gradeStar={grade} />
+          <AccountProductList category={category} gradeStar={grade} />
         </>
       )}
     </main>

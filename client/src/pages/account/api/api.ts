@@ -10,3 +10,17 @@ export const getCategoryes = async () => {
   const result = await prisma.category.findMany()
   return result
 }
+export const getProductPay = async (
+  status: string,
+  id: number,
+  ListId: number[]
+) => {
+  const result = await prisma.productPay.findMany({
+    where: {
+      userId: id,
+      status: status,
+      productId: { in: ListId },
+    },
+  })
+  return result
+}

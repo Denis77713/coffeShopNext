@@ -11,9 +11,14 @@ import { addProductCard } from "../api/api"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
 import GradeStar from "@/shared/Star/GradeStar"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import UseGetStar from "@/shared/Hookcs/UseGetStar"
-import { Iproduct, Star, TypeCategory } from "@/shared/types/types"
+import {
+  Iproduct,
+  Star,
+  TypeCategory,
+  TypeProductPay,
+} from "@/shared/types/types"
 
 const Product: FC<{
   item: Iproduct
@@ -23,6 +28,7 @@ const Product: FC<{
   isLike?: boolean
   grade: Star[]
   imageUrl?: string
+  prductPay?: boolean | TypeProductPay[] | any
 }> = ({
   item,
   category,
@@ -31,17 +37,30 @@ const Product: FC<{
   isLike = true,
   grade,
   imageUrl = null,
+  prductPay = false,
 }) => {
   const dispatch = useDispatch()
   const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const pathname = usePathname()
   const url = getPageCategory(item, category, pathname)
+  const [num, setNum] = useState(0)
   //
   //
   const [state, setState] = useState(0)
   //
   //
   UseGetStar(grade, setState, item)
+  //
+  //
+  useEffect(() => {
+    if (prductPay) {
+      const numProd = prductPay
+        .filter((i: TypeProductPay) => i.productId === item.id)
+        .reduce((acc: any, number: TypeProductPay) => acc + number.num, 0)
+      console.log(numProd)
+      setNum(numProd)
+    }
+  }, [prductPay])
   //
   //
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
@@ -78,6 +97,7 @@ const Product: FC<{
           productId={item.id}
           clicked={false}
         />
+        {prductPay && <div>Товаров: {num}</div>}
         {item.number <= 0 && pay && <Button>Товара нет в наличии</Button>}
         {pay && Auth === 200 && item.number > 0 && (
           <Button

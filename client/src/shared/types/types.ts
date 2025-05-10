@@ -62,3 +62,19 @@ export type IDataProductPay = {
     develery: Iproduct[]
   }
 }
+export type TypeGrade = {
+  comment: string
+  grade: number
+  id: number
+  productId: number
+  userAnonim: boolean
+  userId: number
+}
+export type TypeProductPay = {
+  id: number
+  num: number
+  productId: number
+  status: string
+  sum: number
+  userId: number
+}

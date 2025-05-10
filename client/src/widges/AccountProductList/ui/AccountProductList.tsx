@@ -6,6 +6,7 @@ import { AxiosResponse } from "axios"
 import Product from "@/entities/Product/ui/Product"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
+
 import IsLogin from "@/shared/Hookcs/IsLogin"
 import {
   IDataProductPay,
@@ -13,7 +14,9 @@ import {
   IProductPay,
   Star,
   TypeCategory,
+  TypeProductPay,
 } from "@/shared/types/types"
+import GetProductPay from "@/shared/Hookcs/getProductPay"
 
 const AccountProductList: FC<{
   category: TypeCategory[]
@@ -39,6 +42,8 @@ const AccountProductList: FC<{
       items: 1,
     },
   }
+  const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
+  GetProductPay(setProductPay, "Получен", state?.data?.userProduct)
   return (
     <div>
       {state?.data && (
@@ -54,6 +59,7 @@ const AccountProductList: FC<{
                   path="shop/"
                   isLike={false}
                   grade={gradeStar && gradeStar}
+                  prductPay={prductPay}
                 />
                 <div className={style.text}>Оплачен</div>
               </div>
