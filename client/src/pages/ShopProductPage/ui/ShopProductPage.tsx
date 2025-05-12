@@ -5,6 +5,7 @@ import ProductInProductPage, {
 } from "@/widges/ProductInProductPage/ui/ProductInProductPage"
 import { FC } from "react"
 import style from "./ShopProductPage.module.css"
+import FormImages from "@/features/FormImages/ui/FormImages"
 //
 //
 const ShopProductPage: FC<{

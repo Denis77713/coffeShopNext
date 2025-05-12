@@ -9,6 +9,7 @@ import Pagination from "@/features/Pagination/ui/Pagination"
 import IsToken from "@/shared/Hookcs/IsToken"
 import AdminProductList from "@/widges/AdminProductList/ui/AdminProductList"
 import { getCategory } from "@/pages/shop/ui/getProductAndFilters"
+import FormImages from "@/features/FormImages/ui/FormImages"
 
 const adminPanelProduct: FC<{
   params: IParams
@@ -29,6 +30,7 @@ const adminPanelProduct: FC<{
       <Link href={"/adminPanel"}>
         <Button>Админ панель</Button>
       </Link>
+      <FormImages />
       <FormAddProduct params={params} />
       <AdminProductList data={res.productData} />
       <Pagination numProduct={res.numProduct / numProductInPage} />

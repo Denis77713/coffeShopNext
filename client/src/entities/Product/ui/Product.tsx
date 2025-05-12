@@ -98,7 +98,9 @@ const Product: FC<{
           clicked={false}
         />
         {prductPay && <div>Товаров: {num}</div>}
-        {item.number <= 0 && pay && <Button>Товара нет в наличии</Button>}
+        {item.number <= 0 && pay && Auth === 200 && (
+          <Button>Товара нет в наличии</Button>
+        )}
         {pay && Auth === 200 && item.number > 0 && (
           <Button
             handleClick={() => {

@@ -21,5 +21,6 @@ router.get("/users", isAuth, UserController.getUsers)
 router.post("/getGrade", UserController.getGrade)
 router.post("/postGrade", UserController.postGrade)
 router.post("/upload", fileController.fileLoad)
+router.get("/getImages", fileController.imageLoad)
 
 export const accountRouter = router

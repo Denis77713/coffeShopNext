@@ -39,6 +39,8 @@ async function getFilter(
     delete newQery.query
   }
   if (newQery.hasOwnProperty("delete") === true) delete newQery.delete
+  if (newQery.hasOwnProperty("newImage") === true) delete newQery.newImage
+
   if (newQery.hasOwnProperty("page") === true) {
     if (Number(newQery.page) === 1) {
       pagination = 0

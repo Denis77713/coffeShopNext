@@ -26,7 +26,7 @@ const Like: FC<{ item: Iproduct }> = ({ item }) => {
   return (
     <Image
       className={style.like}
-      src={state ? "/product/ico/likeActive.svg" : "/product/ico/like.svg"}
+      src={state ? "/ico/likeActive.svg" : "/ico/like.svg"}
       alt="like"
       width={30}
       height={30}

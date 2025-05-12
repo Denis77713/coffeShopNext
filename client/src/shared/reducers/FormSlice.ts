@@ -9,6 +9,7 @@ export interface LikeState {
   User: any
   UserRender: boolean
   CommentAndStar: any
+  productId: number
 }
 
 const initialState: LikeState = {
@@ -20,6 +21,7 @@ const initialState: LikeState = {
   User: "Unauthorized",
   UserRender: false,
   CommentAndStar: false,
+  productId: 0,
 }
 
 export const FormSlice = createSlice({
@@ -50,6 +52,9 @@ export const FormSlice = createSlice({
     getUserId: (state, action) => {
       state.userId = action.payload
     },
+    getProductId: (state, action) => {
+      state.productId = action.payload
+    },
   },
 })
 
@@ -62,6 +67,7 @@ export const {
   getRenderCart,
   getUserId,
   getUser,
+  getProductId,
 } = FormSlice.actions
 
 export default FormSlice.reducer

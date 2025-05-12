@@ -1,0 +1,11 @@
+.wrapperFormImages {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-height: 400px;
+  overflow-y: scroll;
+  align-items: center;
+}
+.wrapperFormImages img {
+  padding: 10px;
+  cursor: pointer;
+}
