@@ -78,3 +78,13 @@ export type TypeProductPay = {
   sum: number
   userId: number
 }
+export type TypeUser = {
+  id: number
+  email: string
+  password: string
+  isActivated: boolean
+  activationLink: string
+  name: string
+  lastName: string
+  role: "user" | "admin" | "manager" | string
+}

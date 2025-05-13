@@ -1,6 +1,5 @@
 "use client"
 
-import { Star } from "@/entities/Product/ui/Product"
 import Button from "@/shared/ui/Button"
 import { FC, use, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -10,6 +9,7 @@ import GradeStar from "@/shared/Star/GradeStar"
 import { postComment, updateComment } from "../api/api"
 import { getCommentAndStar } from "@/shared/reducers/FormSlice"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { Star } from "@/shared/types/types"
 
 const AddCommentInProduct: FC<{
   grade: Star[]

@@ -22,7 +22,6 @@ const FormImages = () => {
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
-  // const [search, setSearch] = useState(searchParams.get("query")?.toString())
   //
   //
   useEffect(() => {
