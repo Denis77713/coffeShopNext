@@ -34,7 +34,7 @@ const QrCodeCart = () => {
             <QRCode
               size={256}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-              value={`${url}/managerPage?developId=${developId}`}
+              value={`${url}/managerPage?developId=${developId}&status=Доставлен`}
               viewBox={`0 0 256 256`}
             />
           </div>

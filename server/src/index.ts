@@ -4,7 +4,6 @@ import cookieParser from "cookie-parser"
 import { configDotenv } from "dotenv"
 import { accountRouter } from "./routes/account/accountRoute"
 import { middlewareError } from "./middleware/error"
-import { prisma } from "../../client/prisma/prisma-client"
 
 const app = express()
 const PORT = configDotenv().parsed?.port || 5000

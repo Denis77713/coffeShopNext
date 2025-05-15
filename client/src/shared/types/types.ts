@@ -1,16 +1,16 @@
 export type Iproduct = {
   id: number
-  name: string
-  imageUrl: string
-  price: string
-  best: string | null
-  weight: string | null
-  none: string
-  drip: string
-  number: number
-  secondCategoryId: number | null
-  categoryId: number
-  like?: boolean
+  name: string | any
+  imageUrl: string | any
+  price: string | any
+  best: string | any
+  weight: string | any
+  none: string | any
+  drip: string | any
+  number: number | any
+  secondCategoryId: number | any
+  categoryId: number | any
+  like?: boolean | any
 }
 
 export type fileType = {
@@ -87,4 +87,15 @@ export type TypeUser = {
   name: string
   lastName: string
   role: "user" | "admin" | "manager" | string
+}
+export type newDataManagerItem = {
+  id: number
+  userId: number
+  productId: number
+  sum: number
+  status: string
+  num: number
+  developId?: string
+  imageUrl: string
+  text: string
 }
