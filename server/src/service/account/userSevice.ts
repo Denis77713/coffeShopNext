@@ -215,7 +215,7 @@ class userServiceClass {
       })
       const getUserProduct = getFilter(productPay, "Получен")
       const getComplitePdoduct = getFilter(productPay, "Успешный заказ")
-      const getDevelery = getFilter(productPay, "Доставлен")
+      const getDevelery = getFilter(productPay, "Delivered")
       //
       const userProduct = await getDataUser(getUserProduct)
       const complitePdoduct = await getDataUser(getComplitePdoduct)

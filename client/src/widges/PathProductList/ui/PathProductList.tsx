@@ -42,7 +42,7 @@ const PathProductList: FC<{
   }, [data])
 
   const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
-  GetProductPay(setProductPay, "Доставлен", data?.data?.complitePdoduct)
+  GetProductPay(setProductPay, "Delivered", data?.data?.complitePdoduct)
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const dispatch = useDispatch()
   return (
@@ -50,7 +50,7 @@ const PathProductList: FC<{
       <div className={visible ? `container` : `${style.dnone}`}>
         {data?.data?.develery.length !== 0 && (
           <>
-            <h2 className={style.payTitle}>Доставленные товары</h2>
+            <h2 className={style.payTitle}>Deliveredные товары</h2>
             <Button handleClick={() => dispatch(getWindow("qrcode"))}>
               Показать QR код
             </Button>

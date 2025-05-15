@@ -6,7 +6,7 @@ export async function getProductPay(id: number) {
   const result = await prisma.productPay.findMany({
     where: {
       userId: id,
-      status: "Доставлен",
+      status: "Delivered",
     },
   })
   return result

@@ -12,7 +12,7 @@ export async function getProductPay(params: any) {
   const id = params.id
   const productPayArr: TypeProductPay[] = await prisma.productPay.findMany({
     where: {
-      // status: "Доставлен",
+      // status: "Delivered",
       ...params,
       id: id && Number(id),
     },

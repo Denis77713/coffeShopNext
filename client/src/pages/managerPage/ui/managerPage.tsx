@@ -2,6 +2,7 @@ import { IParams } from "@/pages/shop/ui/ShopPage"
 import { FC } from "react"
 import { getProductPay } from "../api/api"
 import ProductPayItem from "@/entities/ProductPayItem/ui/ProductPayItem"
+import ProductPayIList from "@/widges/ProductPayIList/ui/ProductPayIList"
 
 const ManagerPage: FC<{ params: IParams; searchParams: string }> = async ({
   params,
@@ -11,9 +12,7 @@ const ManagerPage: FC<{ params: IParams; searchParams: string }> = async ({
   console.log(data)
   return (
     <main className="container">
-      {data.map((item) => (
-        <ProductPayItem key={item.id} item={item} />
-      ))}
+      <ProductPayIList data={data} />
     </main>
   )
 }
