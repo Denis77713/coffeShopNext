@@ -8,7 +8,9 @@ import { getCategoryes, getProductPay } from "../api/api"
 import { api } from "@/widges/header/api/api"
 import { TypeGrade, TypeProductPay } from "@/shared/types/types"
 import PathProductList from "@/widges/PathProductList/ui/PathProductList"
-
+//
+//
+//
 const Account = () => {
   type Icategory = {
     id: number
@@ -16,7 +18,7 @@ const Account = () => {
     image: string
     page: string
   }
-
+  const url = process.env.HOST
   const [category, setCategory] = useState<Icategory[]>([])
   const [grade, setGrade] = useState<TypeGrade[]>([])
   //

@@ -1,8 +1,10 @@
 import axios from "axios"
 
+const urlApi = process.env.NEXT_PUBLIC_API
+
 export const api = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:5000/api",
+  baseURL: `${urlApi}/api`,
 })
 api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
@@ -13,7 +15,7 @@ api.interceptors.request.use((config) => {
 
 export const apiServer = axios.create({
   withCredentials: true,
-  baseURL: "http://localhost:5000/api",
+  baseURL: `${urlApi}/api`,
 })
 
 export async function refresh() {

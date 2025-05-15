@@ -80,6 +80,7 @@ model ProductPay {
   status    String @default("Успешный заказ")
   user      User   @relation(fields: [userId], references: [id])
   num       Int
+  developId String @default("")
 }
 
 model Filter {

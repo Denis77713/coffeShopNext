@@ -57,7 +57,6 @@ const Product: FC<{
       const numProd = prductPay
         .filter((i: TypeProductPay) => i.productId === item.id)
         .reduce((acc: any, number: TypeProductPay) => acc + number.num, 0)
-      console.log(numProd)
       setNum(numProd)
     }
   }, [prductPay])

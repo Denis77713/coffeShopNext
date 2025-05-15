@@ -6,6 +6,7 @@ import { mailService } from "../../service/account/mailService"
 import { tokenServise } from "../../service/account/tokenService"
 import { ApiError } from "../../errors/api.error"
 import { IProductCartStore } from "../../controller/account/accountController"
+import { join } from "path"
 
 interface IGradeStar {
   id: number
@@ -272,6 +273,7 @@ class userServiceClass {
   }
 
   async createProductPay(data: any, user: any) {
+    const developId = Math.random()
     data.forEach(async (item: IProductPayItem | any) => {
       await prisma.productPay.createMany({
         data: {
@@ -280,6 +282,7 @@ class userServiceClass {
           productId: item.id,
           sum: Number(item.price),
           status: "Успешный заказ",
+          developId: String(developId),
         },
       })
     })
