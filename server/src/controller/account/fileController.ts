@@ -41,11 +41,17 @@ class fileClass {
     }
   }
   async pdfLoad(req: any, res: any, next: any) {
+    const pathUrl = path.resolve(
+      __dirname,
+      "/server/src/service/account/products.pdf"
+    )
+
     const { imgData, mail } = req.body
     const doc = new jsPDF()
     console.log(mail)
-    doc.addImage(imgData, "PNG", 0, 0, 20, 20)
-    doc.save("products.pdf")
+    await doc.addImage(imgData, "PNG", 0, 0, 20, 20)
+    // await doc.save("./src/service/account/products.pdf")
+    await doc.save("./products.pdf")
     await mailService.sendPdfFile(mail, `qqwe`)
   }
 }

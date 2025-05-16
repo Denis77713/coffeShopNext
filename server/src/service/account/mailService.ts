@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer"
+const path = require("path")
 
 class mailServiceClass {
   // Настройка подключение к почте
@@ -29,6 +30,8 @@ class mailServiceClass {
     })
   }
   async sendPdfFile(to: string, link: string) {
+    const pathUrl = path.resolve(__dirname, "/server/src/products.pdf")
+
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -46,7 +49,7 @@ class mailServiceClass {
       attachments: [
         {
           filename: "products.pdf",
-          path: "./products.pdf",
+          path: `./products.pdf`,
         },
       ],
     })
