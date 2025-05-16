@@ -130,7 +130,9 @@ const CartForm = ({ setCart }: any) => {
   }
   async function postPDF(data: any) {
     const canvas = await html2canvas(ref.current)
-    const imgData = canvas.toDataURL("")
+
+    const imgData = canvas.toDataURL()
+    console.log(imgData)
     await apiServer.post("/postpdf", { imgData })
   }
 }

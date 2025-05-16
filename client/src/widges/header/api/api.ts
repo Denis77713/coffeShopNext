@@ -17,7 +17,10 @@ export const apiServer = axios.create({
   withCredentials: true,
   baseURL: `${urlApi}/api`,
 })
-
+apiServer.interceptors.request.use((config) => {
+  config.headers["Content-Type"] = "multipart/form-data;"
+  return config
+})
 export async function refresh() {
   return api.get("/refresh")
 }
