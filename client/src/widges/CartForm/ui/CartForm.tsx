@@ -14,6 +14,8 @@ import html2canvas from "html2canvas"
 import { apiServer } from "@/widges/header/api/api"
 
 const CartForm = ({ setCart }: any) => {
+  const User = useSelector((store: any) => store.FormSlice.User)
+
   const storage: string | null = localStorage.getItem("cart")
   const [dataStorage, setDataStorage] = useState<IProductCartStore[]>(
     storage ? JSON.parse(storage) : null
@@ -81,7 +83,7 @@ const CartForm = ({ setCart }: any) => {
   }, [complitePay])
   const ref = useRef<any>()
   const doc = new jsPDF()
-
+  console.log(User)
   return (
     <>
       {complitePay ? (
@@ -133,7 +135,10 @@ const CartForm = ({ setCart }: any) => {
 
     const imgData = canvas.toDataURL()
     console.log(imgData)
-    await apiServer.post("/postpdf", { imgData })
+    await apiServer.post("/postpdf", {
+      imgData,
+      mail: JSON.stringify(User.email),
+    })
   }
 }
 

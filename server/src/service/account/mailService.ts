@@ -28,5 +28,28 @@ class mailServiceClass {
       html: `<a href="${link}"> ${link}</a>`, // html body
     })
   }
+  async sendPdfFile(to: string, link: string) {
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    })
+
+    const info = await transporter.sendMail({
+      from: process.env.SMTP_USER,
+      to: to, // list of receivers
+      subject: "Заказ", // Subject line
+      // text: "Нажмите на ссылку чтобы активировать аккаунт", // plain text body
+      // html: `<a href="${link}"> ${link}</a>`, // html body
+      attachments: [
+        {
+          filename: "products.pdf",
+          path: "./products.pdf",
+        },
+      ],
+    })
+  }
 }
 export const mailService = new mailServiceClass()

@@ -1,6 +1,7 @@
 import { prisma } from "../../../../client/prisma/prisma-client"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
+import { mailService } from "../../service/account/mailService"
 
 const fs = require("fs")
 const path = require("path")
@@ -40,10 +41,12 @@ class fileClass {
     }
   }
   async pdfLoad(req: any, res: any, next: any) {
-    const data = req.body
+    const { imgData, mail } = req.body
     const doc = new jsPDF()
-    doc.addImage(data.imgData, "PNG", 0, 0, 20, 20)
-    doc.save("Философский-PDF.pdf")
+    console.log(mail)
+    doc.addImage(imgData, "PNG", 0, 0, 20, 20)
+    doc.save("products.pdf")
+    await mailService.sendPdfFile(mail, `qqwe`)
   }
 }
 
