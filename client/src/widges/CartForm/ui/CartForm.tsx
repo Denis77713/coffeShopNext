@@ -1,14 +1,17 @@
 import Form from "@/shared/Form/ui/Form"
 import Image from "next/image"
 import style from "./CartForm.module.css"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart } from "@/shared/reducers/FormSlice"
 import Button from "@/shared/ui/Button"
 import { getCartPay } from "../api/api"
 import CartFormItem from "@/entities/CartFormItem/ui/CartFormItem"
-import { Iproduct, IProductCartStore } from "@/shared/types/types"
+import { IProductCartStore } from "@/shared/types/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { jsPDF } from "jspdf"
+import html2canvas from "html2canvas"
+import { apiServer } from "@/widges/header/api/api"
 
 const CartForm = ({ setCart }: any) => {
   const storage: string | null = localStorage.getItem("cart")
@@ -31,6 +34,7 @@ const CartForm = ({ setCart }: any) => {
   const [dataPay, setDataPay] = useState<any>(null)
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
+  const [pdf, setPdf] = useState(null)
   const { replace } = useRouter()
   useEffect(() => {
     if (dataPay) {
@@ -75,6 +79,9 @@ const CartForm = ({ setCart }: any) => {
       setCart(null)
     }
   }, [complitePay])
+  const ref = useRef<any>()
+  const doc = new jsPDF()
+
   return (
     <>
       {complitePay ? (
@@ -83,7 +90,7 @@ const CartForm = ({ setCart }: any) => {
         </Form>
       ) : (
         <Form>
-          <div className={style.productWrapper}>
+          <div ref={ref} className={style.productWrapper}>
             {dataStorage?.map((item: IProductCartStore) => (
               <CartFormItem
                 key={item.id}
@@ -96,11 +103,12 @@ const CartForm = ({ setCart }: any) => {
             <div className={style.pay}>
               <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
               <Button
-                handleClick={async (e: any) =>
+                handleClick={async (e: any) => {
                   setDataPay(
                     await getCartPay(e, dataStorage, sum, setComplitePay)
                   )
-                }
+                  await postPDF(doc)
+                }}
               >
                 Купить
               </Button>
@@ -119,6 +127,11 @@ const CartForm = ({ setCart }: any) => {
     localStorage.removeItem("cart")
     localStorage.setItem("cart", JSON.stringify(newData))
     dispatch(getRenderCart(!renderCart))
+  }
+  async function postPDF(data: any) {
+    const canvas = await html2canvas(ref.current)
+    const imgData = canvas.toDataURL("")
+    await apiServer.post("/postpdf", { imgData })
   }
 }
 

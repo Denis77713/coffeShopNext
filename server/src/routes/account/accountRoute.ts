@@ -22,5 +22,6 @@ router.post("/getGrade", UserController.getGrade)
 router.post("/postGrade", UserController.postGrade)
 router.post("/upload", fileController.fileLoad)
 router.get("/getImages", fileController.imageLoad)
+router.post("/postpdf", fileController.pdfLoad)
 
 export const accountRouter = router

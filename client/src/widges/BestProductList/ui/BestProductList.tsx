@@ -40,7 +40,7 @@ const BestProductList: FC<{
       className={`container ${style.bestList}`}
       onClick={() => setState(!state)}
     >
-      {dataList.map((item) => (
+      {dataList.map((item: any) => (
         <Product
           key={item.id}
           item={item}

@@ -1,10 +1,9 @@
 "use client"
 
 import Product from "@/entities/Product/ui/Product"
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { FC, useState } from "react"
 import style from "./CaffeList.module.css"
-import { Iproduct } from "@/shared/types/types"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 
