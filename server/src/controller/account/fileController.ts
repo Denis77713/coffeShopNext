@@ -30,14 +30,13 @@ class fileClass {
       )
       res.json(data)
       // Заполнить imagesUrlProduct названиями изображений
-      // data.forEach(async (item: any) => {
-      // await prisma.imagesUrlProduct.create({
-      // data: {
-      // imageURL: item,
-      // },
-      // })
-      // })
-      // }
+      data.forEach(async (item: any) => {
+        await prisma.imagesUrlProduct.create({
+          data: {
+            imageURL: item,
+          },
+        })
+      })
     }
   }
   async pdfLoad(req: any, res: any, next: any) {

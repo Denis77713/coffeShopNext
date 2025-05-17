@@ -14,7 +14,7 @@ const QrCodeCart = () => {
   useEffect(() => {
     async function func() {
       const result = await getProductPay(User.id)
-      setDevelopId(result[0].developId)
+      setDevelopId(result[0]?.developId)
     }
     func()
   }, [])

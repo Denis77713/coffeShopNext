@@ -283,6 +283,7 @@ class userServiceClass {
           sum: Number(item.price),
           status: "Успешный заказ",
           developId: String(developId),
+          name: item.name,
         },
       })
     })

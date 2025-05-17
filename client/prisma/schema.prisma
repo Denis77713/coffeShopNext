@@ -81,6 +81,7 @@ model ProductPay {
   user      User   @relation(fields: [userId], references: [id])
   num       Int
   developId String @default("")
+  name      String
 }
 
 model Filter {
