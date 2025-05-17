@@ -25,11 +25,15 @@ const ProductInProductPage: FC<{
 
   const grade =
     result && (await apiServer.post("/getGrade", { data: [result[0]?.id] }))
-  const gradeUsers = result && (await getComment(grade.data))
   const item = result && result[0]
-  const star = getStarAndGrade()
+  const newData = grade.data.filter((i: any) => i.productId === item.id)
+  const gradeUsers = result && (await getComment(newData))
+  const star = getStarAndGrade(newData)
   //
   //
+  // console.log(star)
+  console.log(newData)
+  // console.log(grade.data)
   return (
     <>
       {result ? (
@@ -67,13 +71,12 @@ const ProductInProductPage: FC<{
     </>
   )
 
-  function getStarAndGrade() {
-    const newGradeSum = grade.data.reduce(
+  function getStarAndGrade(data: any) {
+    const newGradeSum = data.reduce(
       (acc: any, number: any) => acc + number.grade,
       0
     )
-    let star =
-      grade.data.length !== 0 ? Math.round(newGradeSum / grade.data.length) : 0
+    let star = data.length !== 0 ? Math.round(newGradeSum / data.length) : 0
     if (star) star >= 5 ? (star = 5) : star
 
     return star

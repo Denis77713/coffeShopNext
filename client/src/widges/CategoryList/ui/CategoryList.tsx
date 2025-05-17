@@ -14,6 +14,7 @@ const CategoryList: FC<{ page: string; category: Icategory[] }> = async ({
   page,
   category,
 }) => {
+  console.log(category)
   return (
     <div className={`container ${style.cartList} `}>
       {category?.map((item) => (
