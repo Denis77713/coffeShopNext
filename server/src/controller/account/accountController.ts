@@ -114,12 +114,12 @@ class UserControllerClass {
         where: { refreshToken: refreshToken },
       })
       if (user && data && refreshToken) {
-        await userService.createProductPay(data, user)
+        const developId = await userService.createProductPay(data, user)
         //Создать записи в таблице покупок
         // Обновить количество продуктов в Product
         await userService.ubdateProductInPay(data, user)
         const newDataPay = await userService.getProductInPay(data, user)
-        res.json({ data: newDataPay, status: res.status })
+        res.json({ data: newDataPay, status: res.status, developId: developId })
       }
     } catch (e) {
       next(e)

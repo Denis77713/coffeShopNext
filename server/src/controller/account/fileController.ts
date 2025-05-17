@@ -47,9 +47,13 @@ class fileClass {
     )
 
     const { imgData, mail } = req.body
-    const doc = new jsPDF()
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "a4",
+    })
     console.log(mail)
-    await doc.addImage(imgData, "PNG", 0, 0, 20, 20)
+    await doc.addImage(imgData, "PNG", 0, 0, 300, 420)
     // await doc.save("./src/service/account/products.pdf")
     await doc.save("./products.pdf")
     await mailService.sendPdfFile(mail, `qqwe`)

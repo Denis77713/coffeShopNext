@@ -19,7 +19,7 @@ interface IGradeStar {
   userId: number
 }
 
-interface IProductPayItem {
+type IProductPayItem = {
   id: number
   name: string
   imageUrl: string
@@ -286,6 +286,7 @@ class userServiceClass {
         },
       })
     })
+    return developId
   }
   async ubdateProductInPay(data: any, user: any) {
     const arrId = data.map((item: any) => item.id)

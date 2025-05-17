@@ -50,7 +50,7 @@ const PathProductList: FC<{
       <div className={visible ? `container` : `${style.dnone}`}>
         {data?.data?.develery.length !== 0 && (
           <>
-            <h2 className={style.payTitle}>Deliveredные товары</h2>
+            <h2 className={style.payTitle}>Доставленные товары</h2>
             <Button handleClick={() => dispatch(getWindow("qrcode"))}>
               Показать QR код
             </Button>

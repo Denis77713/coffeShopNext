@@ -7,11 +7,12 @@ import { getRenderCart } from "@/shared/reducers/FormSlice"
 import Button from "@/shared/ui/Button"
 import { getCartPay } from "../api/api"
 import CartFormItem from "@/entities/CartFormItem/ui/CartFormItem"
-import { IProductCartStore } from "@/shared/types/types"
+import { IProductCartStore, newDataManagerItem } from "@/shared/types/types"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
 import { apiServer } from "@/widges/header/api/api"
+import Scklad from "@/entities/Scklad/ui/Scklad"
 
 const CartForm = ({ setCart }: any) => {
   const User = useSelector((store: any) => store.FormSlice.User)
@@ -32,12 +33,15 @@ const CartForm = ({ setCart }: any) => {
   )
 
   const [complitePay, setComplitePay] = useState(null)
-  const [render, setRender] = useState(false)
-  const [dataPay, setDataPay] = useState<any>(null)
+  const [render, setRender] = useState<boolean>(false)
+  const [dataPay, setDataPay] = useState<newDataManagerItem[] | null>(null)
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
-  const [pdf, setPdf] = useState(null)
+  const [scklad, setScklad] = useState<newDataManagerItem[] | null>(null)
   const { replace } = useRouter()
+  //
+  //
+  //
   useEffect(() => {
     if (dataPay) {
       const newDataPay = dataPay
@@ -83,7 +87,6 @@ const CartForm = ({ setCart }: any) => {
   }, [complitePay])
   const ref = useRef<any>()
   const doc = new jsPDF()
-  console.log(User)
   return (
     <>
       {complitePay ? (
@@ -91,35 +94,49 @@ const CartForm = ({ setCart }: any) => {
           <div className={style.paygreen}>Оплата прошла успешно!</div>
         </Form>
       ) : (
-        <Form>
-          <div ref={ref} className={style.productWrapper}>
-            {dataStorage?.map((item: IProductCartStore) => (
-              <CartFormItem
-                key={item.id}
-                item={item}
-                deleteProduct={deleteProduct}
-                render={render}
-                setRender={setRender}
-              />
-            ))}
-            <div className={style.pay}>
-              <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
-              <Button
-                handleClick={async (e: any) => {
-                  setDataPay(
-                    await getCartPay(e, dataStorage, sum, setComplitePay)
-                  )
-                  await postPDF(doc)
-                }}
-              >
-                Купить
-              </Button>
+        <>
+          <Form>
+            <div ref={ref} className={style.productWrapper}>
+              {dataStorage?.map((item: IProductCartStore) => (
+                <CartFormItem
+                  key={item.id}
+                  item={item}
+                  deleteProduct={deleteProduct}
+                  render={render}
+                  setRender={setRender}
+                />
+              ))}
+              <div className={style.pay}>
+                <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
+                <Button
+                  handleClick={async (e: any) =>
+                    await ButtonPayClick(e, dataStorage, sum, setComplitePay)
+                  }
+                >
+                  Купить
+                </Button>
+              </div>
             </div>
-          </div>
-        </Form>
+          </Form>
+        </>
       )}
+      {scklad && <Scklad data={scklad} />}
     </>
   )
+  async function ButtonPayClick(
+    e: any,
+    dataStorage: IProductCartStore[],
+    sum: number,
+    setComplitePay: any
+  ) {
+    const res = await getCartPay(e, dataStorage, sum, setComplitePay)
+    setDataPay(res?.data)
+    const productPayQrData = res?.data.filter(
+      (item: newDataManagerItem) => Number(item.developId) === res.developId
+    )
+    setScklad(productPayQrData)
+    await postPDF(doc)
+  }
 
   function deleteProduct(id: number) {
     const newData = dataStorage.filter(
@@ -134,7 +151,7 @@ const CartForm = ({ setCart }: any) => {
     const canvas = await html2canvas(ref.current)
 
     const imgData = canvas.toDataURL()
-    console.log(imgData)
+    // console.log(imgData)
     await apiServer.post("/postpdf", {
       imgData,
       mail: JSON.stringify(User.email),
