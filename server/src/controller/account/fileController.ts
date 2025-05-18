@@ -29,22 +29,9 @@ class fileClass {
         path.resolve(__dirname, "../../../../client/public/product")
       )
       res.json(data)
-      // Заполнить imagesUrlProduct названиями изображений
-      data.forEach(async (item: any) => {
-        await prisma.imagesUrlProduct.create({
-          data: {
-            imageURL: item,
-          },
-        })
-      })
     }
   }
   async pdfLoad(req: any, res: any, next: any) {
-    const pathUrl = path.resolve(
-      __dirname,
-      "/server/src/service/account/products.pdf"
-    )
-
     const { imgData, mail } = req.body
     const doc = new jsPDF({
       orientation: "portrait",
@@ -53,7 +40,6 @@ class fileClass {
     })
     console.log(mail)
     await doc.addImage(imgData, "PNG", 0, 0, 300, 420)
-    // await doc.save("./src/service/account/products.pdf")
     await doc.save("./products.pdf")
     await mailService.sendPdfFile(mail, `qqwe`)
   }
