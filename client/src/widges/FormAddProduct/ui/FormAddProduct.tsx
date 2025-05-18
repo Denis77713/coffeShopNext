@@ -15,7 +15,7 @@ import { IParams } from "@/pages/shop/ui/ShopPage"
 import { fileType } from "@/shared/types/types"
 //
 //
-interface IsecondCategory {
+type IsecondCategory = {
   id: number
   name: string
   text: string
@@ -50,14 +50,18 @@ const FormAddProduct: FC<{ params: IParams }> = ({ params }) => {
   //
   useEffect(() => {
     async function get() {
-      const result = await getSecondCategory()
-      setSecondCategory(result)
-      setSecCat(String(result[0].id))
+      const categoryId = await getCategory(params.id)
+      if (categoryId?.category === "Cafe") {
+        const result = await getSecondCategory()
+        console.log(result)
+        setSecondCategory(result)
+        setSecCat(String(result[0].id))
+      }
     }
-    if (params.id === "cafeCoffe") {
-      get()
-    }
-  }, [])
+    // if (params.id === "cafeCoffe") {
+    get()
+    // }
+  }, [formVisible])
   return (
     <>
       {formVisible === "addProduct" ? (
@@ -149,7 +153,6 @@ const FormAddProduct: FC<{ params: IParams }> = ({ params }) => {
       const formData = new FormData()
       formData.append("file", file)
       const categoryId = await getCategory(params.id)
-
       await createProduct(
         categoryId,
         weight,
