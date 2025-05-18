@@ -39,7 +39,7 @@ class fileClass {
       format: "a4",
     })
     console.log(mail)
-    await doc.addImage(imgData, "PNG", 0, 0, 300, 420)
+    await doc.addImage(imgData, "PNG", 20, 20, 450, 420)
     await doc.save("./products.pdf")
     await mailService.sendPdfFile(mail, `qqwe`)
   }

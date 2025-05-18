@@ -272,8 +272,7 @@ class userServiceClass {
     return result
   }
 
-  async createProductPay(data: any, user: any) {
-    const developId = Math.random()
+  async createProductPay(data: any, user: any, payId: number) {
     data.forEach(async (item: IProductPayItem | any) => {
       await prisma.productPay.createMany({
         data: {
@@ -282,12 +281,12 @@ class userServiceClass {
           productId: item.id,
           sum: Number(item.price),
           status: "Успешный заказ",
-          developId: String(developId),
+          developId: String(payId),
           name: item.name,
         },
       })
     })
-    return developId
+    return payId
   }
   async ubdateProductInPay(data: any, user: any) {
     const arrId = data.map((item: any) => item.id)

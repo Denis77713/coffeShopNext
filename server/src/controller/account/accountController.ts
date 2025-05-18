@@ -109,12 +109,12 @@ class UserControllerClass {
   async getCartPay(req: any, res: any, next: any) {
     try {
       const { refreshToken } = req.cookies
-      const { data, sum } = req.body
+      const { data, sum, payId } = req.body
       const user = await prisma.token.findFirst({
         where: { refreshToken: refreshToken },
       })
       if (user && data && refreshToken) {
-        const developId = await userService.createProductPay(data, user)
+        const developId = await userService.createProductPay(data, user, payId)
         //Создать записи в таблице покупок
         // Обновить количество продуктов в Product
         await userService.ubdateProductInPay(data, user)
