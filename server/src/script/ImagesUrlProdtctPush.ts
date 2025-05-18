@@ -10,6 +10,7 @@ export async function imageLoad() {
       path.resolve(__dirname, "../../../client/public/product")
     )
     // Заполнить imagesUrlProduct названиями изображений
+    //
     data.forEach(async (item: any) => {
       await prisma.imagesUrlProduct.create({
         data: {
