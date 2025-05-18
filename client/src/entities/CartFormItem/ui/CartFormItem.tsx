@@ -5,6 +5,7 @@ import Image from "next/image"
 import { FC, useEffect, useState } from "react"
 import style from "./CartFormItem.module.css"
 import { join } from "path"
+import QRCode from "react-qr-code"
 //
 //
 const CartFormItem: FC<{
@@ -12,7 +13,9 @@ const CartFormItem: FC<{
   deleteProduct: any
   render: boolean
   setRender: any
-}> = ({ item, deleteProduct, render, setRender }) => {
+  state: boolean
+  payId: number | null
+}> = ({ item, deleteProduct, render, setRender, state, payId }) => {
   //
   const data: any = localStorage.getItem("cart")
   const cart = JSON.parse(data)
@@ -33,16 +36,28 @@ const CartFormItem: FC<{
     setRender(!render)
   }, [number])
   //
+  const url = process.env.NEXT_PUBLIC_HOST
+
   return (
     <>
       <div className={style.product} key={item.id}>
         <div className={style.wrapperImgName}>
-          <Image
-            src={`/product/${item.imageUrl}`}
-            alt="cart"
-            width={80}
-            height={80}
-          />
+          {state && (
+            <Image
+              src={`/product/${item.imageUrl}`}
+              alt="cart"
+              width={80}
+              height={80}
+            />
+          )}
+          {!state && (
+            <QRCode
+              size={100}
+              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              value={`${url}/managerPage?developId=${payId}&productId=${item.id}`}
+              viewBox={`0 0 256 256`}
+            />
+          )}
           <div>
             <div className={style.wrapperInner}>
               <p>{item.name}</p>

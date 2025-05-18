@@ -9,12 +9,13 @@ import { prisma } from "../../../../prisma/prisma-client"
 
 export async function getProductPay(params: any) {
   //
-  const id = params.id
+  const data = params
+  if (data.id) data.id = Number(data.id)
+  if (data.productId) data.productId = Number(data.productId)
+
   const productPayArr: TypeProductPay[] = await prisma.productPay.findMany({
     where: {
-      // status: "Delivered",
       ...params,
-      id: id && Number(id),
     },
   })
   const productIdArr: number[] = productPayArr.map((item) => item.productId)

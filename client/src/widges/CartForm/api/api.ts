@@ -5,11 +5,16 @@ export async function getCartPay(
   e: any,
   dataStorage: IProductCart[],
   sum: number,
-  setComplitePay: any
+  setComplitePay: any,
+  payId: number
 ) {
   e.preventDefault()
   try {
-    const res = await api.post("/getCartPay", { data: dataStorage, sum: sum })
+    const res = await api.post("/getCartPay", {
+      data: dataStorage,
+      sum: sum,
+      payId: payId,
+    })
     setComplitePay(res.status)
     return { data: res.data.data, developId: res.data.developId }
   } catch (e) {}

@@ -1,7 +1,7 @@
 import Form from "@/shared/Form/ui/Form"
 import Image from "next/image"
 import style from "./CartForm.module.css"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getRenderCart } from "@/shared/reducers/FormSlice"
 import Button from "@/shared/ui/Button"
@@ -37,8 +37,9 @@ const CartForm = ({ setCart }: any) => {
   const [dataPay, setDataPay] = useState<newDataManagerItem[] | null>(null)
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
-  const [scklad, setScklad] = useState<newDataManagerItem[] | null>(null)
   const { replace } = useRouter()
+  const [state, setstate] = useState(true)
+  const payId = useMemo(() => Math.random(), [])
   //
   //
   //
@@ -87,8 +88,9 @@ const CartForm = ({ setCart }: any) => {
   }, [complitePay])
   const ref = useRef<any>()
   const doc = new jsPDF()
+  console.log(payId)
   return (
-    <>
+    <div>
       {complitePay ? (
         <Form>
           <div className={style.paygreen}>Оплата прошла успешно!</div>
@@ -104,14 +106,24 @@ const CartForm = ({ setCart }: any) => {
                   deleteProduct={deleteProduct}
                   render={render}
                   setRender={setRender}
+                  state={state}
+                  payId={payId}
                 />
               ))}
               <div className={style.pay}>
                 <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
                 <Button
-                  handleClick={async (e: any) =>
-                    await ButtonPayClick(e, dataStorage, sum, setComplitePay)
-                  }
+                  handleClick={async (e: any) => {
+                    setstate(false)
+                    await ButtonPayClick(
+                      e,
+                      dataStorage,
+                      sum,
+                      setComplitePay,
+                      payId
+                    )
+                    await postPDF(doc)
+                  }}
                 >
                   Купить
                 </Button>
@@ -120,22 +132,17 @@ const CartForm = ({ setCart }: any) => {
           </Form>
         </>
       )}
-      {scklad && <Scklad data={scklad} />}
-    </>
+    </div>
   )
   async function ButtonPayClick(
     e: any,
     dataStorage: IProductCartStore[],
     sum: number,
-    setComplitePay: any
+    setComplitePay: any,
+    payId: number
   ) {
-    const res = await getCartPay(e, dataStorage, sum, setComplitePay)
+    const res = await getCartPay(e, dataStorage, sum, setComplitePay, payId)
     setDataPay(res?.data)
-    const productPayQrData = res?.data.filter(
-      (item: newDataManagerItem) => Number(item.developId) === res.developId
-    )
-    setScklad(productPayQrData)
-    await postPDF(doc)
   }
 
   function deleteProduct(id: number) {
