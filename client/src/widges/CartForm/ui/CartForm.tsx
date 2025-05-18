@@ -12,7 +12,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
 import { apiServer } from "@/widges/header/api/api"
-import Scklad from "@/entities/Scklad/ui/Scklad"
 
 const CartForm = ({ setCart }: any) => {
   const User = useSelector((store: any) => store.FormSlice.User)
