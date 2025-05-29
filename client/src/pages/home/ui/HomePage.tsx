@@ -75,13 +75,13 @@ const Home: FC<{ params: IParams; searchParams: string }> = async ({
         </CarouselSlider>
         <LocationsList />
         <Title coffeNum={"false"} styles={style.title}>
-          Асcортимент интернет магазина
+          Ассортимент интернет магазина
         </Title>
         <Suspense fallback={CategorySkeleton}>
           <CategoryList page={"shop"} category={categoryMarket} />
         </Suspense>
         <Title coffeNum={"false"} styles={style.title}>
-          Асcортимент кофейни
+          Ассортимент кофейни
         </Title>
         <Suspense fallback={CategorySkeleton}>
           <CategoryList page={"caffe"} category={categoryCaffe} />
