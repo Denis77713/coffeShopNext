@@ -32,16 +32,20 @@ class fileClass {
     }
   }
   async pdfLoad(req: any, res: any, next: any) {
-    const { imgData, mail } = req.body
+    const { imgData, mail, dataStorage } = req.body
     const doc = new jsPDF({
       orientation: "portrait",
       unit: "px",
       format: "a4",
     })
-    console.log(mail)
-    await doc.addImage(imgData, "PNG", 20, 20, 450, 420)
+    const data = JSON.parse(dataStorage)
+    const height = Math.ceil(data.length / 4) * 150
+    console.log(data.length)
+    console.log(height)
+    await doc.addImage(imgData, "PNG", 20, 20, 400, height)
     await doc.save("./products.pdf")
-    await mailService.sendPdfFile(mail, `qqwe`)
+    // await mailService.sendPdfFile(mail, `qqwe`)
+    await mailService.sendPdfFile("demigot2033@gmail.com", `qqwe`)
   }
 }
 

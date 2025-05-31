@@ -43,3 +43,18 @@
   display: flex;
   justify-content: space-between;
 }
+.itemPDF {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  margin: 20px;
+  margin-top: 0px;
+  border: 1px solid black;
+  /* height: 220px; */
+  /* width: 150px; */
+}
+.qr {
+  /* width: 60%; */
+  /* height: 50%; */
+}

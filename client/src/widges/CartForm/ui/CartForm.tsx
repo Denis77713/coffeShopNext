@@ -87,9 +87,9 @@ const CartForm = ({ setCart }: any) => {
   }, [complitePay])
   const ref = useRef<any>()
   const doc = new jsPDF()
-  console.log(payId)
+  console.log(dataStorage)
   return (
-    <div>
+    <>
       {complitePay ? (
         <Form>
           <div className={style.paygreen}>Оплата прошла успешно!</div>
@@ -97,7 +97,12 @@ const CartForm = ({ setCart }: any) => {
       ) : (
         <>
           <Form>
-            <div ref={ref} className={style.productWrapper}>
+            <div
+              ref={ref}
+              className={`${style.productWrapper} ${
+                !state && style.payWrapper
+              }`}
+            >
               {dataStorage?.map((item: IProductCartStore) => (
                 <CartFormItem
                   key={item.id}
@@ -109,29 +114,31 @@ const CartForm = ({ setCart }: any) => {
                   payId={payId}
                 />
               ))}
-              <div className={style.pay}>
-                <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
-                <Button
-                  handleClick={async (e: any) => {
-                    setstate(false)
-                    await ButtonPayClick(
-                      e,
-                      dataStorage,
-                      sum,
-                      setComplitePay,
-                      payId
-                    )
-                    await postPDF(doc)
-                  }}
-                >
-                  Купить
-                </Button>
-              </div>
+              {state && (
+                <div className={style.pay}>
+                  <div className={style.sum}>{`Сумма покупки: ${sum}`}</div>
+                  <Button
+                    handleClick={async (e: any) => {
+                      setstate(false)
+                      await ButtonPayClick(
+                        e,
+                        dataStorage,
+                        sum,
+                        setComplitePay,
+                        payId
+                      )
+                      await postPDF(dataStorage)
+                    }}
+                  >
+                    Купить
+                  </Button>
+                </div>
+              )}
             </div>
           </Form>
         </>
       )}
-    </div>
+    </>
   )
   async function ButtonPayClick(
     e: any,
@@ -153,7 +160,7 @@ const CartForm = ({ setCart }: any) => {
     localStorage.setItem("cart", JSON.stringify(newData))
     dispatch(getRenderCart(!renderCart))
   }
-  async function postPDF(data: any) {
+  async function postPDF(dataStorage: any) {
     const canvas = await html2canvas(ref.current)
 
     const imgData = canvas.toDataURL()
@@ -161,6 +168,7 @@ const CartForm = ({ setCart }: any) => {
     await apiServer.post("/postpdf", {
       imgData,
       mail: JSON.stringify(User.email),
+      dataStorage: JSON.stringify(dataStorage),
     })
   }
 }

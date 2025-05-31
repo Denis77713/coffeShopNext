@@ -12,8 +12,8 @@ import { getActivated, getAuth, getWindow } from "@/shared/reducers/FormSlice"
 import { LoginValidation, login } from "../api/api"
 
 const FormLogin = () => {
-  const [email, setEmail] = useState<string>("zarvirovdenis@mail.ru")
-  const [password, setPassword] = useState<string>("denis2000")
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<IError | null>(null)
   const [status, setStatus] = useState<string | null>(null)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)

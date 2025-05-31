@@ -48,6 +48,12 @@ const Home: FC<{ params: IParams; searchParams: string }> = async ({
       items: 1,
     },
   }
+  const imageStyle = {
+    // borderRadius: '50%',
+    // border: '1px solid #fff',
+    // width: "auto",
+    // height: "auto",
+  }
   return (
     <div>
       <main>
@@ -63,14 +69,7 @@ const Home: FC<{ params: IParams; searchParams: string }> = async ({
             placeholder="blur"
           />
           {images?.map((item) => (
-            <Image
-              className={style.sliderItem}
-              width={1000}
-              height={400}
-              key={item.id}
-              src={item.src}
-              alt={item.src}
-            />
+            <img key={item.id} src={item.src} alt={item.src} />
           ))}
         </CarouselSlider>
         <LocationsList />

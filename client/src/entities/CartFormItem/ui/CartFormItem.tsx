@@ -41,7 +41,7 @@ const CartFormItem: FC<{
   return (
     <>
       <div className={style.product} key={item.id}>
-        <div className={style.wrapperImgName}>
+        <div className={`${style.wrapperImgName} ${!state && style.itemPDF}`}>
           {state && (
             <Image
               src={`/product/${item.imageUrl}`}
@@ -52,43 +52,60 @@ const CartFormItem: FC<{
           )}
           {!state && (
             <QRCode
-              size={100}
-              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              // size={100}
+              className={style.qr}
+              style={
+                {
+                  // height: "50px",
+                  // maxWidth: "150px",
+                  // width: "130px",
+                  // height: "150px",
+                  // maxHeight: "150px",
+                }
+              }
               value={`${url}/managerPage?developId=${payId}&productId=${item.id}`}
-              viewBox={`0 0 256 256`}
+              // viewBox={`0 0 256 256`}
             />
           )}
+          {!state && <div>{number}</div>}
           <div>
             <div className={style.wrapperInner}>
               <p>{item.name}</p>
             </div>
-            <div className={style.calc}>
-              <p>Количество: </p>
-              <Image
-                onClick={() => increment(number, item.number)}
-                src={`/plus.svg`}
-                alt="cart"
-                width={30}
-                height={30}
-              />
+            {state && (
+              <div className={style.calc}>
+                <p>Количество: </p>
+                <Image
+                  onClick={() => increment(number, item.number)}
+                  src={`/plus.svg`}
+                  alt="cart"
+                  width={30}
+                  height={30}
+                />
 
-              <div>{number}</div>
-              <Image
-                onClick={() => decrement(number, item.number)}
-                src={`/minus.svg`}
-                alt="cart"
-                width={30}
-                height={30}
-              />
+                <div>{number}</div>
+                <Image
+                  onClick={() => decrement(number, item.number)}
+                  src={`/minus.svg`}
+                  alt="cart"
+                  width={30}
+                  height={30}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        {state && (
+          <div className={style.wrapperPrise}>
+            <p className={style.wrapperPrise__Prise}>{item.price}</p>
+            <div
+              className={style.pointer}
+              onClick={() => deleteProduct(item.id)}
+            >
+              <Image src={`/close.svg`} alt="cart" width={20} height={20} />
             </div>
           </div>
-        </div>
-        <div className={style.wrapperPrise}>
-          <p className={style.wrapperPrise__Prise}>{item.price}</p>
-          <div className={style.pointer} onClick={() => deleteProduct(item.id)}>
-            <Image src={`/close.svg`} alt="cart" width={20} height={20} />
-          </div>
-        </div>
+        )}
       </div>
     </>
   )
