@@ -73,15 +73,16 @@ model imagesUrlProduct {
 
 // Delivered, Успешный заказ, Получен
 model ProductPay {
-  id        Int    @id @default(autoincrement())
-  userId    Int
-  productId Int
-  sum       Int
-  status    String @default("Успешный заказ")
-  user      User   @relation(fields: [userId], references: [id])
-  num       Int
-  developId String @default("")
-  name      String
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  productId  Int
+  sum        Int
+  status     String @default("Успешный заказ")
+  textStatus String @default("Успешный заказ")
+  user       User   @relation(fields: [userId], references: [id])
+  num        Int
+  developId  String @default("")
+  name       String
 }
 
 model Filter {

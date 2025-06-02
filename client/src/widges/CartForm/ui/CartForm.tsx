@@ -127,7 +127,7 @@ const CartForm = ({ setCart }: any) => {
                         setComplitePay,
                         payId
                       )
-                      await postPDF(dataStorage)
+                      await postPDF(dataStorage, payId)
                     }}
                   >
                     Купить
@@ -160,7 +160,7 @@ const CartForm = ({ setCart }: any) => {
     localStorage.setItem("cart", JSON.stringify(newData))
     dispatch(getRenderCart(!renderCart))
   }
-  async function postPDF(dataStorage: any) {
+  async function postPDF(dataStorage: any, idPay: number) {
     const canvas = await html2canvas(ref.current)
 
     const imgData = canvas.toDataURL()
@@ -169,6 +169,7 @@ const CartForm = ({ setCart }: any) => {
       imgData,
       mail: JSON.stringify(User.email),
       dataStorage: JSON.stringify(dataStorage),
+      idPay,
     })
   }
 }

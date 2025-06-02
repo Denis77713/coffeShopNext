@@ -32,7 +32,7 @@ class fileClass {
     }
   }
   async pdfLoad(req: any, res: any, next: any) {
-    const { imgData, mail, dataStorage } = req.body
+    const { imgData, mail, dataStorage, idPay } = req.body
     const doc = new jsPDF({
       orientation: "portrait",
       unit: "px",
@@ -45,7 +45,7 @@ class fileClass {
     await doc.addImage(imgData, "PNG", 20, 20, 400, height)
     await doc.save("./products.pdf")
     // await mailService.sendPdfFile(mail, `qqwe`)
-    await mailService.sendPdfFile("demigot2033@gmail.com", `qqwe`)
+    await mailService.sendPdfFile("demigot2033@gmail.com", idPay)
   }
 }
 

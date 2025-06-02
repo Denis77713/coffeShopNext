@@ -98,4 +98,5 @@ export type newDataManagerItem = {
   developId?: string
   imageUrl: string
   text: string
+  textStatus: string
 }

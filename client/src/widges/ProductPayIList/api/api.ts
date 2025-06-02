@@ -12,6 +12,7 @@ export async function updateProductPay(data: newDataManagerItem[]) {
         },
         data: {
           status: item.status,
+          textStatus: item.textStatus,
         },
       })
   )

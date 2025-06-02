@@ -29,7 +29,7 @@ class mailServiceClass {
       html: `<a href="${link}"> ${link}</a>`, // html body
     })
   }
-  async sendPdfFile(to: string, link: string) {
+  async sendPdfFile(to: string, idPay: number) {
     const pathUrl = path.resolve(__dirname, "/server/src/products.pdf")
 
     const transporter = nodemailer.createTransport({
@@ -43,8 +43,8 @@ class mailServiceClass {
     const info = await transporter.sendMail({
       from: process.env.SMTP_USER,
       to: to, // list of receivers
-      subject: "Заказ", // Subject line
-      // text: "Нажмите на ссылку чтобы активировать аккаунт", // plain text body
+      subject: `Заказ ${idPay}`, // Subject line
+      text: `${process.env.CLIENT_URL}/managerPage?developId=${idPay}`, // plain text body
       // html: `<a href="${link}"> ${link}</a>`, // html body
       attachments: [
         {
