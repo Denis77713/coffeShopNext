@@ -53,7 +53,6 @@ const FormAddProduct: FC<{ params: IParams }> = ({ params }) => {
       const categoryId = await getCategory(params.id)
       if (categoryId?.category === "Cafe") {
         const result = await getSecondCategory()
-        console.log(result)
         setSecondCategory(result)
         setSecCat(String(result[0].id))
       }

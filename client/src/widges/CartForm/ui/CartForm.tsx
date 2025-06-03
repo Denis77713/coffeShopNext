@@ -87,7 +87,6 @@ const CartForm = ({ setCart }: any) => {
   }, [complitePay])
   const ref = useRef<any>()
   const doc = new jsPDF()
-  console.log(dataStorage)
   return (
     <>
       {complitePay ? (
@@ -164,7 +163,6 @@ const CartForm = ({ setCart }: any) => {
     const canvas = await html2canvas(ref.current)
 
     const imgData = canvas.toDataURL()
-    // console.log(imgData)
     await apiServer.post("/postpdf", {
       imgData,
       mail: JSON.stringify(User.email),

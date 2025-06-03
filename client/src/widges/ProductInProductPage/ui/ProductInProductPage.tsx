@@ -25,12 +25,13 @@ const ProductInProductPage: FC<{
   //
   const result: Iproduct[] = await getProductId(idProduct)
   const grade =
-    result && (await apiServer.post("/getGrade", { data: [result[0]?.id] }))
+    result && (await apiServer.post("/getGrade", { data: [idProduct] }))
   const item: Iproduct = result && result[0]
   const newData = grade.data.filter((i: any) => i.productId === item.id)
   const gradeUsers = result && (await getComment(newData))
   const star = getStarAndGrade(newData)
   //
+  console.log(gradeUsers)
   //
   return (
     <>

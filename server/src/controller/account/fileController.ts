@@ -40,8 +40,6 @@ class fileClass {
     })
     const data = JSON.parse(dataStorage)
     const height = Math.ceil(data.length / 4) * 150
-    console.log(data.length)
-    console.log(height)
     await doc.addImage(imgData, "PNG", 20, 20, 400, height)
     await doc.save("./products.pdf")
     // await mailService.sendPdfFile(mail, `qqwe`)

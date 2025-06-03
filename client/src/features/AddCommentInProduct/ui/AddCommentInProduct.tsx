@@ -34,7 +34,6 @@ const AddCommentInProduct: FC<{
   const dataRender = getDataRender()
   //
   //
-  console.log(filteResult)
   return (
     <>
       {User !== "Unauthorized" && dataRender && (

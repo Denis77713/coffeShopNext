@@ -12,7 +12,6 @@ const ProductPayItem: FC<{
   setState: any
 }> = ({ item, state, setState }) => {
   const User = useSelector((store: any) => store.FormSlice.User)
-  console.log(item.imageUrl)
   return (
     <>
       <div className={style.itemWrapper}>
