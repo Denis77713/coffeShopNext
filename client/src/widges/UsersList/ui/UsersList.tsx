@@ -13,7 +13,9 @@ import style from "./UsersList.module.css"
 const UsersList = () => {
   //
   //
+
   const [data, setData] = useState<TypeUser[] | null>(null)
+  const User = useSelector((store: any) => store.FormSlice.User)
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const dispatch = useDispatch()
   const [id, setId] = useState(0)
@@ -21,11 +23,11 @@ const UsersList = () => {
   //
   useEffect(() => {
     async function func() {
-      const result = await getUsers()
+      const result = await getUsers(User.id)
       setData(result)
     }
     func()
-  }, [])
+  }, [User])
   //
   //
 

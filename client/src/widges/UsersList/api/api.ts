@@ -2,8 +2,9 @@
 
 import { prisma } from "../../../../prisma/prisma-client"
 
-export async function getUsers() {
-  const result = await prisma.user.findMany()
+export async function getUsers(id: number) {
+  const data = await prisma.user.findMany()
+  const result = data.filter((item) => item.id !== id)
   return result
 }
 

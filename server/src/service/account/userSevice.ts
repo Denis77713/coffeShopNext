@@ -156,7 +156,12 @@ class userServiceClass {
         refreshToken: refreshToken,
       },
     })
-    const tokenData = await prisma.token.delete({
+    // const tokenData = await prisma.token.delete({
+    //   where: {
+    //     userId: userData?.userId,
+    //   },
+    // })
+    const tokenData = await prisma.token.findFirst({
       where: {
         userId: userData?.userId,
       },

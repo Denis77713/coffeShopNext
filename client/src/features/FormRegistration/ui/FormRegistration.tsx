@@ -70,7 +70,7 @@ const FormRegistration = () => {
         className={`${inputStyle.input} ${error?.lastName && style.inputError}`}
         type="text"
         name="lastName"
-        placeholder="Введите свое отчество"
+        placeholder="Введите свою фамилию"
         value={lastName}
         onChange={(e) => setLastName(inputSecurity(e.target.value))}
       />
