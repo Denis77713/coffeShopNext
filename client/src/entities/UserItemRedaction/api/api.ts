@@ -20,6 +20,7 @@ export async function updateUser(
       role: role,
     },
   })
-  const result = await prisma.user.findMany()
+  const data = await prisma.user.findMany()
+  const result = data.filter((item) => item.id === id)
   return result
 }
