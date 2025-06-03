@@ -51,3 +51,11 @@ main {
   margin-top: 150px;
 }
 /*  */
+.pagination .active > .page-link {
+  background-color: #17673e !important;
+  color: white !important;
+  border-color: #17673e !important;
+}
+.pagination .page-link {
+  color: #17673e !important;
+}

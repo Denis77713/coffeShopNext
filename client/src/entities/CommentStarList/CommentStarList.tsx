@@ -22,11 +22,11 @@ const CommentStarList: FC<{
   //
   //
   const User = useSelector((store: any) => store.FormSlice.User)
-
+  const [gradeUsersState, setGradeUsersState] = useState(gradeUsers)
   //
   return (
     <>
-      {gradeUsers.map((item: IgradeStars) => (
+      {gradeUsersState.map((item: IgradeStars) => (
         <div className={style.UserGrade} key={item.user}>
           <div className={style.grade}>
             <UserSVG className={style.img} />
@@ -38,8 +38,17 @@ const CommentStarList: FC<{
             />
             {User.role === "admin" && (
               <div className={style.deleteButton}>
-                <Button handleClick={() => deleteComment(item.id)}>
-                  Удалить
+                <Button
+                  handleClick={(e: any) => {
+                    deleteComment(item.id)
+                    setGradeUsersState(
+                      gradeUsersState.filter(
+                        (i: IgradeStars) => i.id !== item.id
+                      )
+                    )
+                  }}
+                >
+                  Удалить комментарий
                 </Button>
               </div>
             )}

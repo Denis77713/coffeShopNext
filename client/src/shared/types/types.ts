@@ -11,6 +11,7 @@ export type Iproduct = {
   secondCategoryId: number | any
   categoryId: number | any
   like?: boolean | any
+  text?: string | null
 }
 
 export type fileType = {

@@ -7,5 +7,40 @@
   border-radius: 10px;
 }
 .ImageAndText {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.wrapperImgStar {
+  margin-right: 30px;
+}
+.comtent h1 {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.comtent div {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.comtent p {
+  margin-bottom: 30px;
+}
+.starWrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+@media (max-width: 1000px) {
+  .ImageAndText {
+    grid-template-columns: 1fr;
+  }
+  .wrapperImgStar {
+    margin-right: 0px;
+  }
+  .wrapperImgStar img {
+    margin-right: 0px;
+  }
+  .starWrapper {
+    max-width: 500px;
+  }
 }

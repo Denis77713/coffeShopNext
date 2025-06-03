@@ -8,5 +8,6 @@ export async function getProductId(id: number) {
       id: id,
     },
   })
+  console.log(result)
   return result
 }

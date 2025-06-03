@@ -1,5 +1,6 @@
 .grade {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 .img {
@@ -17,5 +18,6 @@
   margin-bottom: 20px;
 }
 .deleteButton {
+  margin-bottom: 30px;
   margin-left: auto;
 }

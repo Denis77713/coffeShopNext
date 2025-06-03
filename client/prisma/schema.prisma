@@ -64,6 +64,7 @@ model Product {
   secondCategoryId Int?
   categoryId       Int
   GradeStar        GradeStar[]
+  text             String?
 }
 
 model imagesUrlProduct {
