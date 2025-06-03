@@ -11,10 +11,15 @@ import { getCommentAndStar } from "@/shared/reducers/FormSlice"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { Star } from "@/shared/types/types"
 
+type TypeProductID = {
+  productID: string
+}
+
 const AddCommentInProduct: FC<{
   grade: Star[]
   product: any
-}> = ({ grade, product }) => {
+  Params: TypeProductID
+}> = ({ grade, product, Params }) => {
   const User = useSelector((store: any) => store.FormSlice.User)
 
   const [Visible, setVisible] = useState(false)
@@ -23,11 +28,13 @@ const AddCommentInProduct: FC<{
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
-  const filteResult = grade.filter((item) => item.userId === User.id)
+  const filteResult = grade
+    .filter((item) => item.userId === User.id)
+    .filter((item) => item.productId === Number(Params.productID))
   const dataRender = getDataRender()
   //
   //
-
+  console.log(filteResult)
   return (
     <>
       {User !== "Unauthorized" && dataRender && (
@@ -81,7 +88,6 @@ const AddCommentInProduct: FC<{
       if (filteResult.length !== 0 && grade[0].comment === null)
         dataRender = true
     }
-
     return dataRender
   }
 }

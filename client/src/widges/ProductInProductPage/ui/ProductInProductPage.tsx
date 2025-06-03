@@ -19,11 +19,11 @@ const ProductInProductPage: FC<{
   searchParams: IproductID
 }> = async ({ params, searchParams }) => {
   //
+
   //
   const idProduct = Number(searchParams.productID)
   //
   const result: Iproduct[] = await getProductId(idProduct)
-  console.log(result)
   const grade =
     result && (await apiServer.post("/getGrade", { data: [result[0]?.id] }))
   const item: Iproduct = result && result[0]
@@ -65,6 +65,7 @@ const ProductInProductPage: FC<{
           <AddCommentInProduct
             grade={grade && grade.data}
             product={result && result}
+            Params={searchParams}
           />
 
           <CommentStarList gradeUsers={gradeUsers} />
