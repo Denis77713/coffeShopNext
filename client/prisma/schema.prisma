@@ -5,39 +5,36 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
   id             Int          @id @default(autoincrement())
-  // поле уникальное
   email          String       @unique
-  password       String
-  isActivated    Boolean      @default(false)
-  activationLink String
   name           String
+  activationLink String
+  isActivated    Boolean      @default(false)
   lastName       String
+  password       String
   role           String       @default("user")
-  token          Token?
-  ProductPay     ProductPay[]
   GradeStar      GradeStar[]
+  ProductPay     ProductPay[]
+  token          Token?
 }
 
 model Token {
-  token        User   @relation(fields: [userId], references: [id])
   userId       Int    @unique
   refreshToken String
+  token        User   @relation(fields: [userId], references: [id])
 }
 
 model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   image    String
-  // Связь одна Category ко многим Product
   page     String
-  products Product[]
-  filters  Filter[]
   category String    @default("Shop")
+  filters  Filter[]
+  products Product[]
 }
 
 model SecondCategory {
@@ -51,20 +48,18 @@ model Product {
   id               Int             @id @default(autoincrement())
   name             String
   imageUrl         String
-  // Связь с Category
-  category         Category        @relation(fields: [categoryId], references: [id])
-  // Связь с Category
-  secondCategory   SecondCategory? @relation(fields: [secondCategoryId], references: [id])
   price            String?
   best             String?
   weight           String?
   none             String
   drip             String
+  categoryId       Int
   number           Int?            @default(5)
   secondCategoryId Int?
-  categoryId       Int
-  GradeStar        GradeStar[]
   text             String?
+  GradeStar        GradeStar[]
+  category         Category        @relation(fields: [categoryId], references: [id])
+  secondCategory   SecondCategory? @relation(fields: [secondCategoryId], references: [id])
 }
 
 model imagesUrlProduct {
@@ -72,18 +67,17 @@ model imagesUrlProduct {
   imageURL String
 }
 
-// Delivered, Успешный заказ, Получен
 model ProductPay {
   id         Int    @id @default(autoincrement())
   userId     Int
   productId  Int
   sum        Int
   status     String @default("Успешный заказ")
-  textStatus String @default("Успешный заказ")
-  user       User   @relation(fields: [userId], references: [id])
   num        Int
   developId  String @default("")
   name       String
+  textStatus String @default("Успешный заказ")
+  user       User   @relation(fields: [userId], references: [id])
 }
 
 model Filter {
@@ -91,9 +85,8 @@ model Filter {
   name     String
   value    String
   text     String
-  // Связь с Category
-  filter   Category @relation(fields: [filterId], references: [id])
   filterId Int
+  filter   Category @relation(fields: [filterId], references: [id])
 }
 
 model City {
@@ -111,8 +104,8 @@ model Location {
   newIsOpen   Boolean
   newLocation String
   isWork      Boolean
-  city        City    @relation(fields: [cityId], references: [id])
   cityId      Int
+  city        City    @relation(fields: [cityId], references: [id])
 }
 
 model Carousel {
@@ -137,9 +130,9 @@ model GradeStar {
   id         Int     @id @default(autoincrement())
   grade      Int
   comment    String?
-  category   Product @relation(fields: [productId], references: [id])
-  User       User?   @relation(fields: [userId], references: [id])
   userAnonim Boolean
   productId  Int
   userId     Int?
+  category   Product @relation(fields: [productId], references: [id])
+  User       User?   @relation(fields: [userId], references: [id])
 }
