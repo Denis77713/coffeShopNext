@@ -4,8 +4,6 @@ import { cookies } from "next/headers"
 export const getProduct = async (searchParams: any) => {
   await new Promise((resolve) => setTimeout(resolve, 1))
 
-  if (searchParams.pay) {
-  }
   const result = await prisma.product.findMany({
     where: {
       best: "true",

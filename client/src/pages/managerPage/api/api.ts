@@ -24,7 +24,7 @@ export async function getProductPay(params: any) {
       id: { in: productIdArr },
     },
   })
-  let result: newDataManagerItem[] = []
+  let result: any[] = []
 
   productPayArr.forEach((item: TypeProductPay) => {
     productDataArr.forEach((inner: Iproduct) => {
