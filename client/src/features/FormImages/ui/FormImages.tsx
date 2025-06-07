@@ -33,6 +33,7 @@ const FormImages = () => {
   }, [])
   //
   //
+  console.log(imagesArr)
   return (
     <>
       {formVisible === "imageList" && (
