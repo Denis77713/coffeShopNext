@@ -21,7 +21,7 @@ const UserItemRedaction: FC<{ item: TypeUser; setData: any; setId: any }> = ({
   const [mail, setMail] = useState<string>(item.email)
   const [name, setName] = useState<string>(item.name)
   const [lastName, setLastName] = useState<string>(item.lastName)
-  const arrRole = ["user", "admin", "manager"]
+  const arrRole = ["user", "admin", "manager", "sklad"]
   const newArrRole = arrRole.filter((i: string) => i !== item.role)
   const [role, setRole] = useState<string>(item.role)
   const dispatch = useDispatch()

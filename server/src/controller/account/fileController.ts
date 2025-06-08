@@ -23,13 +23,14 @@ class fileClass {
     } catch (e) {}
   }
   async imageLoad(req: any, res: any, next: any) {
-    const papka = fs.existsSync(path.resolve(__dirname, "/client/public"))
-    if (papka) {
-      const data = fs.readdirSync(
-        path.resolve(__dirname, "../../../../client/public/product")
-      )
-      res.json(data)
-    }
+    // const papka = fs.existsSync(path.resolve(__dirname, "/client/public"))
+    // if (papka) {
+    //   const data = fs.readdirSync(
+    //     path.resolve(__dirname, "../../../../client/public/product")
+    //   )
+    // }
+    const data = await prisma.imagesUrlProduct.findMany()
+    res.json(data)
   }
   async pdfLoad(req: any, res: any, next: any) {
     const { imgData, mail, dataStorage, idPay } = req.body

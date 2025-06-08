@@ -10,6 +10,7 @@ import IsToken from "@/shared/Hookcs/IsToken"
 import AdminProductList from "@/widges/AdminProductList/ui/AdminProductList"
 import { getCategory } from "@/pages/shop/ui/getProductAndFilters"
 import FormImages from "@/features/FormImages/ui/FormImages"
+import { apiServer } from "@/widges/header/api/api"
 
 const adminPanelProduct: FC<{
   params: IParams
@@ -19,6 +20,7 @@ const adminPanelProduct: FC<{
   //
   const numProductInPage = 8
   const res = await getCategory(`/${params.id}`, searchParams, numProductInPage)
+  const imagesArr = await apiServer.get("/getImages")
   //
   //
   return (
@@ -30,7 +32,7 @@ const adminPanelProduct: FC<{
       <Link href={"/adminPanel"}>
         <Button>Админ панель</Button>
       </Link>
-      <FormImages />
+      <FormImages imagesArr={imagesArr.data} />
       <FormAddProduct params={params} />
       <AdminProductList data={res.productData} />
       <Pagination numProduct={res.numProduct / numProductInPage} />

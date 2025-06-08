@@ -7,7 +7,6 @@ import UsersList from "@/widges/UsersList/ui/UsersList"
 
 const AdminPanelPage = async () => {
   const categoryMarket = await getCategory()
-
   return (
     <main>
       <IsToken />
