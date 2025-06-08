@@ -25,10 +25,12 @@ const ProductPayIList: FC<{ data: newDataManagerItem[] }> = ({ data }) => {
 
   useEffect(() => {
     User.role === "sklad" &&
-      setState(data.filter((i: newDataManagerItem) => i.status !== "Delivered"))
+      setState(
+        data.filter((i: newDataManagerItem) => i.status === "Успешный заказ")
+      )
     User.role === "manager" &&
-      setState(data.filter((i: newDataManagerItem) => i.status !== "Получен"))
-  }, [data, boolean])
+      setState(data.filter((i: newDataManagerItem) => i.status === "Delivered"))
+  }, [data, boolean, User])
   return (
     <>
       {User.role === "sklad" && (
