@@ -76,9 +76,14 @@ class tokenServiseClass {
       return null
     }
   }
-  async findToken(refreshToken:string){
-    const token = await prisma.token.findFirst({where:{refreshToken:refreshToken}})
-    if(token!==null) return token
+  async findToken(refreshToken: string) {
+    const tokenSecret = String(process.env.JWT_REFRESH_TOKEN)
+    const userData: any = jwt.verify(refreshToken, tokenSecret)
+    const token = await prisma.token.findFirst({
+      where: { userId: userData.id },
+    })
+    console.log(token)
+    if (token !== null) return token
   }
 }
 

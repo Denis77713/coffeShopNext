@@ -17,20 +17,21 @@ const UseLogin = () => {
           dispatch(getActivated(AuthorizasionData.data.isActivated))
           dispatch(getUser(AuthorizasionData.data))
         } catch (e) {
-          localStorage.removeItem("token")
           try {
-            await api.get("/refresh")
-          } catch {
+            localStorage.removeItem("token")
             const data = await api.get("/refresh")
             localStorage.setItem("token", data.data.accessToken)
             const AuthorizasionData = await api.get("/users")
             dispatch(getAuth(AuthorizasionData.status))
             dispatch(getActivated(AuthorizasionData.data.isActivated))
-            dispatch(getUser(AuthorizasionData))
+            dispatch(getUser(AuthorizasionData.data))
+          } catch {
+            await api.post("/logout")
           }
         }
       } else {
         dispatch(getAuth(401))
+        await api.post("/logout")
       }
     }
     cheskRefresh()
