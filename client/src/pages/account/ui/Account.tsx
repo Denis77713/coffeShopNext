@@ -28,11 +28,12 @@ const Account = () => {
   const User = useSelector((store: any) => store.FormSlice.User)
   const [category, setCategory] = useState<Icategory[]>([])
   const [grade, setGrade] = useState<TypeGrade[]>([])
+  const host = process.env.NEXT_PUBLIC_HOST
   //
   UseLogin(getProducts, setCategory)
   //
   useEffect(() => {
-    if (User.role !== "user") redirectAction("/")
+    if (User.role !== "user") redirectAction(host)
     async function Login() {
       try {
         const data = await api.post("/getGrade")

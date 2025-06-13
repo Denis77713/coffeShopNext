@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation"
 import { prisma } from "../../../../prisma/prisma-client"
 
-export async function redirectAction(path: string) {
+export async function redirectAction(path: any) {
   redirect(path)
 }
 export const getCategoryes = async () => {
