@@ -186,7 +186,7 @@ class userServiceClass {
       const userDto = new UserDtoClass(user.email, user.id, user.isActivated)
       const tokens = tokenServise.generateToken({ ...userDto })
       await tokenServise.saveToken(user.id, tokens.refreshToken)
-      return { ...tokens, user: userDto }
+      return { ...tokens, user: user }
     }
   }
   async getAllUsers(refreshToken: string) {
