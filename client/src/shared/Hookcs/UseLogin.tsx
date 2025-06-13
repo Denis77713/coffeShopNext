@@ -4,14 +4,21 @@ import { useEffect } from "react"
 import { getActivated, getAuth, getUser } from "../reducers/FormSlice"
 import { api } from "@/widges/header/api/api"
 import { useDispatch } from "react-redux"
+import axios from "axios"
 
 const UseLogin = () => {
+  const urlApi = process.env.NEXT_PUBLIC_API
   const dispatch = useDispatch()
   useEffect(() => {
     const cheskRefresh = async () => {
       const token = localStorage.getItem("token")
       if (token) {
         try {
+          const data = await axios.get(`${urlApi}/api/refresh`, {
+            withCredentials: true,
+          })
+          localStorage.removeItem("token")
+          localStorage.setItem("token", data.data.accessToken)
           const AuthorizasionData = await api.get("/users")
           dispatch(getAuth(AuthorizasionData.status))
           dispatch(getActivated(AuthorizasionData.data.isActivated))
