@@ -198,14 +198,8 @@ class userServiceClass {
     if (!userData || tokenFromDB) {
       await ApiError.UnauthorizedError()
     }
-    const user = await prisma.user.findFirst({
-      where: {
-        id: tokenFromDB?.userId,
-      },
-    })
-    if (user) {
-      return user
-    }
+    const result = await prisma.category.findMany()
+    return result
   }
   async getProductService(refreshToken: string): Promise<IProductPay | null> {
     let result = null

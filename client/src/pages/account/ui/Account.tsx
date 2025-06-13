@@ -4,12 +4,19 @@ import AccountProductList from "../../../widges/AccountProductList/ui/AccountPro
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
 import IsLogin from "@/shared/Hookcs/IsLogin"
 import { useEffect, useState } from "react"
-import { getCategoryes, getProductPay } from "../api/api"
+import { getCategoryes, getProductPay, redirectAction } from "../api/api"
 import { api } from "@/widges/header/api/api"
 import { TypeGrade, TypeProductPay } from "@/shared/types/types"
 import PathProductList from "@/widges/PathProductList/ui/PathProductList"
+import UseLogin from "@/shared/Hookcs/UseLogin"
+import { useSelector } from "react-redux"
 //
 //
+
+async function getProducts() {
+  const res = await api.get("/users")
+  return res
+}
 //
 const Account = () => {
   type Icategory = {
@@ -18,15 +25,14 @@ const Account = () => {
     image: string
     page: string
   }
-  const url = process.env.HOST
+  const User = useSelector((store: any) => store.FormSlice.User)
   const [category, setCategory] = useState<Icategory[]>([])
   const [grade, setGrade] = useState<TypeGrade[]>([])
   //
-  //
-  IsLogin(setCategory, getCategoryes)
-  //
+  UseLogin(getProducts, setCategory)
   //
   useEffect(() => {
+    if (User.role !== "user") redirectAction("/")
     async function Login() {
       try {
         const data = await api.post("/getGrade")
@@ -38,7 +44,7 @@ const Account = () => {
 
     Login()
   }, [category])
-
+  //
   return (
     <main>
       {category.length !== 0 && (

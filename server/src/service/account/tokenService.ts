@@ -82,7 +82,6 @@ class tokenServiseClass {
     const token = await prisma.token.findFirst({
       where: { userId: userData.id },
     })
-    console.log(token)
     if (token !== null) return token
   }
 }
