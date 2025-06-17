@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import style from "./Header.module.css"
-import { FC, useEffect, useState } from "react"
+import { FC, useEffect, useMemo, useState } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
@@ -24,7 +24,13 @@ const Header: FC = () => {
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
   const [like, setLike] = useState([])
-
+  const User = useSelector((store: any) => store.FormSlice.User)
+  const [href, setHref] = useState(getHref(User.role))
+  console.log(href)
+  // console.log(User.role)
+  useEffect(() => {
+    setHref(getHref(User.role))
+  }, [User])
   useEffect(() => {
     const storage = localStorage.getItem("cart")
     const storageLike = localStorage.getItem("like")
@@ -71,7 +77,7 @@ const Header: FC = () => {
             </div>
           )}
           {Activated === true && Auth === 200 ? (
-            <Link href={"/account"}>
+            <Link href={href}>
               <div className={style.account}>
                 <Image
                   className={`${style.icon} ${style.account}`}
@@ -124,6 +130,14 @@ const Header: FC = () => {
       )}
     </>
   )
+  function getHref(role: string) {
+    let res = "/account"
+    if (role === "admin") res = "/adminPanel"
+    if (role === "manager") res = "/managerPage"
+    if (role === "sklad") res = "/managerPage"
+    if (role === "user") res = "/account"
+    return res
+  }
   function handleClickCart() {
     const storage = localStorage.getItem("cart")
     dispatch(getWindow("cart"))

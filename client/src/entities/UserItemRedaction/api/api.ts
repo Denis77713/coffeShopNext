@@ -7,7 +7,8 @@ export async function updateUser(
   mail: string,
   name: string,
   lastName: string,
-  role: string
+  role: string,
+  isActivated: boolean
 ) {
   await prisma.user.update({
     where: {
@@ -18,8 +19,10 @@ export async function updateUser(
       name: name,
       lastName: lastName,
       role: role,
+      isActivated: isActivated,
     },
   })
   const result = await prisma.user.findMany()
+  console.log(result)
   return result
 }

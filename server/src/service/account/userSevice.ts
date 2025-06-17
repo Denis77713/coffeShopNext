@@ -148,7 +148,7 @@ class userServiceClass {
     // Создаю новый токен или перезаписываю
     await tokenServise.saveToken(user.id, tokens.refreshToken)
     // Верну токены и данные юзера
-    return { ...tokens, user: userDto }
+    return { ...tokens, user: user }
   }
   async logout(refreshToken: any) {
     const userData = await prisma.token.findFirst({

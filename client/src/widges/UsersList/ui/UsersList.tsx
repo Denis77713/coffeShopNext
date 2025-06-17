@@ -25,6 +25,7 @@ const UsersList = () => {
   useEffect(() => {
     async function func() {
       const result = await getUsers(User.id)
+      console.log(result)
       setData(result)
     }
     func()

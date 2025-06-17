@@ -8,7 +8,12 @@ import Form from "@/shared/Form/ui/Form"
 import { inputSecurity } from "@/security"
 import { IError } from "@/features/FormRegistration/ui/FormRegistration"
 import { useDispatch, useSelector } from "react-redux"
-import { getActivated, getAuth, getWindow } from "@/shared/reducers/FormSlice"
+import {
+  getActivated,
+  getAuth,
+  getUser,
+  getWindow,
+} from "@/shared/reducers/FormSlice"
 import { LoginValidation, login } from "../api/api"
 
 const FormLogin = () => {
@@ -59,6 +64,8 @@ const FormLogin = () => {
             if (data && data?.status === 200) {
               dispatch(getWindow(false))
               dispatch(getActivated(data.data.user.isActivated))
+              dispatch(getUser(data.data.user))
+              console.log(data.data.user)
             }
             if (data && data.status === 400) {
               setErrorMessage(data.response.data.message)

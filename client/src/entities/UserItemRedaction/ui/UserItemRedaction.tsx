@@ -24,6 +24,7 @@ const UserItemRedaction: FC<{ item: TypeUser; setData: any; setId: any }> = ({
   const arrRole = ["user", "admin", "manager", "sklad"]
   const newArrRole = arrRole.filter((i: string) => i !== item.role)
   const [role, setRole] = useState<string>(item.role)
+  const [activeted, setActiveted] = useState<any>(item.isActivated)
   const dispatch = useDispatch()
   //
   //
@@ -47,6 +48,15 @@ const UserItemRedaction: FC<{ item: TypeUser; setData: any; setId: any }> = ({
         onChange={(e) => setLastName(e.target.value)}
         type="text"
       />
+      <select
+        value={String(activeted)}
+        onChange={(e) => setActiveted(!activeted)}
+      >
+        <option value={activeted}>{activeted + ""}</option>
+        <option value={!activeted + ""}>{!activeted + ""}</option>
+      </select>
+      {/*  */}
+      {/*  */}
       <select value={role} onChange={(e) => setRole(e.target.value)}>
         <option value={item.role}>{item.role}</option>
         {newArrRole.map((inner) => (
@@ -57,7 +67,14 @@ const UserItemRedaction: FC<{ item: TypeUser; setData: any; setId: any }> = ({
       </select>
       <Button
         handleClick={async () => {
-          const res = await updateUser(item.id, mail, name, lastName, role)
+          const res = await updateUser(
+            item.id,
+            mail,
+            name,
+            lastName,
+            role,
+            activeted
+          )
           setData(res)
         }}
       >
