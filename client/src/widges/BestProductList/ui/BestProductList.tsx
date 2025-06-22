@@ -28,18 +28,14 @@ const BestProductList: FC<{
   category: TypeCategory[]
 }> = ({ dataList, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
-  const [state, setState] = useState<boolean>(false)
   const [grade, setGrade] = useState([])
 
-  useStorage(state, setCount)
+  useStorage(setCount)
   addLikeInList(dataList, count)
   UseGetGrade(setGrade, dataList)
 
   return (
-    <div
-      className={`container ${style.bestList}`}
-      onClick={() => setState(!state)}
-    >
+    <div className={`container ${style.bestList}`}>
       {dataList.map((item: any) => (
         <Product
           key={item.id}
