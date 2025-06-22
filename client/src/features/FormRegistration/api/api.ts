@@ -8,8 +8,12 @@ type TProps = {
   setError: any
 }
 
-export async function registration(registrationProps: any) {
-  let res
+export async function registration(
+  registrationProps: any,
+  setLoad: any,
+  setError: any
+) {
+  let res: any
   const {
     email,
     password,
@@ -21,8 +25,22 @@ export async function registration(registrationProps: any) {
     setLastName,
     setStatus,
   } = registrationProps
+  setTimeout(() => {
+    if (!res?.status) {
+      setLoad(false)
+      setError({ text: "Время ожидания превысило 5 секунд" })
+      throw new Error("Время ожидания превысило 5 секунд")
+    }
+  }, 5000)
   try {
-    res = await api.post("/registration", { email, password, name, lastName })
+    setLoad(true)
+    res = await api.post("/registration", {
+      email,
+      password,
+      name,
+      lastName,
+    })
+
     if (res.data.accessToken) {
       localStorage.setItem("token", res.data.accessToken)
     }
@@ -35,7 +53,10 @@ export async function registration(registrationProps: any) {
     // }
   } catch (e) {
     res = e
+  } finally {
+    setLoad(false)
   }
+
   return res
 }
 export async function registrationValidate(e: any, props: TProps) {

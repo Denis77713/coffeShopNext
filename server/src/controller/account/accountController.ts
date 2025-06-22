@@ -36,7 +36,9 @@ class UserControllerClass {
         httpOnly: true,
       })
       // Вернуть Юзера
+      // setTimeout(() => {
       return res.json(userData)
+      // }, 10000)
     } catch (e) {
       next(e)
     }

@@ -26,6 +26,7 @@ const FormRegistration = () => {
   const [lastName, setLastName] = useState<string>("")
   const [error, setError] = useState<IError | null>({ text: "" })
   const [status, setStatus] = useState<string | null>(null)
+  const [load, setLoad] = useState(false)
   const props = {
     email,
     password,
@@ -50,7 +51,11 @@ const FormRegistration = () => {
   useEffect(() => {
     async function reistr() {
       if (error === null) {
-        const data: any = await registration(registrarionProps)
+        const data: any = await registration(
+          registrarionProps,
+          setLoad,
+          setError
+        )
         data && dispatch(getAuth(data.status))
       }
     }
@@ -58,6 +63,7 @@ const FormRegistration = () => {
   }, [error])
   return (
     <Form>
+      {load && <div>Loading.......</div>}
       <input
         className={`${inputStyle.input} ${error?.name && style.inputError}`}
         type="text"
