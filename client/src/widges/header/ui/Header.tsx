@@ -15,6 +15,7 @@ import { redirectAction } from "@/pages/account/api/api"
 import IconHeader from "@/features/IconHeader/ui/IconHeader"
 import CartForm from "@/widges/CartForm/ui/CartForm"
 import { isLikeFilter } from "@/shared/like/ui/FunctionsLike"
+import IconHeaderList from "@/widges/IconHeaderList/IconHeaderList"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
@@ -25,8 +26,7 @@ const Header: FC = () => {
   const User = useSelector((store: any) => store.FormSlice.User)
   const [href, setHref] = useState(getHref(User.role))
   //
-  const likeStore = useSelector((store: any) => store.LikeSlice.storage)
-  const storageCart = useSelector((store: any) => store.LikeSlice.storageCart)
+
   //
   //
   useEffect(() => {
@@ -34,15 +34,11 @@ const Header: FC = () => {
   }, [User])
   //
   //
-  const handleClickCart = () => {
-    const storage = localStorage.getItem("cart")
-    dispatch(getWindow("cart"))
-    setCart(storage ? JSON.parse(storage) : null)
-  }
+
   //
   //
-  const MemoIconHeader = memo(IconHeader)
   const MemoBurgerMenu = memo(BurgerMenu)
+
   return (
     <>
       <header className={`${style.headerFlex} container`}>
@@ -58,16 +54,7 @@ const Header: FC = () => {
           />
         </Link>
         <div className={style.icons}>
-          {Activated === true && Auth === 200 && (
-            <div className={style.cart} onClick={() => handleClickCart()}>
-              <MemoIconHeader
-                image={"/cart.svg"}
-                alt={"cart"}
-                num={storageCart}
-                func={storageCart}
-              />
-            </div>
-          )}
+          <IconHeaderList setCart={setCart} />
           {Activated === true && Auth === 200 ? (
             <Link href={href}>
               <div className={style.account}>
@@ -109,14 +96,6 @@ const Header: FC = () => {
               />
             </div>
           )}
-          <Link href={"/favorites"}>
-            <MemoIconHeader
-              image={"/like.svg"}
-              alt={"like"}
-              num={likeStore}
-              func={isLikeFilter(likeStore)}
-            />
-          </Link>
         </div>
       </header>
       {formVisible === "account" && <FormAccount />}

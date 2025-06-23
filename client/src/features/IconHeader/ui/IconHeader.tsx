@@ -16,7 +16,7 @@ interface IiconHeader {
 
 const IconHeader: FC<IiconHeader> = ({ image, alt, num, func }) => {
   const memoizedValue = useMemo(() => func, [num])
-  console.log(memoizedValue)
+  // console.log(memoizedValue)
   return (
     <div className={header.like}>
       <div className={style.wrapper}>
