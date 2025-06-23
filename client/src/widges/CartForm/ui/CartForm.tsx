@@ -3,7 +3,7 @@ import Image from "next/image"
 import style from "./CartForm.module.css"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getRenderCart } from "@/shared/reducers/FormSlice"
+import { getRenderCart, getWindow } from "@/shared/reducers/FormSlice"
 import Button from "@/shared/ui/Button"
 import { getCartPay } from "../api/api"
 import CartFormItem from "@/entities/CartFormItem/ui/CartFormItem"
@@ -12,6 +12,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { jsPDF } from "jspdf"
 import html2canvas from "html2canvas"
 import { apiServer } from "@/widges/header/api/api"
+import { getCart } from "@/shared/reducers/LikeSlice"
 
 const CartForm = ({ setCart }: any) => {
   const User = useSelector((store: any) => store.FormSlice.User)
@@ -39,6 +40,8 @@ const CartForm = ({ setCart }: any) => {
   const { replace } = useRouter()
   const [state, setstate] = useState(true)
   const payId = useMemo(() => Math.random(), [])
+  const storageCart = useSelector((store: any) => store.LikeSlice.storageCart)
+
   //
   //
   //
@@ -157,18 +160,24 @@ const CartForm = ({ setCart }: any) => {
     setDataStorage(newData)
     localStorage.removeItem("cart")
     localStorage.setItem("cart", JSON.stringify(newData))
-    dispatch(getRenderCart(!renderCart))
+    dispatch(getCart(newData))
+    newData.length === 0 && dispatch(getWindow(false))
   }
   async function postPDF(dataStorage: any, idPay: number) {
-    const canvas = await html2canvas(ref.current)
+    try {
+      const canvas = await html2canvas(ref.current)
 
-    const imgData = canvas.toDataURL()
-    await apiServer.post("/postpdf", {
-      imgData,
-      mail: JSON.stringify(User.email),
-      dataStorage: JSON.stringify(dataStorage),
-      idPay,
-    })
+      const imgData = canvas.toDataURL()
+      const res = await apiServer.post("/postpdf", {
+        imgData,
+        mail: JSON.stringify(User.email),
+        dataStorage: JSON.stringify(dataStorage),
+        idPay,
+      })
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 

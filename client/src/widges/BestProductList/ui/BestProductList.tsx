@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useState } from "react"
+import { FC, memo, useState } from "react"
 import style from "./BestProductList.module.css"
 import Product from "@/entities/Product/ui/Product"
 import useStorage from "@/shared/ui/useStorage"
@@ -34,10 +34,12 @@ const BestProductList: FC<{
   addLikeInList(dataList, count)
   UseGetGrade(setGrade, dataList)
 
+  const MemoProduct = memo(Product)
+
   return (
     <div className={`container ${style.bestList}`}>
       {dataList.map((item: any) => (
-        <Product
+        <MemoProduct
           key={item.id}
           item={item}
           category={category}

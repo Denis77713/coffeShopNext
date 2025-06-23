@@ -3,6 +3,7 @@ import { Item } from "../ui/ProductType"
 
 export function addProductCard(item: Iproduct) {
   const cart = localStorage.getItem("cart")
+  let res = []
   if (cart) {
     localStorage.removeItem("cart")
     const newCart = JSON.parse(cart)
@@ -13,8 +14,11 @@ export function addProductCard(item: Iproduct) {
       }
       return o
     }, [])
+    res = result
     localStorage.setItem("cart", JSON.stringify(result))
   } else {
+    res = [item]
     localStorage.setItem("cart", JSON.stringify([item]))
   }
+  return res
 }

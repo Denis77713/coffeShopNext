@@ -2,16 +2,21 @@
 
 import Image from "next/image"
 import style from "./IconHeader.module.css"
-import { FC } from "react"
+import { FC, useMemo } from "react"
 import header from "../../../widges/header/ui/Header.module.css"
+import { useSelector } from "react-redux"
+import { Iproduct } from "@/shared/types/types"
 
 interface IiconHeader {
   image: string
   alt: string
-  num: any[]
+  num: Iproduct[]
+  func: any
 }
 
-const IconHeader: FC<IiconHeader> = ({ image, alt, num }) => {
+const IconHeader: FC<IiconHeader> = ({ image, alt, num, func }) => {
+  const memoizedValue = useMemo(() => func, [num])
+  console.log(memoizedValue)
   return (
     <div className={header.like}>
       <div className={style.wrapper}>
@@ -23,7 +28,9 @@ const IconHeader: FC<IiconHeader> = ({ image, alt, num }) => {
           height={30}
         />
       </div>
-      {num.length > 0 && <div className={style.num}>{num.length}</div>}
+      {memoizedValue.length > 0 && (
+        <div className={style.num}>{memoizedValue.length}</div>
+      )}
       <div className={style.window}></div>
     </div>
   )

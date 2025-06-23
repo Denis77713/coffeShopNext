@@ -3,11 +3,10 @@
 import { FC, useEffect, useState } from "react"
 import Image from "next/image"
 import style from "./like.module.css"
-import { handleclick, getState } from "./FunctionsLike"
-import { Item } from "@/entities/Product/ui/ProductType"
-import { useDispatch, useSelector } from "react-redux"
-import { getRenderCart } from "@/shared/reducers/FormSlice"
+import { handleclick, getState, isLikeFilter } from "./FunctionsLike"
 import { Iproduct } from "@/shared/types/types"
+import { useDispatch } from "react-redux"
+import { getLike } from "@/shared/reducers/LikeSlice"
 
 export type IntStorageData = {
   id: number
@@ -17,12 +16,12 @@ export type IntStorageData = {
 const Like: FC<{ item: Iproduct }> = ({ item }) => {
   const [state, setState] = useState<boolean>()
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     setState(getState(item))
-  })
-  const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
+  }, [])
 
-  const dispatch = useDispatch()
   return (
     <Image
       className={style.like}
@@ -32,8 +31,9 @@ const Like: FC<{ item: Iproduct }> = ({ item }) => {
       height={30}
       onClick={() => {
         getState(item)
-        handleclick(item, setState)
-        dispatch(getRenderCart(!renderCart))
+        const data = handleclick(item, setState)
+        const res = isLikeFilter(data)
+        dispatch(getLike(res))
       }}
     />
   )

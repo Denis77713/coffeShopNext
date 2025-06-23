@@ -19,6 +19,7 @@ import {
   TypeCategory,
   TypeProductPay,
 } from "@/shared/types/types"
+import { getCart } from "@/shared/reducers/LikeSlice"
 
 const Product: FC<{
   item: Iproduct
@@ -103,7 +104,8 @@ const Product: FC<{
         {pay && Auth === 200 && item.number > 0 && (
           <Button
             handleClick={() => {
-              addProductCard(item)
+              const res = addProductCard(item)
+              dispatch(getCart(res))
               dispatch(getRenderCart(!renderCart))
               dispatch(getWindow(""))
             }}

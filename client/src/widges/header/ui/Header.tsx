@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import style from "./Header.module.css"
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, memo, useCallback, useEffect, useMemo, useState } from "react"
 import BurgerMenu from "@/features/navigation/ui/BurgerMenu"
 import Link from "next/link"
 import FormRegistration from "../../../features/FormRegistration/ui/FormRegistration"
@@ -12,50 +12,41 @@ import { getActivated, getAuth, getWindow } from "@/shared/reducers/FormSlice"
 import FormLogin from "@/features/FormLogin/ui/FormLogin"
 import { logout } from "@/features/FormRegistration/api/api"
 import { redirectAction } from "@/pages/account/api/api"
-import { IntStorageData } from "@/shared/like/ui/Like"
 import IconHeader from "@/features/IconHeader/ui/IconHeader"
 import CartForm from "@/widges/CartForm/ui/CartForm"
+import { isLikeFilter } from "@/shared/like/ui/FunctionsLike"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
   const Auth = useSelector((store: any) => store.FormSlice.Auth)
   const Activated = useSelector((store: any) => store.FormSlice.Activated)
-  const renderCart = useSelector((store: any) => store.FormSlice.renderCart)
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
-  const [like, setLike] = useState([])
   const User = useSelector((store: any) => store.FormSlice.User)
   const [href, setHref] = useState(getHref(User.role))
-  console.log(href)
-  // console.log(User.role)
+  //
+  const likeStore = useSelector((store: any) => store.LikeSlice.storage)
+  const storageCart = useSelector((store: any) => store.LikeSlice.storageCart)
+  //
+  //
   useEffect(() => {
     setHref(getHref(User.role))
   }, [User])
-  useEffect(() => {
+  //
+  //
+  const handleClickCart = () => {
     const storage = localStorage.getItem("cart")
-    const storageLike = localStorage.getItem("like")
-    if (storageLike) {
-      const parse = JSON.parse(storageLike)
-      const num = parse.filter((item: IntStorageData) => item.like === true)
-      setLike(num ? num : null)
-    }
-
+    dispatch(getWindow("cart"))
     setCart(storage ? JSON.parse(storage) : null)
-  }, [])
-  useEffect(() => {
-    const storage = localStorage.getItem("cart")
-    setCart(storage ? JSON.parse(storage) : null)
-    const storageLike = localStorage.getItem("like")
-    if (storageLike) {
-      const parse = JSON.parse(storageLike)
-      const num = parse.filter((item: IntStorageData) => item.like === true)
-      setLike(num ? num : null)
-    }
-  }, [renderCart])
+  }
+  //
+  //
+  const MemoIconHeader = memo(IconHeader)
+  const MemoBurgerMenu = memo(BurgerMenu)
   return (
     <>
       <header className={`${style.headerFlex} container`}>
-        <BurgerMenu />
+        <MemoBurgerMenu />
         <Link href={"/"}>
           <Image
             className={style.headerImage}
@@ -69,10 +60,11 @@ const Header: FC = () => {
         <div className={style.icons}>
           {Activated === true && Auth === 200 && (
             <div className={style.cart} onClick={() => handleClickCart()}>
-              <IconHeader
+              <MemoIconHeader
                 image={"/cart.svg"}
                 alt={"cart"}
-                num={cart ? cart : []}
+                num={storageCart}
+                func={storageCart}
               />
             </div>
           )}
@@ -118,7 +110,12 @@ const Header: FC = () => {
             </div>
           )}
           <Link href={"/favorites"}>
-            <IconHeader image={"/like.svg"} alt={"like"} num={like} />
+            <MemoIconHeader
+              image={"/like.svg"}
+              alt={"like"}
+              num={likeStore}
+              func={isLikeFilter(likeStore)}
+            />
           </Link>
         </div>
       </header>
@@ -137,11 +134,6 @@ const Header: FC = () => {
     if (role === "sklad") res = "/managerPage"
     if (role === "user") res = "/account"
     return res
-  }
-  function handleClickCart() {
-    const storage = localStorage.getItem("cart")
-    dispatch(getWindow("cart"))
-    setCart(storage ? JSON.parse(storage) : null)
   }
 }
 

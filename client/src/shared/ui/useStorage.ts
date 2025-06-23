@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { IntStorageData } from "../like/ui/Like"
 import { useDispatch } from "react-redux"
-import { getLike } from "@/shared/reducers/SlicelikeGroup"
+import { getLike } from "@/shared/reducers/LikeSlice"
 
 const useStorage = (setCount: any) => {
   const dispatch = useDispatch()
