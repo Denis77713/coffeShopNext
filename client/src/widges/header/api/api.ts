@@ -5,7 +5,7 @@ const urlApi = process.env.NEXT_PUBLIC_API
 export const api = axios.create({
   withCredentials: true,
   baseURL: `${urlApi}/api`,
-  timeout: 5000,
+  // timeout: 5000,
 })
 api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`

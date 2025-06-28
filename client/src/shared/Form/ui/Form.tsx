@@ -8,10 +8,11 @@ import { getWindow } from "../../reducers/FormSlice"
 
 type IForm = {
   children: React.ReactNode
+  formAction?: any
 }
 
-const Form = ({ children }: IForm) => {
-  const ref = useRef<any>(null)
+const Form = ({ children, formAction }: IForm) => {
+  // const ref = useRef<any>()
   const dispatch = useDispatch()
 
   return (
@@ -26,7 +27,8 @@ const Form = ({ children }: IForm) => {
           onClick={() => dispatch(getWindow(false))}
         />
         <form
-          ref={ref}
+          // ref={ref}
+          action={formAction}
           id="formData"
           className={`formData ${style.formProduct}`}
           onClick={(e) => handleclick(e)}
