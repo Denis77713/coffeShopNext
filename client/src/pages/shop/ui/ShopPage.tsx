@@ -8,17 +8,19 @@ import Pagination from "@/features/Pagination/ui/Pagination"
 import IsToken from "@/shared/Hookcs/IsToken"
 
 export type IParams = {
-  id: string
+  id: Promise<string>
 }
 
-const ShopPage: FC<{ params: any; searchParams: any }> = async ({
-  params,
-  searchParams,
-}) => {
+const ShopPage: FC<{
+  params: IParams
+  searchParams: Promise<string>
+}> = async ({ params, searchParams }) => {
   //
   //
+  const { id } = await params
+  const newParams = await searchParams
   const numProductInPage = 8
-  const res = await getCategory(`/${params.id}`, searchParams, numProductInPage)
+  const res = await getCategory(`/${id}`, newParams, numProductInPage)
   const category = await getCategoryes()
   //
   //

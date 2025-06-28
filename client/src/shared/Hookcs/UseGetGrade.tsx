@@ -7,7 +7,7 @@ import { useEffect } from "react"
 const UseGetGrade = (
   setGrade: any,
   dataList: Item[] | any,
-  dataRender?: any
+  render?: boolean
 ) => {
   useEffect(() => {
     async function Login() {
@@ -21,7 +21,7 @@ const UseGetGrade = (
     }
 
     Login()
-  }, [dataRender ? dataRender : dataList])
+  }, [render && dataList])
 
   return null
 }

@@ -17,7 +17,7 @@ const FavoritesList: FC<{ category: TypeCategory[] }> = ({ category }) => {
   const dispatch = useDispatch()
   const [grade, setGrade] = useState([])
 
-  UseGetGrade(setGrade, count)
+  UseGetGrade(setGrade, count, true)
 
   useEffect(() => {
     const storageJson: string | null = localStorage.getItem("like")

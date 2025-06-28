@@ -17,8 +17,10 @@ const adminPanelProduct: FC<{
 }> = async ({ params, searchParams }) => {
   //
   //
+  const { id } = await params
+  const { newParams } = await searchParams
   const numProductInPage = 8
-  const res = await getCategory(`/${params.id}`, searchParams, numProductInPage)
+  const res = await getCategory(`/${id}`, newParams, numProductInPage)
   const imagesArr = await apiServer.get("/getImages")
   //
   //

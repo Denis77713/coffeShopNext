@@ -16,7 +16,7 @@ const CaffeList: FC<{
     (i: Iproduct) => i.secondCategoryId === categoryId
   )
   const [grade, setGrade] = useState([])
-  UseGetGrade(setGrade, data)
+  UseGetGrade(setGrade, data, false)
   UseLogin()
   return (
     <div className={`container ${style.caffeList}`}>
