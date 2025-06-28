@@ -8,7 +8,8 @@ const ManagerPage: FC<{ params: any; searchParams: any }> = async ({
   params,
   searchParams,
 }) => {
-  const data = await getProductPay(searchParams)
+  const newParams = await searchParams
+  const data = await getProductPay(newParams)
   return (
     <main className="container">
       <ProductPayIList data={data} />

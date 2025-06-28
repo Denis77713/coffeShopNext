@@ -11,10 +11,12 @@ const ShopProductPage: FC<{
   params: any
   searchParams: any
 }> = async ({ params, searchParams }) => {
+  const { id } = await params
+  const newParams = await searchParams
   return (
     <main className={`container ${style.mtop}`}>
       <IsToken />
-      <ProductInProductPage params={params} searchParams={searchParams} />
+      <ProductInProductPage params={id} searchParams={newParams} />
     </main>
   )
 }

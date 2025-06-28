@@ -22,7 +22,8 @@ const Home: FC<{ params: any; searchParams: any }> = async ({
   searchParams,
 }) => {
   // Лучшие продусты
-  const bestProductList = await getProduct(searchParams)
+  const newParams = await searchParams
+  const bestProductList = await getProduct(newParams)
   const categoryMarket = await getCategory("Shop")
   const categoryCaffe = await getCategory("Cafe")
   const list = assortiment.cartList
