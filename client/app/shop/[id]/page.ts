@@ -7,4 +7,5 @@ export const metadata: Metadata = {
   description: "Магазин лучшего кофе в Омске!",
 }
 
-export { ShopPage as default } from "@/pages/shop"
+export { /* @next-codemod-error `ShopPage` export is re-exported. Check if this component uses `params` or `searchParams`*/
+ShopPage as default } from "@/pages/shop"

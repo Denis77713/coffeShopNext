@@ -4,7 +4,7 @@ import { getProductPay } from "../api/api"
 import ProductPayItem from "@/entities/ProductPayItem/ui/ProductPayItem"
 import ProductPayIList from "@/widges/ProductPayIList/ui/ProductPayIList"
 
-const ManagerPage: FC<{ params: IParams; searchParams: string }> = async ({
+const ManagerPage: FC<{ params: any; searchParams: any }> = async ({
   params,
   searchParams,
 }) => {

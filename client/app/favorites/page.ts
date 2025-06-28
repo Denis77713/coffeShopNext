@@ -8,4 +8,5 @@ export const metadata: Metadata = {
 }
 
 
-export { Favorites as default } from '@/pages/favorites';
+export { /* @next-codemod-error `Favorites` export is re-exported. Check if this component uses `params` or `searchParams`*/
+Favorites as default } from '@/pages/favorites';

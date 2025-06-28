@@ -21,7 +21,7 @@ type IsecondCategory = {
   text: string
 }
 //
-const FormAddProduct: FC<{ params: IParams }> = ({ params }) => {
+const FormAddProduct: FC<{ params: any }> = ({ params }) => {
   const [weight, setWeight] = useState(10)
   const [best, setBest] = useState("false")
   const [inputName, setInputName] = useState("")

@@ -8,8 +8,8 @@ import style from "./ShopProductPage.module.css"
 //
 //
 const ShopProductPage: FC<{
-  params: IParams
-  searchParams: IproductID
+  params: any
+  searchParams: any
 }> = async ({ params, searchParams }) => {
   return (
     <main className={`container ${style.mtop}`}>

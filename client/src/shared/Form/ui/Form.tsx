@@ -11,7 +11,7 @@ type IForm = {
 }
 
 const Form = ({ children }: IForm) => {
-  const ref = useRef<any>()
+  const ref = useRef<any>(null)
   const dispatch = useDispatch()
 
   return (

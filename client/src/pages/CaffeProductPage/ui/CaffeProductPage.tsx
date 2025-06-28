@@ -8,7 +8,7 @@ interface Iparams {
   id: string
 }
 
-const CaffeProductPage: FC<{ params: Iparams }> = async ({ params }) => {
+const CaffeProductPage: FC<{ params: any }> = async ({ params }) => {
   const data = await getProductCaffe(params.id)
   const textNav = data.secondCategory.map((item) => item.text)
   return (

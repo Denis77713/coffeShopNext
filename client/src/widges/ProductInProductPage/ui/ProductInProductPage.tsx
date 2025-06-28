@@ -15,8 +15,8 @@ export interface IproductID {
 }
 
 const ProductInProductPage: FC<{
-  params: IParams
-  searchParams: IproductID
+  params: any
+  searchParams: any
 }> = async ({ params, searchParams }) => {
   //
 

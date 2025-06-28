@@ -88,7 +88,7 @@ const CartForm = ({ setCart }: any) => {
       setCart(null)
     }
   }, [complitePay])
-  const ref = useRef<any>()
+  const ref = useRef<any>(null)
   const doc = new jsPDF()
   return (
     <>

@@ -7,4 +7,5 @@ export const metadata: Metadata = {
   description: "Страница Администратора",
 }
 
-export { AdminPanelPage as default } from '@/pages/adminPanel';
+export { /* @next-codemod-error `AdminPanelPage` export is re-exported. Check if this component uses `params` or `searchParams`*/
+AdminPanelPage as default } from '@/pages/adminPanel';

@@ -1,6 +1,5 @@
 import FormAddProduct from "@/widges/FormAddProduct/ui/FormAddProduct"
 import { FC } from "react"
-import { IParams } from "@/pages/shop/ui/ShopPage"
 import style from "./adminPanelProduct.module.css"
 import Link from "next/link"
 import Button from "@/shared/ui/Button"
@@ -13,8 +12,8 @@ import FormImages from "@/features/FormImages/ui/FormImages"
 import { apiServer } from "@/widges/header/api/api"
 
 const adminPanelProduct: FC<{
-  params: IParams
-  searchParams: string
+  params: any
+  searchParams: any
 }> = async ({ params, searchParams }) => {
   //
   //
