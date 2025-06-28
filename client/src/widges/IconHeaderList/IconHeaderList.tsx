@@ -16,7 +16,6 @@ const IconHeaderList = ({ setCart }: any) => {
   const likeStore = useSelector((store: any) => store.LikeSlice.storage)
   //
   //
-  console.log(storageCart)
   const handleClickCart = () => {
     const storage = localStorage.getItem("cart")
     dispatch(getWindow("cart"))

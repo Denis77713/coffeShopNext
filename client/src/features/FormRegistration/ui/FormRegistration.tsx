@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import style from "./FormRegistration.module.css"
 import inputStyle from "../../../features/Search/ui/Search.module.css"
 import Button from "@/shared/ui/Button"
@@ -27,6 +27,9 @@ const FormRegistration = () => {
   const [error, setError] = useState<IError | null>({ text: "" })
   const [status, setStatus] = useState<string | null>(null)
   const [load, setLoad] = useState(false)
+
+  // const [result, formAction, isPending] = useActionState(getFormData, null)
+
   const props = {
     email,
     password,

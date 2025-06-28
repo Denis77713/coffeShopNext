@@ -13,7 +13,6 @@ const FormAccount = () => {
     <Form>
       <div className={style.wrapperForm}>
         <Button handleClick={() => dispatch(getWindow("login"))}>Логин</Button>
-        {/* <div className={style.div}></div> */}
         <Button handleClick={() => dispatch(getWindow("registrarion"))}>
           Регистрация
         </Button>

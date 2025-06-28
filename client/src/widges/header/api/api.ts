@@ -17,7 +17,6 @@ api.interceptors.request.use((config) => {
 export const apiServer = axios.create({
   withCredentials: true,
   baseURL: `${urlApi}/api`,
-  timeout: 5000,
 })
 apiServer.interceptors.request.use((config) => {
   config.headers["Content-Type"] = "multipart/form-data;"
