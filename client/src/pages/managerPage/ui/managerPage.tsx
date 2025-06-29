@@ -4,10 +4,10 @@ import { getProductPay } from "../api/api"
 import ProductPayItem from "@/entities/ProductPayItem/ui/ProductPayItem"
 import ProductPayIList from "@/widges/ProductPayIList/ui/ProductPayIList"
 
-const ManagerPage: FC<{ params: any; searchParams: any }> = async ({
-  params,
-  searchParams,
-}) => {
+const ManagerPage: FC<{
+  params: Promise<IParams>
+  searchParams: any
+}> = async ({ params, searchParams }) => {
   const newParams = await searchParams
   const data = await getProductPay(newParams)
   return (

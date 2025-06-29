@@ -1,15 +1,18 @@
 "use client"
 
-import AccountProductList from "../../../widges/AccountProductList/ui/AccountProductList"
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
 import IsLogin from "@/shared/Hookcs/IsLogin"
-import { useEffect, useState } from "react"
-import { getCategoryes, getProductPay, redirectAction } from "../api/api"
+import { Suspense, use, useEffect, useState } from "react"
+import { redirectAction } from "../api/api"
 import { api } from "@/widges/header/api/api"
-import { TypeGrade, TypeProductPay } from "@/shared/types/types"
-import PathProductList from "@/widges/PathProductList/ui/PathProductList"
+import { TypeGrade } from "@/shared/types/types"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 import { useSelector } from "react-redux"
+import { getProcuctAccount } from "@/widges/AccountProductList/api/api"
+import Skeleton from "@/shared/ui/Skeleton"
+import style from "./Account.module.css"
+import PathProductList from "@/widges/PathProductList/ui/PathProductList"
+import AccountProductList from "@/widges/AccountProductList/ui/AccountProductList"
 //
 //
 
@@ -31,9 +34,14 @@ const Account = () => {
   const host = process.env.NEXT_PUBLIC_HOST
   //
   UseLogin(getProducts, setCategory)
+  const [state, setState] = useState(getProcuctAccount)
+
+  IsLogin(setState, getProcuctAccount)
   //
   useEffect(() => {
-    if (User.role !== "user") redirectAction(host)
+    if (User !== "Unauthorized") {
+      if (User.role !== "user") redirectAction(host)
+    }
     async function Login() {
       try {
         const data = await api.post("/getGrade")
@@ -44,15 +52,44 @@ const Account = () => {
     }
 
     Login()
-  }, [category])
+  }, [User])
   //
+  const skeleton = (
+    <Skeleton
+      wrapper={style.wrapperSkeleton}
+      inner={style.itemSkeleton}
+      number={4}
+    />
+  )
+  console.log(state)
   return (
     <main>
       {category.length !== 0 && (
         <>
-          <ProductPayList category={category} gradeStar={grade} />
-          <PathProductList category={category} gradeStar={grade} />
-          <AccountProductList category={category} gradeStar={grade} />
+          <h2 className={style.payTitle}>Товары в пути</h2>
+          <Suspense fallback={skeleton}>
+            <ProductPayList
+              promise={state}
+              category={category}
+              gradeStar={grade}
+            />
+          </Suspense>
+          <h2 className={style.payTitle}>Доставленные товары</h2>
+          <Suspense fallback={skeleton}>
+            <PathProductList
+              promise={state}
+              category={category}
+              gradeStar={grade}
+            />
+          </Suspense>
+          <h2 className={style.payTitle}>История заказов</h2>
+          <Suspense fallback={skeleton}>
+            <AccountProductList
+              promise={state}
+              category={category}
+              gradeStar={grade}
+            />
+          </Suspense>
         </>
       )}
     </main>

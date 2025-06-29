@@ -17,7 +17,7 @@ import Image from "next/image"
 import IsToken from "@/shared/Hookcs/IsToken"
 import { IParams } from "@/pages/shop/ui/ShopPage"
 
-const Home: FC<{ params: any; searchParams: any }> = async ({
+const Home: FC<{ params: Promise<IParams>; searchParams: any }> = async ({
   params,
   searchParams,
 }) => {

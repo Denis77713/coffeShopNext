@@ -8,7 +8,7 @@ import style from "./ShopProductPage.module.css"
 //
 //
 const ShopProductPage: FC<{
-  params: any
+  params: Promise<IParams>
   searchParams: any
 }> = async ({ params, searchParams }) => {
   const { id } = await params

@@ -16,3 +16,12 @@
 .dnone {
   display: none;
 }
+.itemSkeleton {
+  width: 200px;
+  height: 400px;
+  margin: 0 35px;
+}
+.wrapperSkeleton {
+  justify-content: center;
+  display: flex;
+}

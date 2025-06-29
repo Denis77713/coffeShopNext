@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, useState } from "react"
+import { FC, use, useState } from "react"
 import { getProcuctAccount } from "../api/api"
 import { AxiosResponse } from "axios"
 import Product from "@/entities/Product/ui/Product"
@@ -19,15 +19,12 @@ import {
 import GetProductPay from "@/shared/Hookcs/getProductPay"
 
 const AccountProductList: FC<{
+  promise: any
   category: TypeCategory[]
   gradeStar: Star[]
-}> = ({ category, gradeStar }) => {
-  const [state, setState] = useState<
-    null | IDataProductPay | AxiosResponse<null, IDataProductPay>
-  >(null)
-
-  IsLogin(setState, getProcuctAccount)
-
+}> = ({ promise, category, gradeStar }) => {
+  const res: any = use(promise)
+  const data: any = res?.data?.userProduct
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1000 },
@@ -43,14 +40,13 @@ const AccountProductList: FC<{
     },
   }
   const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
-  GetProductPay(setProductPay, "Получен", state?.data?.userProduct)
+  GetProductPay(setProductPay, "Получен", data)
   return (
     <div>
-      {state?.data && (
+      {data && (
         <div>
-          <h2 className={style.title}>История заказов</h2>
           <CarouselSlider responsive={responsive}>
-            {state?.data?.userProduct.map((item: Iproduct) => (
+            {data.map((item: Iproduct) => (
               <div className={style.item} key={item.id}>
                 <Product
                   item={item}

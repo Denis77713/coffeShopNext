@@ -9,7 +9,7 @@ import {
   TypeProductPay,
 } from "@/shared/types/types"
 import { AxiosResponse } from "axios"
-import { FC, useEffect, useState } from "react"
+import { FC, use, useEffect, useState } from "react"
 
 import styleCart from "../../../widges/AccountProductList/ui/AccountProductList.module.css"
 import bestList from "../../ProductList/ui/ProductList.module.css"
@@ -24,15 +24,13 @@ import Button from "@/shared/ui/Button"
 import { getWindow } from "@/shared/reducers/FormSlice"
 
 const PathProductList: FC<{
+  promise: any
   category: TypeCategory[]
   gradeStar: Star[]
-}> = ({ category, gradeStar }) => {
+}> = ({ promise, category, gradeStar }) => {
   const [visible, setVisible] = useState(false)
-  const [data, setData] = useState<
-    null | IDataProductPay | AxiosResponse<null, IDataProductPay>
-  >(null)
-
-  IsLogin(setData, getProcuctAccount)
+  const res: any = use(promise)
+  const data: any = res?.data?.develery
 
   useEffect(() => {
     setVisible(
@@ -43,21 +41,19 @@ const PathProductList: FC<{
 
   const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
   GetProductPay(setProductPay, "Delivered", data?.data?.complitePdoduct)
-  const formVisible = useSelector((store: any) => store.FormSlice.window)
   const dispatch = useDispatch()
   return (
     <>
       <div className={visible ? `container` : `${style.dnone}`}>
-        {data?.data?.develery.length !== 0 && (
+        {data?.length !== 0 && (
           <>
-            <h2 className={style.payTitle}>Доставленные товары</h2>
             <Button handleClick={() => dispatch(getWindow("qrcode"))}>
               Показать QR код
             </Button>
           </>
         )}
         <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
-          {data?.data?.develery.map((item: Iproduct) => (
+          {data?.map((item: Iproduct) => (
             <div className={styleCart.item} key={item.id}>
               <Product
                 item={item}

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import style from "./Skeleton.module.css"
+import style from "../../entities/CarouselSlider/ui/CarouselSlider.module.css"
 
 interface IntSkeleton {
   number: number
@@ -10,8 +10,9 @@ interface IntSkeleton {
 const Skeleton: FC<IntSkeleton> = ({ number, wrapper, inner }) => {
   let arr2 = []
   for (let i = 0; i < number; i++) {
-    arr2.push(1)
+    arr2.push(i)
   }
+  console.log(arr2)
   return (
     <div className={wrapper}>
       {arr2.map((item) => (

@@ -12,7 +12,7 @@ export type IParams = {
 }
 
 const ShopPage: FC<{
-  params: IParams
+  params: Promise<IParams>
   searchParams: Promise<string>
 }> = async ({ params, searchParams }) => {
   //
