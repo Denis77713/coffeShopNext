@@ -1,4 +1,3 @@
-
 export class ApiError extends Error {
   status: number
   errors: string | never[]
@@ -14,5 +13,8 @@ export class ApiError extends Error {
   // Вернет статус ошибки, сообщение
   static BadRequest(message: string, errors?: any) {
     return new ApiError(400, message, errors)
+  }
+  static MailErorr() {
+    return new ApiError(403, "Пользователь с такой почтой уже существует!")
   }
 }

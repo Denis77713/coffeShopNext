@@ -65,14 +65,7 @@ const FormRegistration = () => {
           <div>Подтвердите почту по ссылке {result.message}</div>
         </a>
       )}
-
-      <Button
-      // handleClick={async (e: any) => {
-      //   await registrationValidate(e, props)
-      // }}
-      >
-        Регистрация
-      </Button>
+      <Button>Регистрация</Button>
     </Form>
   )
 }

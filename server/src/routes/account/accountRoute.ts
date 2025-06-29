@@ -3,12 +3,12 @@ import { UserController } from "../../controller/account/accountController"
 import { body } from "express-validator"
 import { isAuth } from "../../middleware/isAuth"
 import { fileController } from "../../controller/account/fileController"
+import { isEmail } from "../../middleware/IsEmail"
 const router = Router()
 
 router.post(
   "/registration",
-  body("email").isEmail(), // Валидация
-  body("password").isLength({ min: 3, max: 32 }), // Валидация
+  isEmail, // Валидация
   UserController.registrarion
 )
 router.post("/login", UserController.login)

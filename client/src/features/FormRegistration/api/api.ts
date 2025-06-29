@@ -69,7 +69,8 @@ export async function registration(preV: any, formData: any) {
       validate.password = ""
     } catch (e) {
       const event: any = e
-      validate.error = String(event.message)
+      const message = JSON.parse(event?.request?.responseText)
+      validate.error = String(message.message)
     }
   }
   return validate
