@@ -1,30 +1,37 @@
 "use client"
 
 import { FC, use, useState } from "react"
-import { getProcuctAccount } from "../api/api"
-import { AxiosResponse } from "axios"
 import Product from "@/entities/Product/ui/Product"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
 
-import IsLogin from "@/shared/Hookcs/IsLogin"
 import {
-  IDataProductPay,
   Iproduct,
-  IProductPay,
   Star,
   TypeCategory,
   TypeProductPay,
 } from "@/shared/types/types"
-import GetProductPay from "@/shared/Hookcs/getProductPay"
-
+import { TypeDevelop } from "@/pages/account/ui/Account"
+//
+//
 const AccountProductList: FC<{
   promise: any
   category: TypeCategory[]
   gradeStar: Star[]
-}> = ({ promise, category, gradeStar }) => {
-  const res: any = use(promise)
-  const data: any = res?.data?.userProduct
+  prductPay: TypeDevelop[] | undefined
+}> = ({ promise, category, gradeStar, prductPay }) => {
+  //
+  //
+  let data = null
+  //
+  //
+  console.log(data)
+  if (typeof window !== "undefined") {
+    const res: any = use(promise)
+    data = res?.data?.userProduct
+  }
+  //
+  //
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1000 },
@@ -39,31 +46,33 @@ const AccountProductList: FC<{
       items: 1,
     },
   }
-  const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
-  GetProductPay(setProductPay, "Получен", data)
+  //
+  //
   return (
-    <div>
-      {data && (
+    <>
+      {category.length !== 0 && prductPay && (
         <div>
-          <CarouselSlider responsive={responsive}>
-            {data.map((item: Iproduct) => (
-              <div className={style.item} key={item.id}>
-                <Product
-                  item={item}
-                  category={category}
-                  pay={false}
-                  path="shop/"
-                  isLike={false}
-                  grade={gradeStar && gradeStar}
-                  prductPay={prductPay}
-                />
-                <div className={style.text}>Оплачен</div>
-              </div>
-            ))}
-          </CarouselSlider>
+          <div>
+            <CarouselSlider responsive={responsive}>
+              {data.map((item: Iproduct) => (
+                <div className={style.item} key={item.id}>
+                  <Product
+                    item={item}
+                    category={category}
+                    pay={false}
+                    path="shop/"
+                    isLike={false}
+                    grade={gradeStar && gradeStar}
+                    prductPay={prductPay}
+                  />
+                  <div className={style.text}>Оплачен</div>
+                </div>
+              ))}
+            </CarouselSlider>
+          </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

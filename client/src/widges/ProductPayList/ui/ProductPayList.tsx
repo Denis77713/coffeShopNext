@@ -13,16 +13,23 @@ import {
   TypeCategory,
   TypeProductPay,
 } from "@/shared/types/types"
-import GetProductPay from "@/shared/Hookcs/getProductPay"
+import { TypeDevelop } from "@/pages/account/ui/Account"
 
 const ProductPayList: FC<{
   promise: any
   category: TypeCategory[]
   gradeStar: Star[]
-}> = ({ promise, category, gradeStar }) => {
+  prductPay: TypeDevelop[] | undefined
+}> = ({ promise, category, gradeStar, prductPay }) => {
+  //
+  //
   const [visible, setVisible] = useState(false)
-  const res: any = use(promise)
-  const data: any = res?.data?.complitePdoduct
+  let data = null
+  if (typeof window !== "undefined") {
+    const res: any = use(promise)
+    data = res?.data?.complitePdoduct
+  }
+  //
   useEffect(() => {
     setVisible(
       data?.data?.complitePdoduct.length !== 0 ||
@@ -31,28 +38,30 @@ const ProductPayList: FC<{
   }, [data])
   //
   //
-  const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
-  GetProductPay(setProductPay, "Успешный заказ", data)
   //
   //
   return (
-    <div className={visible ? `container` : `${style.dnone}`}>
-      <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
-        {data?.map((item: Iproduct) => (
-          <div className={styleCart.item} key={item.id}>
-            <Product
-              item={item}
-              category={category}
-              pay={false}
-              path="shop/"
-              grade={gradeStar && gradeStar}
-              prductPay={prductPay}
-            />
-            <div className={styleCart.text}>Товар в пути</div>
+    <>
+      {category.length !== 0 && prductPay && (
+        <div className={visible ? `container` : `${style.dnone}`}>
+          <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
+            {data?.map((item: Iproduct) => (
+              <div className={styleCart.item} key={item.id}>
+                <Product
+                  item={item}
+                  category={category}
+                  pay={false}
+                  path="shop/"
+                  grade={gradeStar && gradeStar}
+                  prductPay={prductPay}
+                />
+                <div className={styleCart.text}>Товар в пути</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   )
 }
 

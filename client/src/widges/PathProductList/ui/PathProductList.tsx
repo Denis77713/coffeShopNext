@@ -17,20 +17,25 @@ import bestStyle from "../../BestProductList/ui/BestProductList.module.css"
 import { getProcuctAccount } from "@/widges/AccountProductList/api/api"
 import Product from "@/entities/Product/ui/Product"
 import style from "@/pages/account/ui/Account.module.css"
-import GetProductPay from "@/shared/Hookcs/getProductPay"
 import QrCodeCart from "@/features/QrCodeCart/ui/QrCodeCart"
 import { useDispatch, useSelector } from "react-redux"
 import Button from "@/shared/ui/Button"
 import { getWindow } from "@/shared/reducers/FormSlice"
+import { TypeDevelop } from "@/pages/account/ui/Account"
 
 const PathProductList: FC<{
   promise: any
   category: TypeCategory[]
   gradeStar: Star[]
-}> = ({ promise, category, gradeStar }) => {
+  prductPay: TypeDevelop[] | undefined
+}> = ({ promise, category, gradeStar, prductPay }) => {
   const [visible, setVisible] = useState(false)
-  const res: any = use(promise)
-  const data: any = res?.data?.develery
+
+  let data = null
+  if (typeof window !== "undefined") {
+    const res: any = use(promise)
+    data = res?.data?.develery
+  }
 
   useEffect(() => {
     setVisible(
@@ -39,36 +44,38 @@ const PathProductList: FC<{
     )
   }, [data])
 
-  const [prductPay, setProductPay] = useState<TypeProductPay[]>([])
-  GetProductPay(setProductPay, "Delivered", data?.data?.complitePdoduct)
   const dispatch = useDispatch()
   return (
     <>
-      <div className={visible ? `container` : `${style.dnone}`}>
-        {data?.length !== 0 && (
-          <>
-            <Button handleClick={() => dispatch(getWindow("qrcode"))}>
-              Показать QR код
-            </Button>
-          </>
-        )}
-        <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
-          {data?.map((item: Iproduct) => (
-            <div className={styleCart.item} key={item.id}>
-              <Product
-                item={item}
-                category={category}
-                pay={false}
-                path="shop/"
-                grade={gradeStar && gradeStar}
-                prductPay={prductPay}
-              />
-              <div className={styleCart.text}>Доставлен</div>
+      {category.length !== 0 && prductPay && (
+        <>
+          <div className={visible ? `container` : `${style.dnone}`}>
+            {data?.length !== 0 && (
+              <>
+                <Button handleClick={() => dispatch(getWindow("qrcode"))}>
+                  Показать QR код
+                </Button>
+              </>
+            )}
+            <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
+              {data?.map((item: Iproduct) => (
+                <div className={styleCart.item} key={item.id}>
+                  <Product
+                    item={item}
+                    category={category}
+                    pay={false}
+                    path="shop/"
+                    grade={gradeStar && gradeStar}
+                    prductPay={prductPay}
+                  />
+                  <div className={styleCart.text}>Доставлен</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <QrCodeCart />
+          </div>
+          <QrCodeCart />
+        </>
+      )}
     </>
   )
 }
