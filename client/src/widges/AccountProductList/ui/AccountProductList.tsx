@@ -35,7 +35,6 @@ const AccountProductList: FC<{ prop: typeProp }> = ({ prop }) => {
   const filterPrductPay = getListPayProductAccount(prductPay, "Получен")
   //
   //
-  console.log(filterPrductPay)
   useEffect(() => {
     seTest(data)
   }, [])
@@ -60,7 +59,7 @@ const AccountProductList: FC<{ prop: typeProp }> = ({ prop }) => {
   return (
     <div>
       <CarouselSlider responsive={responsive}>
-        {test.length !== 0 &&
+        {test &&
           data?.data?.userProduct?.map((item: Iproduct) => (
             <div className={style.item} key={item.id}>
               <Product

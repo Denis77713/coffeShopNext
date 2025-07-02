@@ -42,7 +42,7 @@ const ProductPayList: FC<{ prop: typeProp }> = ({ prop }) => {
   //
   return (
     <div className={`container ${bestList.bestList} ${bestStyle.bestList}`}>
-      {test.length !== 0 &&
+      {test &&
         data?.data?.complitePdoduct?.map((item: Iproduct) => (
           <div className={styleCart.item} key={item.id}>
             <Product

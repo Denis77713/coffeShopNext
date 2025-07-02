@@ -47,7 +47,7 @@ const PathProductList: FC<{ prop: typeProp }> = ({ prop }) => {
   return (
     <>
       <div className={`container`}>
-        {test.length !== 0 && (
+        {test && (
           <>
             <Button handleClick={() => dispatch(getWindow("qrcode"))}>
               Показать QR код
@@ -55,7 +55,7 @@ const PathProductList: FC<{ prop: typeProp }> = ({ prop }) => {
           </>
         )}
         <div className={`${bestList.bestList} ${bestStyle.bestList}`}>
-          {test.length !== 0 &&
+          {test &&
             data?.data?.develery?.map((item: Iproduct) => (
               <div className={styleCart.item} key={item.id}>
                 <Product

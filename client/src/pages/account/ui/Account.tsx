@@ -2,40 +2,31 @@
 
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
 import { Suspense, use, useEffect, useMemo, useState } from "react"
-import { getProductPay, redirectAction } from "../api/api"
-import { api } from "@/widges/header/api/api"
+import { getData, getProductPay, postData, redirectAction } from "../api/api"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 import { useSelector } from "react-redux"
 import Skeleton from "@/shared/ui/Skeleton"
 import style from "./Account.module.css"
-import { TypeDevelop } from "@/shared/types/types"
+import { ListProductPay, TypeDevelop } from "@/shared/types/types"
 import PathProductList from "@/widges/PathProductList/ui/PathProductList"
 import AccountProductList from "@/widges/AccountProductList/ui/AccountProductList"
 //
 //
-
-const getData = async (url: string) => {
-  if (typeof window !== "undefined") return await api.get(url)
-}
-const postData = async (url: string) => {
-  if (typeof window !== "undefined") return await api.post(url)
-}
-
 const categoryPromise = getData("/users")
 const dataPromise = getData("/product")
 const gradeStarPromise = postData("/getGrade")
-
+//
 //
 const Account = () => {
-  const User = useSelector((store: any) => store.FormSlice.User)
-  const [test, seTest] = useState([])
-  const [prductPay, setPrductPay] = useState<TypeDevelop[] | null>(null)
   const host = process.env.NEXT_PUBLIC_HOST
-
+  const User = useSelector((store: any) => store.FormSlice.User)
+  const [test, seTest] = useState<null | ListProductPay>(null)
+  const [prductPay, setPrductPay] = useState<TypeDevelop[] | null>(null)
   //
   //
   UseLogin()
-
+  //
+  //
   useEffect(() => {
     if (User !== "Unauthorized") {
       if (User.role !== "user") redirectAction(host)
@@ -67,25 +58,22 @@ const Account = () => {
     seTest,
     test,
   }
+  const result = [
+    { component: ProductPayList, title: "Товары в пути" },
+    { component: PathProductList, title: "Доставленные товары" },
+    { component: AccountProductList, title: "История заказов" },
+  ]
   return (
     <main>
-      <>
-        <h2 className={style.payTitle}>Товары в пути</h2>
-        <Suspense fallback={skeleton}>
-          {test.length === 0 && skeleton}
-          <ProductPayList prop={prop} />
-        </Suspense>
-        <h2 className={style.payTitle}>Доставленные товары</h2>
-        <Suspense fallback={skeleton}>
-          {test.length === 0 && skeleton}
-          <PathProductList prop={prop} />
-        </Suspense>
-        <h2 className={style.payTitle}>История заказов</h2>
-        <Suspense fallback={skeleton}>
-          {test.length === 0 && skeleton}
-          <AccountProductList prop={prop} />
-        </Suspense>
-      </>
+      {result.map((item) => (
+        <div key={item.title}>
+          <h2 className={style.payTitle}>{item.title}</h2>
+          <Suspense fallback={skeleton}>
+            {!test && skeleton}
+            <item.component prop={prop} />
+          </Suspense>
+        </div>
+      ))}
     </main>
   )
 }

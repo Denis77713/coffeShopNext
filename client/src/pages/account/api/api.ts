@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation"
 import { prisma } from "../../../../prisma/prisma-client"
+import { api } from "@/widges/header/api/api"
 
 export async function redirectAction(path: any) {
   redirect(path)
@@ -17,4 +18,10 @@ export const getProductPay = async (id: number) => {
     },
   })
   return result
+}
+export const getData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.get(url)
+}
+export const postData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.post(url)
 }

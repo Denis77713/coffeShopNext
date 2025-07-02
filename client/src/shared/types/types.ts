@@ -126,7 +126,7 @@ export type typeProp = {
   gradeStarPromise: Promise<AxiosResponse<Star[], any> | undefined>
   prductPay: TypeDevelop[] | null
   seTest: Dispatch<SetStateAction<ListProductPay | any>>
-  test: null | ListProductPay | any
+  test: null | ListProductPay
 }
 export type ListProductPay = {
   userProduct?: Iproduct[]
