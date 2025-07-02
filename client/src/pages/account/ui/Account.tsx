@@ -3,8 +3,7 @@
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
 import { Suspense, use, useEffect, useMemo, useState } from "react"
 import { getProductPay, redirectAction } from "../api/api"
-import { api } from "@/widges/header/api/api"
-import { TypeGrade } from "@/shared/types/types"
+import { api, apiServer } from "@/widges/header/api/api"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 import { useSelector } from "react-redux"
 import { getProcuctAccount } from "@/widges/AccountProductList/api/api"
@@ -12,29 +11,22 @@ import Skeleton from "@/shared/ui/Skeleton"
 import style from "./Account.module.css"
 import PathProductList from "@/widges/PathProductList/ui/PathProductList"
 import AccountProductList from "@/widges/AccountProductList/ui/AccountProductList"
+import axios from "axios"
+import { TypeDevelop } from "@/shared/types/types"
 //
 //
-export type TypeDevelop = {
-  developId: string
-  id: number
-  name: string
-  num: number
-  productId: number
-  status: string
-  sum: number
-  textStatus: string
-  userId: number
+
+const getData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.get(url)
 }
-type TypeprductPay = {
-  successfulOrder: TypeDevelop[]
-  received: TypeDevelop[]
-  delivered: TypeDevelop[]
+const postData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.post(url)
 }
 
-async function getProducts() {
-  const res = await api.get("/users")
-  return res
-}
+const categoryPromise = getData("/users")
+const dataPromise = getData("/product")
+const grade = postData("/getGrade")
+
 //
 const Account = () => {
   type Icategory = {
@@ -44,48 +36,27 @@ const Account = () => {
     page: string
   }
   const User = useSelector((store: any) => store.FormSlice.User)
-  const [category, setCategory] = useState<Icategory[]>([])
-  const [grade, setGrade] = useState<TypeGrade[]>([])
-  const [prductPay, setPrductPay] = useState<TypeprductPay | null>(null)
+  const [test, seTest] = useState([])
+  const [prductPay, setPrductPay] = useState<TypeDevelop[] | null>(null)
   const host = process.env.NEXT_PUBLIC_HOST
   //
-  UseLogin(getProducts, setCategory)
-  const state = useMemo(() => getProcuctAccount(), [])
-
-  useEffect(() => {
-    async function func() {
-      let result
-      const data = await getProductPay(User.id)
-      console.log(data)
-      const successfulOrder: TypeDevelop[] = data.filter(
-        (item) => item.status === "Успешный заказ"
-      )
-      const received: TypeDevelop[] = data.filter(
-        (item) => item.status === "Получен"
-      )
-      const delivered: TypeDevelop[] = data.filter(
-        (item) => item.status === "Delivered"
-      )
-      successfulOrder && setPrductPay({ successfulOrder, received, delivered })
-    }
-    func()
-  }, [])
   //
+  UseLogin()
   useEffect(() => {
     if (User !== "Unauthorized") {
       if (User.role !== "user") redirectAction(host)
     }
-    async function Login() {
+    async function func() {
       try {
-        const data = await api.post("/getGrade")
-        setGrade(data.data)
+        const data = await getProductPay(User.id)
+        setPrductPay(data)
       } catch {
         localStorage.removeItem("token")
       }
     }
-
-    Login()
-  }, [User])
+    func()
+  }, [])
+  //
   //
   const skeleton = (
     <Skeleton
@@ -99,14 +70,16 @@ const Account = () => {
       <>
         <h2 className={style.payTitle}>Товары в пути</h2>
         <Suspense fallback={skeleton}>
+          {test.length === 0 && skeleton}
           <ProductPayList
-            promise={state}
-            category={category}
-            gradeStar={grade}
-            prductPay={prductPay?.successfulOrder}
+            dataPromise={dataPromise}
+            categoryPromise={categoryPromise}
+            gradeStarPromise={grade}
+            prductPay={prductPay}
+            seTest={seTest}
           />
         </Suspense>
-        <h2 className={style.payTitle}>Доставленные товары</h2>
+        {/* <h2 className={style.payTitle}>Доставленные товары</h2>
         <Suspense fallback={skeleton}>
           <PathProductList
             promise={state}
@@ -123,7 +96,7 @@ const Account = () => {
             gradeStar={grade}
             prductPay={prductPay?.delivered}
           />
-        </Suspense>
+        </Suspense> */}
       </>
     </main>
   )

@@ -101,3 +101,19 @@ export type newDataManagerItem = {
   text: string
   textStatus: string
 }
+export type TypeDevelop = {
+  developId: string
+  id: number
+  name: string
+  num: number
+  productId: number
+  status: string
+  sum: number
+  textStatus: string
+  userId: number
+}
+export type TypeprductPay = {
+  successfulOrder: TypeDevelop[]
+  received: TypeDevelop[]
+  delivered: TypeDevelop[]
+}

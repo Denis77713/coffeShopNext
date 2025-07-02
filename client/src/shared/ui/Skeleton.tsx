@@ -1,5 +1,5 @@
 import { FC } from "react"
-import style from "../../entities/CarouselSlider/ui/CarouselSlider.module.css"
+import style from "./Skeleton.module.css"
 
 interface IntSkeleton {
   number: number
