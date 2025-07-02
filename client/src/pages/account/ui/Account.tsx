@@ -1,7 +1,7 @@
 "use client"
 
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
-import { Suspense, use, useEffect, useMemo, useState } from "react"
+import { Suspense, use, useCallback, useEffect, useMemo, useState } from "react"
 import { getProductPay, redirectAction } from "../api/api"
 import { api } from "@/widges/header/api/api"
 import UseLogin from "@/shared/Hookcs/UseLogin"
@@ -11,19 +11,20 @@ import style from "./Account.module.css"
 import { ListProductPay, TypeDevelop } from "@/shared/types/types"
 import PathProductList from "@/widges/PathProductList/ui/PathProductList"
 import AccountProductList from "@/widges/AccountProductList/ui/AccountProductList"
+import IsLogin from "./../../../shared/Hookcs/IsLogin"
 //
 //
-const getData = async (url: string) => {
-  if (typeof window !== "undefined") return await api.get(url)
+const getData = async (url: string, islogin: boolean) => {
+  if (typeof window !== "undefined" && islogin) return await api.get(url)
 }
-const postData = async (url: string) => {
-  if (typeof window !== "undefined") return await api.post(url)
+const postData = async (url: string, islogin: boolean) => {
+  if (typeof window !== "undefined" && islogin) return await api.post(url)
+}
+const Auth = async () => {
+  return { data: true }
 }
 //
 //
-const categoryPromise = getData("/users")
-const dataPromise = getData("/product")
-const gradeStarPromise = postData("/getGrade")
 //
 //
 const Account = () => {
@@ -31,9 +32,19 @@ const Account = () => {
   const User = useSelector((store: any) => store.FormSlice.User)
   const [test, seTest] = useState<null | ListProductPay>(null)
   const [prductPay, setPrductPay] = useState<TypeDevelop[] | null>(null)
+  const [IsLogin, setIslogin] = useState(false)
   //
   //
-  UseLogin()
+  UseLogin(Auth, setIslogin)
+  //
+  //
+  const categoryPromise = useCallback<any>(getData("/users", IsLogin), [
+    IsLogin,
+  ])
+  const dataPromise = useCallback<any>(getData("/product", IsLogin), [IsLogin])
+  const gradeStarPromise = useCallback<any>(postData("/getGrade", IsLogin), [
+    IsLogin,
+  ])
   //
   //
   useEffect(() => {
