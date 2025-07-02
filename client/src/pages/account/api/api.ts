@@ -19,9 +19,3 @@ export const getProductPay = async (id: number) => {
   })
   return result
 }
-export const getData = async (url: string) => {
-  if (typeof window !== "undefined") return await api.get(url)
-}
-export const postData = async (url: string) => {
-  if (typeof window !== "undefined") return await api.post(url)
-}

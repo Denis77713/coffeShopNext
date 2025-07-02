@@ -24,7 +24,7 @@ const UseLogin = (funct?: any, setState?: any) => {
           dispatch(getUser(data.data.user))
           if (funct) {
             const res = await funct()
-            setState(res.data)
+            setState && setState(res.data)
           }
         } catch (e) {
           dispatch(getAuth(401))

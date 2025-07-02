@@ -2,7 +2,8 @@
 
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
 import { Suspense, use, useEffect, useMemo, useState } from "react"
-import { getData, getProductPay, postData, redirectAction } from "../api/api"
+import { getProductPay, redirectAction } from "../api/api"
+import { api } from "@/widges/header/api/api"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 import { useSelector } from "react-redux"
 import Skeleton from "@/shared/ui/Skeleton"
@@ -10,6 +11,14 @@ import style from "./Account.module.css"
 import { ListProductPay, TypeDevelop } from "@/shared/types/types"
 import PathProductList from "@/widges/PathProductList/ui/PathProductList"
 import AccountProductList from "@/widges/AccountProductList/ui/AccountProductList"
+//
+//
+const getData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.get(url)
+}
+const postData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.post(url)
+}
 //
 //
 const categoryPromise = getData("/users")
