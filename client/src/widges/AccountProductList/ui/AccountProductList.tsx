@@ -1,35 +1,44 @@
 "use client"
 
-import { FC, use, useState } from "react"
+import { FC, use, useEffect, useState } from "react"
 import Product from "@/entities/Product/ui/Product"
 import CarouselSlider from "@/entities/CarouselSlider/ui/CarouselSlider"
 import style from "./AccountProductList.module.css"
 
 import {
   Iproduct,
+  ListProductPay,
   Star,
   TypeCategory,
   TypeProductPay,
+  typeProp,
 } from "@/shared/types/types"
-import { TypeDevelop } from "@/pages/account/ui/Account"
+import { getListPayProductAccount } from "@/shared/functions/functions"
+import { AxiosResponse } from "axios"
 //
 //
-const AccountProductList: FC<{
-  promise: any
-  category: TypeCategory[]
-  gradeStar: Star[]
-  prductPay: TypeDevelop[] | undefined
-}> = ({ promise, category, gradeStar, prductPay }) => {
+const AccountProductList: FC<{ prop: typeProp }> = ({ prop }) => {
   //
   //
-  let data = null
+  const {
+    dataPromise,
+    categoryPromise,
+    gradeStarPromise,
+    prductPay,
+    seTest,
+    test,
+  } = prop
+
+  const data: AxiosResponse<ListProductPay, any> | undefined = use(dataPromise)
+  const category: TypeCategory[] | any = use(categoryPromise)
+  const gradeStar: Star[] | any = use(gradeStarPromise)
+  const filterPrductPay = getListPayProductAccount(prductPay, "Получен")
   //
   //
-  console.log(data)
-  if (typeof window !== "undefined") {
-    const res: any = use(promise)
-    data = res?.data?.userProduct
-  }
+  console.log(filterPrductPay)
+  useEffect(() => {
+    seTest(data)
+  }, [])
   //
   //
   const responsive = {
@@ -49,30 +58,25 @@ const AccountProductList: FC<{
   //
   //
   return (
-    <>
-      {category.length !== 0 && prductPay && (
-        <div>
-          <div>
-            <CarouselSlider responsive={responsive}>
-              {data.map((item: Iproduct) => (
-                <div className={style.item} key={item.id}>
-                  <Product
-                    item={item}
-                    category={category}
-                    pay={false}
-                    path="shop/"
-                    isLike={false}
-                    grade={gradeStar && gradeStar}
-                    prductPay={prductPay}
-                  />
-                  <div className={style.text}>Оплачен</div>
-                </div>
-              ))}
-            </CarouselSlider>
-          </div>
-        </div>
-      )}
-    </>
+    <div>
+      <CarouselSlider responsive={responsive}>
+        {test.length !== 0 &&
+          data?.data?.userProduct?.map((item: Iproduct) => (
+            <div className={style.item} key={item.id}>
+              <Product
+                item={item}
+                category={category?.data}
+                pay={false}
+                path="shop/"
+                isLike={false}
+                grade={gradeStar?.data}
+                prductPay={filterPrductPay}
+              />
+              <div className={style.text}>Оплачен</div>
+            </div>
+          ))}
+      </CarouselSlider>
+    </div>
   )
 }
 

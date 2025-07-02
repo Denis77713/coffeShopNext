@@ -1,3 +1,6 @@
+import { AxiosResponse } from "axios"
+import { Dispatch, SetStateAction } from "react"
+
 export type Iproduct = {
   id: number
   name: string | any
@@ -116,4 +119,17 @@ export type TypeprductPay = {
   successfulOrder: TypeDevelop[]
   received: TypeDevelop[]
   delivered: TypeDevelop[]
+}
+export type typeProp = {
+  dataPromise: Promise<AxiosResponse<ListProductPay, any> | undefined>
+  categoryPromise: Promise<AxiosResponse<TypeCategory[], any> | undefined>
+  gradeStarPromise: Promise<AxiosResponse<Star[], any> | undefined>
+  prductPay: TypeDevelop[] | null
+  seTest: Dispatch<SetStateAction<ListProductPay | any>>
+  test: null | ListProductPay | any
+}
+export type ListProductPay = {
+  userProduct?: Iproduct[]
+  develery?: Iproduct[]
+  complitePdoduct?: Iproduct[]
 }
