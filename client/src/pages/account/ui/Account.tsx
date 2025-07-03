@@ -1,7 +1,15 @@
 "use client"
 
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
-import { Suspense, use, useCallback, useEffect, useMemo, useState } from "react"
+import {
+  Suspense,
+  use,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react"
 import { getProductPay, redirectAction } from "../api/api"
 import { api } from "@/widges/header/api/api"
 import UseLogin from "@/shared/Hookcs/UseLogin"
@@ -47,19 +55,21 @@ const Account = () => {
   ])
   //
   //
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (User !== "Unauthorized") {
       if (User.role !== "user") redirectAction(host)
-    }
-    async function func() {
-      try {
-        const data = await getProductPay(User.id)
-        setPrductPay(data)
-      } catch {
-        localStorage.removeItem("token")
+      async function func() {
+        try {
+          const data = await getProductPay(User.id)
+          setPrductPay(data)
+        } catch {
+          localStorage.removeItem("token")
+        }
       }
+      func()
+    } else {
+      redirectAction(host)
     }
-    func()
   }, [])
   //
   //
