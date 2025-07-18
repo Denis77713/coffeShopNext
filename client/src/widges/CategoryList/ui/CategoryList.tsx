@@ -2,15 +2,9 @@ import Image from "next/image"
 import style from "./CategoryList.module.css"
 import Link from "next/link"
 import { FC } from "react"
+import { Icategory } from "@/shared/types/types"
 
-interface Icategory {
-  id: number
-  name: string
-  image: string
-  page: string
-}
-
-const CategoryList: FC<{ page: string; category: Icategory[] }> = async ({
+const CategoryList: FC<{ page: string; category: Icategory[] | null }> = ({
   page,
   category,
 }) => {

@@ -1,15 +1,19 @@
 "use client"
 
-import { FC, useEffect } from "react"
+import { FC, useEffect, useLayoutEffect, useState } from "react"
 import { getActivated, getAuth, getUser } from "../reducers/FormSlice"
 import { api } from "@/widges/header/api/api"
 import { useDispatch } from "react-redux"
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
+import { redirectAction } from "@/pages/account/api/api"
+import { TypeUser } from "../types/types"
 
-const UseLogin = (funct?: any, setState?: any) => {
+const UseLogin = (funct?: any, setState?: any, roleRedirect?: string) => {
+  const host = process.env.NEXT_PUBLIC_HOST
   const urlApi = process.env.NEXT_PUBLIC_API
   const dispatch = useDispatch()
-  useEffect(() => {
+  const [data, setData] = useState<AxiosResponse<TypeUser, any> | null>(null)
+  useLayoutEffect(() => {
     const cheskRefresh = async () => {
       const token = localStorage.getItem("token")
       if (token) {
@@ -17,6 +21,10 @@ const UseLogin = (funct?: any, setState?: any) => {
           const data = await axios.get(`${urlApi}/api/refresh`, {
             withCredentials: true,
           })
+          setData(data.data.user)
+          if (roleRedirect && data?.data.user.role !== roleRedirect)
+            redirectAction(host)
+
           localStorage.removeItem("token")
           localStorage.setItem("token", data.data.accessToken)
           dispatch(getAuth(data.status))
@@ -33,12 +41,12 @@ const UseLogin = (funct?: any, setState?: any) => {
       } else {
         dispatch(getAuth(401))
         await api.post("/logout")
+        if (roleRedirect) redirectAction(host)
       }
     }
     cheskRefresh()
   }, [])
-
-  return null
+  return data
 }
 
 export default UseLogin

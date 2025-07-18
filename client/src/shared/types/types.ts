@@ -133,3 +133,9 @@ export type ListProductPay = {
   develery?: Iproduct[]
   complitePdoduct?: Iproduct[]
 }
+export type Icategory = {
+  id: number
+  name: string
+  image: string
+  page: string
+}

@@ -3,7 +3,8 @@
 import UseLogin from "./UseLogin"
 
 const IsToken = () => {
-  UseLogin()
+  UseLogin(null, null, "admin")
+
   return null
 }
 

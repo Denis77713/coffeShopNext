@@ -1,3 +1,5 @@
+"use server"
+
 import { prisma } from "../../../../prisma/prisma-client"
 
 export const getCategory = async () => {

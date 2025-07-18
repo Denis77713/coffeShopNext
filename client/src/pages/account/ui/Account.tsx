@@ -43,7 +43,7 @@ const Account = () => {
   const [IsLogin, setIslogin] = useState(false)
   //
   //
-  UseLogin(Auth, setIslogin)
+  UseLogin(Auth, setIslogin, "user")
   //
   //
   const categoryPromise = useCallback<any>(getData("/users", IsLogin), [
@@ -56,20 +56,15 @@ const Account = () => {
   //
   //
   useLayoutEffect(() => {
-    if (User !== "Unauthorized") {
-      if (User.role !== "user") redirectAction(host)
-      async function func() {
-        try {
-          const data = await getProductPay(User.id)
-          setPrductPay(data)
-        } catch {
-          localStorage.removeItem("token")
-        }
+    async function func() {
+      try {
+        const data = await getProductPay(User.id)
+        setPrductPay(data)
+      } catch {
+        localStorage.removeItem("token")
       }
-      func()
-    } else {
-      redirectAction(host)
     }
+    func()
   }, [])
   //
   //
