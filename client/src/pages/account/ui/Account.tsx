@@ -22,17 +22,20 @@ import AccountProductList from "@/widges/AccountProductList/ui/AccountProductLis
 import IsLogin from "./../../../shared/Hookcs/IsLogin"
 //
 //
-const getData = async (url: string, islogin: boolean) => {
-  if (typeof window !== "undefined" && islogin) return await api.get(url)
+const getData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.get(url)
 }
-const postData = async (url: string, islogin: boolean) => {
-  if (typeof window !== "undefined" && islogin) return await api.post(url)
+const postData = async (url: string) => {
+  if (typeof window !== "undefined") return await api.post(url)
 }
 const Auth = async () => {
   return { data: true }
 }
 //
 //
+const categoryPromise = getData("/users")
+const dataPromise = getData("/product")
+const gradeStarPromise = postData("/getGrade")
 //
 //
 const Account = () => {
@@ -46,13 +49,6 @@ const Account = () => {
   UseLogin(Auth, setIslogin, "user")
   //
   //
-  const categoryPromise = useCallback<any>(getData("/users", IsLogin), [
-    IsLogin,
-  ])
-  const dataPromise = useCallback<any>(getData("/product", IsLogin), [IsLogin])
-  const gradeStarPromise = useCallback<any>(postData("/getGrade", IsLogin), [
-    IsLogin,
-  ])
   //
   //
   useLayoutEffect(() => {
@@ -66,6 +62,11 @@ const Account = () => {
     }
     func()
   }, [])
+  //
+  //
+  console.log(categoryPromise)
+  console.log(gradeStarPromise)
+  console.log(dataPromise)
   //
   //
   const skeleton = (
