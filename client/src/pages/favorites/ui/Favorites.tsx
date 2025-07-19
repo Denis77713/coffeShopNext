@@ -9,7 +9,7 @@ const Favorites = async () => {
   return (
     <main>
       <div className={`container`}>
-        <IsToken />
+        {/* <IsToken /> */}
         <FavoritesNumProduct />
         <FavoritesList category={category} />
       </div>

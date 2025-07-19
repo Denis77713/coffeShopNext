@@ -15,7 +15,7 @@ const ShopProductPage: FC<{
   const newParams = await searchParams
   return (
     <main className={`container ${style.mtop}`}>
-      <IsToken />
+      {/* <IsToken /> */}
       <ProductInProductPage params={id} searchParams={newParams} />
     </main>
   )

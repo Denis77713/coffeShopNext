@@ -58,25 +58,27 @@ const AccountProductList: FC<{ prop: typeProp }> = ({ prop }) => {
   //
   return (
     <>
-      {data && (
-        <CarouselSlider responsive={responsive}>
-          {test &&
-            data?.data?.userProduct?.map((item: Iproduct) => (
-              <div className={style.item} key={item.id}>
-                <Product
-                  item={item}
-                  category={category?.data}
-                  pay={false}
-                  path="shop/"
-                  isLike={false}
-                  grade={gradeStar?.data}
-                  prductPay={filterPrductPay}
-                />
-                <div className={style.text}>Оплачен</div>
-              </div>
-            ))}
-        </CarouselSlider>
-      )}
+      {data?.status === 200 &&
+        category?.status === 200 &&
+        gradeStar?.status === 200 && (
+          <CarouselSlider responsive={responsive}>
+            {test &&
+              data?.data?.userProduct?.map((item: Iproduct) => (
+                <div className={style.item} key={item.id}>
+                  <Product
+                    item={item}
+                    category={category?.data}
+                    pay={false}
+                    path="shop/"
+                    isLike={false}
+                    grade={gradeStar?.data}
+                    prductPay={filterPrductPay}
+                  />
+                  <div className={style.text}>Оплачен</div>
+                </div>
+              ))}
+          </CarouselSlider>
+        )}
     </>
   )
 }

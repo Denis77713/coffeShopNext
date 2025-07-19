@@ -31,7 +31,6 @@ const ProductInProductPage: FC<{
   const gradeUsers = result && (await getComment(newData))
   const star = getStarAndGrade(newData)
   //
-  console.log(gradeUsers)
   //
   return (
     <>

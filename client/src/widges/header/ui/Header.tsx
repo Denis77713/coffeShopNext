@@ -26,7 +26,6 @@ const Header: FC = () => {
   const User = useSelector((store: any) => store.FormSlice.User)
   const [href, setHref] = useState(getHref(User.role))
   //
-
   //
   //
   useEffect(() => {
@@ -56,7 +55,7 @@ const Header: FC = () => {
         <div className={style.icons}>
           <IconHeaderList setCart={setCart} />
           {Activated === true && Auth === 200 ? (
-            <Link href={href}>
+            <a href={href}>
               <div className={style.account}>
                 <Image
                   className={`${style.icon} ${style.account}`}
@@ -66,7 +65,7 @@ const Header: FC = () => {
                   height={30}
                 />
               </div>
-            </Link>
+            </a>
           ) : (
             <Image
               className={`${style.icon}`}

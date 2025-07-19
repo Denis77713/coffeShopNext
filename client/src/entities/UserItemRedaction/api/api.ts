@@ -23,6 +23,5 @@ export async function updateUser(
     },
   })
   const result = await prisma.user.findMany()
-  console.log(result)
   return result
 }

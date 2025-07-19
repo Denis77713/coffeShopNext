@@ -65,7 +65,6 @@ const FormLogin = () => {
               dispatch(getWindow(false))
               dispatch(getActivated(data.data.user.isActivated))
               dispatch(getUser(data.data.user))
-              console.log(data.data.user)
             }
             if (data && data.status === 400) {
               setErrorMessage(data.response.data.message)

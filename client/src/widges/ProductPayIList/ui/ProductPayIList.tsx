@@ -18,7 +18,7 @@ const ProductPayIList: FC<{ data: newDataManagerItem[] }> = ({ data }) => {
     data.filter((i: newDataManagerItem) => i.status === "Delivered")
   )
   const [boolean, setBoolean] = useState<any>(false)
-  UseLogin()
+  // UseLogin()
   const searchParams: any = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()

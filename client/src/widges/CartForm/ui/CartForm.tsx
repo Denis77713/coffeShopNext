@@ -174,10 +174,7 @@ const CartForm = ({ setCart }: any) => {
         dataStorage: JSON.stringify(dataStorage),
         idPay,
       })
-      console.log(res)
-    } catch (e) {
-      console.log(e)
-    }
+    } catch (e) {}
   }
 }
 

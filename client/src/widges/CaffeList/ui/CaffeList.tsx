@@ -17,7 +17,7 @@ const CaffeList: FC<{
   )
   const [grade, setGrade] = useState([])
   UseGetGrade(setGrade, data, false)
-  UseLogin()
+  // UseLogin()
   return (
     <div className={`container ${style.caffeList}`}>
       {data.map((item: Iproduct) => (
