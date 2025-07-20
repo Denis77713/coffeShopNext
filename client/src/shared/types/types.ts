@@ -139,3 +139,11 @@ export type Icategory = {
   image: string
   page: string
 }
+export type LoginType = {
+  password: string
+  email: string
+  mailError: boolean
+  pasError: boolean
+  ErrorMessage: string
+  data?: any
+}

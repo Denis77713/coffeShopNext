@@ -1,54 +1,60 @@
 import { validateEmail } from "@/features/FormRegistration/api/api"
+import { LoginType } from "@/shared/types/types"
 import { api } from "@/widges/header/api/api"
-
-interface IPropsLogin {
-  email: string
-  password: string
-  setError: any
-  setEmail: any
-  setPassword: any
-  setStatus: any
-}
-
-export async function LoginValidation(e: any, props: IPropsLogin) {
-  e.preventDefault()
-  let resolve
-  try {
-    const { email, password, setError } = props
-    const emailValidate = validateEmail(email)
-
-    if (emailValidate === null && password.length < 3) {
-      setError({
-        text: "Неправильная почта и пароль",
-        emali: true,
-        password: true,
-        name: true,
-        lastName: true,
-      })
-    } else if (emailValidate === null) {
-      setError({ text: "Неправильная почта", emali: true })
-    } else if (password.length < 3) {
-      setError({ text: "Пароль минимум 3 символа", password: true })
-    } else {
-      setError(null)
-    }
-  } catch (e) {
-    resolve = e
+//
+//
+//
+export function LoginValidation(preV: any, formData: any) {
+  const email = formData.get("email")
+  const password = formData.get("password")
+  const res = {
+    password,
+    email,
+    mailError: true,
+    pasError: true,
+    ErrorMessage: "",
   }
-  return resolve
-}
-export async function login(loginProps: any) {
-  const { email, password, setEmail, setPassword } = loginProps
-  let res
-  try {
-    res = await api.post("/login", { email, password })
-    if (res.data.accessToken) {
-      localStorage.setItem("token", res.data.accessToken)
-    }
-    setEmail("")
-    setPassword("")
-  } catch (e) {
-    res = e
+  const emailValidate = validateEmail(email)
+  if (emailValidate === null && password.length < 3)
+    res.ErrorMessage = "Неправильная почта и пароль"
+  if (emailValidate === null) {
+    res.ErrorMessage = "Неправильная почта"
+  } else {
+    res.mailError = false
+  }
+  if (password.length < 3) {
+    res.ErrorMessage = "Пароль минимум 3 символа"
+  } else {
+    res.pasError = false
   }
   return res
+}
+//
+//
+//
+export async function loginFunction(preV: any, formData: any) {
+  const resValidation: LoginType = LoginValidation(preV, formData)
+  const email = resValidation.email
+  const password = resValidation.password
+  console.log(resValidation.ErrorMessage)
+  let res
+  if (resValidation.ErrorMessage === "") {
+    try {
+      res = await api.post("/login", { email, password })
+      if (res.data.accessToken) {
+        localStorage.setItem("token", res.data.accessToken)
+      }
+      resValidation.data = res
+    } catch (e) {
+      const event: any = e
+      resValidation.ErrorMessage = event.response.data.message
+      if (event.response.data.message === "Неверный пароль")
+        resValidation.pasError = true
+      if (
+        event.response.data.message === "Пользователь с таким email не найден"
+      )
+        resValidation.mailError = true
+    }
+  }
+  return resValidation
 }

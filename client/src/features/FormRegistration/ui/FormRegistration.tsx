@@ -9,6 +9,7 @@ import { inputSecurity } from "@/security"
 import { getAuth } from "@/shared/reducers/FormSlice"
 import { useDispatch } from "react-redux"
 import { getData, registration } from "../api/api"
+import Spiner from "@/shared/ui/Spiner"
 
 export interface IError {
   text: string
@@ -65,7 +66,7 @@ const FormRegistration = () => {
           <div>Подтвердите почту по ссылке {result.message}</div>
         </a>
       )}
-      <Button>Регистрация</Button>
+      <Button>{isPending ? <Spiner /> : "Регистрация"}</Button>
     </Form>
   )
 }
