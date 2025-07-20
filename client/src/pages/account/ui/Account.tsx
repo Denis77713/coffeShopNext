@@ -1,7 +1,7 @@
 "use client"
 
 import ProductPayList from "@/widges/ProductPayList/ui/ProductPayList"
-import { Suspense, useLayoutEffect, useState } from "react"
+import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from "react"
 import { getProductPay } from "../api/api"
 import { api } from "@/widges/header/api/api"
 import UseLogin from "@/shared/Hookcs/UseLogin"
@@ -24,17 +24,25 @@ const postData = async (url: string) => {
 const categoryPromise = getData("/users")
 const dataPromise = getData("/product")
 const gradeStarPromise = postData("/getGrade")
+
 //
 //
 const Account = () => {
   const User = useSelector((store: any) => store.FormSlice.User)
   const [test, seTest] = useState<null | ListProductPay>(null)
   const [prductPay, setPrductPay] = useState<TypeDevelop[] | null>(null)
+
+  const memoizedValue = useMemo(() => {
+    const categoryPromise = getData("/users")
+    const dataPromise = getData("/product")
+    const gradeStarPromise = postData("/getGrade")
+    return { gradeStarPromise, dataPromise, categoryPromise }
+  }, [])
   //
-  UseLogin(null, null, "user")
   //
+
   //
-  useLayoutEffect(() => {
+  useEffect(() => {
     async function func() {
       try {
         const data = await getProductPay(User.id)
@@ -47,6 +55,7 @@ const Account = () => {
   }, [])
   //
   //
+  // console.log(state.gradeStarPromise)
   const skeleton = (
     <Skeleton
       wrapper={style.wrapperSkeleton}
@@ -55,9 +64,9 @@ const Account = () => {
     />
   )
   const prop = {
-    dataPromise,
-    categoryPromise,
-    gradeStarPromise,
+    dataPromise: memoizedValue.dataPromise,
+    categoryPromise: memoizedValue.categoryPromise,
+    gradeStarPromise: memoizedValue.gradeStarPromise,
     prductPay,
     seTest,
     test,

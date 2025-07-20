@@ -35,6 +35,7 @@ const ProductPayList: FC<{ prop: typeProp }> = ({ prop }) => {
   const filterPrductPay = getListPayProductAccount(prductPay, "Успешный заказ")
   //
   //
+  console.log(data)
   useEffect(() => {
     seTest(data)
   }, [])

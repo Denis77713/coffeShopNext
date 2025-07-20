@@ -7,9 +7,11 @@ import { useEffect, useState } from "react"
 import UseLogin from "@/shared/Hookcs/UseLogin"
 import styleTitle from "@/shared/ui/Title.module.css"
 import { Icategory } from "@/shared/types/types"
+import { useSelector } from "react-redux"
 
 const AdminPanelPage = () => {
   const [categoryMarket, setCategoryMarket] = useState<Icategory[] | null>(null)
+  const User = useSelector((store: any) => store.FormSlice.User)
 
   useEffect(() => {
     async function fun() {
@@ -18,11 +20,9 @@ const AdminPanelPage = () => {
     }
     fun()
   }, [])
-  const data = UseLogin(null, null, "admin")
-  console.log(data)
   return (
     <main>
-      {data && (
+      {User.role === "admin" && (
         <>
           <h2 className={styleTitle.title}>Редактировать товары и продукцию</h2>
           <CategoryList page={"adminPanel"} category={categoryMarket} />

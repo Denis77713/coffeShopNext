@@ -16,6 +16,7 @@ import IconHeader from "@/features/IconHeader/ui/IconHeader"
 import CartForm from "@/widges/CartForm/ui/CartForm"
 import { isLikeFilter } from "@/shared/like/ui/FunctionsLike"
 import IconHeaderList from "@/widges/IconHeaderList/IconHeaderList"
+import UseLogin from "@/shared/Hookcs/UseLogin"
 
 const Header: FC = () => {
   const formVisible = useSelector((store: any) => store.FormSlice.window)
@@ -27,6 +28,8 @@ const Header: FC = () => {
   const [href, setHref] = useState(getHref(User.role))
   //
   //
+  UseLogin(null, null, "user")
+
   //
   useEffect(() => {
     setHref(getHref(User.role))
@@ -55,7 +58,7 @@ const Header: FC = () => {
         <div className={style.icons}>
           <IconHeaderList setCart={setCart} />
           {Activated === true && Auth === 200 ? (
-            <a href={href}>
+            <Link href={href}>
               <div className={style.account}>
                 <Image
                   className={`${style.icon} ${style.account}`}
@@ -65,7 +68,7 @@ const Header: FC = () => {
                   height={30}
                 />
               </div>
-            </a>
+            </Link>
           ) : (
             <Image
               className={`${style.icon}`}

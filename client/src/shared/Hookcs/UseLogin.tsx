@@ -7,13 +7,34 @@ import { useDispatch } from "react-redux"
 import axios, { AxiosResponse } from "axios"
 import { redirectAction } from "@/pages/account/api/api"
 import { TypeUser } from "../types/types"
-
+import { usePathname } from "next/navigation"
+//
+//
+//
+function redirection(
+  path: string | null,
+  user: string,
+  host: string | undefined
+) {
+  if (path === "/adminPanel" && user !== "admin") redirectAction(host)
+  if (path === "/account" && user !== "user") redirectAction(host)
+  if (path === "/managerPage") {
+    if (user === "sklad" || user === "manager") {
+    } else {
+      redirectAction(host)
+    }
+  }
+}
+//
+//
+//
 const UseLogin = (funct?: any, setState?: any, roleRedirect?: string) => {
   const host = process.env.NEXT_PUBLIC_HOST
   const urlApi = process.env.NEXT_PUBLIC_API
   const dispatch = useDispatch()
   const [data, setData] = useState<AxiosResponse<TypeUser, any> | null>(null)
-  useLayoutEffect(() => {
+  const pathName = usePathname()
+  useEffect(() => {
     const cheskRefresh = async () => {
       const token = localStorage.getItem("token")
       if (token) {
@@ -22,8 +43,7 @@ const UseLogin = (funct?: any, setState?: any, roleRedirect?: string) => {
             withCredentials: true,
           })
           setData(data.data.user)
-          if (roleRedirect && data?.data.user.role !== roleRedirect)
-            redirectAction(host)
+          redirection(pathName, data?.data.user.role, host)
 
           localStorage.removeItem("token")
           localStorage.setItem("token", data.data.accessToken)
