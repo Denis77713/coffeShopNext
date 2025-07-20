@@ -45,16 +45,11 @@ const Home: FC<{ params: Promise<IParams>; searchParams: any }> = async ({
       items: 1,
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 4000, min: 320 },
       items: 1,
     },
   }
-  const imageStyle = {
-    // borderRadius: '50%',
-    // border: '1px solid #fff',
-    // width: "auto",
-    // height: "auto",
-  }
+
   return (
     <div>
       <main>
