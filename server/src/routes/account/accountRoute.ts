@@ -8,7 +8,7 @@ const router = Router()
 
 router.post(
   "/registration",
-  isEmail, // Валидация
+  // isEmail, // Валидация
   UserController.registrarion
 )
 router.post("/login", UserController.login)
