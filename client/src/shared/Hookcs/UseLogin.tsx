@@ -60,8 +60,7 @@ const UseLogin = (funct?: any, setState?: any, roleRedirect?: string) => {
         }
       } else {
         dispatch(getAuth(401))
-        // await api.post("/logout")
-        if (roleRedirect) redirectAction(host)
+        redirection(pathName, "НеАвторизован", host)
       }
     }
     cheskRefresh()
