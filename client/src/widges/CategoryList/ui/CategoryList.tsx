@@ -1,11 +1,13 @@
 import Image from "next/image"
-import { getCategory } from "../api/api"
 import style from "./CategoryList.module.css"
 import Link from "next/link"
 import { FC } from "react"
+import { Icategory } from "@/shared/types/types"
 
-const CategoryList: FC<{ page: string }> = async ({ page }) => {
-  const category = await getCategory()
+const CategoryList: FC<{ page: string; category: Icategory[] | null }> = ({
+  page,
+  category,
+}) => {
   return (
     <div className={`container ${style.cartList} `}>
       {category?.map((item) => (

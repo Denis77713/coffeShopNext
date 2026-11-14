@@ -1,0 +1,20 @@
+import { IParams } from "@/pages/shop/ui/ShopPage"
+import { FC } from "react"
+import { getProductPay } from "../api/api"
+import ProductPayItem from "@/entities/ProductPayItem/ui/ProductPayItem"
+import ProductPayIList from "@/widges/ProductPayIList/ui/ProductPayIList"
+
+const ManagerPage: FC<{
+  params: Promise<IParams>
+  searchParams: any
+}> = async ({ params, searchParams }) => {
+  const newParams = await searchParams
+  const data = await getProductPay(newParams)
+  return (
+    <main className="container">
+      <ProductPayIList data={data} />
+    </main>
+  )
+}
+
+export default ManagerPage

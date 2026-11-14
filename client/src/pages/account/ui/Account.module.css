@@ -1,0 +1,27 @@
+.productList {
+  display: grid;
+  grid-template-columns: 200px 200px 200px 200px;
+  justify-content: space-between;
+  padding: 20px;
+}
+.wrapper {
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px 5px gray;
+  padding: 20px 0;
+}
+.payTitle {
+  text-align: center;
+  font-size: 38px;
+}
+.dnone {
+  display: none;
+}
+.itemSkeleton {
+  width: 200px;
+  height: 400px;
+  margin: 0 35px;
+}
+.wrapperSkeleton {
+  justify-content: center;
+  display: flex;
+}

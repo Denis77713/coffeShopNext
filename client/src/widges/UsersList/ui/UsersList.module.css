@@ -1,0 +1,6 @@
+.buttons {
+  display: flex;
+}
+.buttons button {
+  margin: 10px;
+}

@@ -1,71 +1,66 @@
 "use client"
 
-import { useState } from "react"
+import { useActionState, useEffect } from "react"
 import style from "../../FormRegistration/ui/FormRegistration.module.css"
 import inputStyle from "../../../features/Search/ui/Search.module.css"
 import Button from "@/shared/ui/Button"
 import Form from "@/shared/Form/ui/Form"
-import { handleSubmit, login } from "../../FormRegistration/api/api"
-import { inputSecurity } from "@/security"
-import { IError } from "@/features/FormRegistration/ui/FormRegistration"
 import { useDispatch, useSelector } from "react-redux"
-import { getActivated, getAuth, getWindow } from "@/shared/Form/ui/FormSlice"
-
+import {
+  getActivated,
+  getAuth,
+  getUser,
+  getWindow,
+} from "@/shared/reducers/FormSlice"
+import { loginFunction } from "../api/api"
+import Spiner from "@/shared/ui/Spiner"
 const FormLogin = () => {
-  const [email, setEmail] = useState<string>("zarvirovdenis@mail.ru")
-  const [password, setPassword] = useState<string>("denis2000")
-  const [error, setError] = useState<IError | null>(null)
-  const [status, setStatus] = useState<string | null>(null)
-  const Auth = useSelector((store: any) => store.FormSlice.Auth)
-
+  const [formState, formAction, isPending] = useActionState(loginFunction, null)
   const dispatch = useDispatch()
-  const [ErrorMessage, setErrorMessage] = useState("")
-  const props = { email, password, setError, setEmail, setPassword, setStatus }
-  const loginProps = { email, password, setEmail, setPassword }
+
+  useEffect(() => {
+    if (formState?.data) dispatch(getAuth(formState?.data.status))
+    if (
+      formState?.data &&
+      formState?.data?.status === 200 &&
+      !formState?.data.data.user.isActivated
+    ) {
+      alert("Активируйте аккаунт !")
+    }
+    if (formState?.data && formState?.data?.status === 200) {
+      dispatch(getWindow(false))
+      dispatch(getActivated(formState?.data.data.user.isActivated))
+      dispatch(getUser(formState?.data.data.user))
+      console.log(formState?.data.user)
+    }
+    if (formState?.data && formState?.data.status === 400) {
+    }
+    formState?.data && dispatch(getAuth(formState?.data.status))
+  }, [formState])
 
   return (
-    <Form>
+    <Form formAction={formAction}>
       <input
-        className={`${inputStyle.input} ${error?.emali && style.inputError}`}
+        className={`${inputStyle.input} ${
+          formState?.mailError && style.inputError
+        }`}
         type="email"
         name="email"
         placeholder="Введите email"
-        value={email}
-        onChange={(e) => setEmail(inputSecurity(e.target.value))}
+        defaultValue={formState?.ErrorMessage ? formState?.email : ""}
       />
       <input
-        className={`${inputStyle.input} ${error?.password && style.inputError}`}
+        className={`${inputStyle.input} ${
+          formState?.pasError && style.inputError
+        }`}
         type="password"
         name="password"
         placeholder="Введите пароль"
-        value={password}
-        onChange={(e) => setPassword(inputSecurity(e.target.value))}
+        defaultValue={formState?.ErrorMessage ? formState?.password : ""}
       />
-      <div className={style.error}>{error?.text}</div>
-      {status && <div className={style.status}>{status}</div>}
-      
-      {Auth === 400 && <div className={style.error}>{ErrorMessage + " !"}</div>}
+      <div className={style.error}>{formState?.ErrorMessage}</div>
 
-      <Button
-        handleClick={async (e: any) => {
-          const data = await handleSubmit(e, login(loginProps), props)
-          if(data && data?.status === 200 
-            && !data.data.user.isActivated
-          ){
-            alert('Активируйте аккаунт !')
-          }
-          if(data && data?.status === 200){
-            dispatch(getWindow(false))
-            dispatch(getActivated(data.data.user.isActivated))
-          }
-          if(data && data.status === 400){
-            setErrorMessage(data.response.data.message)
-          }
-          data && dispatch(getAuth(data.status))
-        }}
-      >
-        Войти
-      </Button>
+      <Button>{isPending ? <Spiner /> : "Войти"}</Button>
     </Form>
   )
 }

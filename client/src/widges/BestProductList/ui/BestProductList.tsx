@@ -1,31 +1,52 @@
 "use client"
 
-import { FC, useState } from "react"
+import { FC, memo, useState } from "react"
 import style from "./BestProductList.module.css"
 import Product from "@/entities/Product/ui/Product"
 import useStorage from "@/shared/ui/useStorage"
 import { addLikeInList } from "@/shared/ui/addLikeInList"
-import { Item } from "@/entities/Product/ui/ProductType"
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
 import { ItemStore } from "./BestProductListTypes"
+import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 
-const BestProductList: FC<{ dataList: Item[], category: TypeCategory[] }> = ({ dataList,category }) => {
+type DataListType = {
+  id: number
+  name: string
+  imageUrl: string
+  price: string | null
+  best: string | null
+  weight: string | null
+  none: string
+  drip: string
+  number: number | null
+  secondCategoryId: number | null
+  categoryId: number
+}
+
+const BestProductList: FC<{
+  dataList: Iproduct[] | any
+  category: TypeCategory[]
+}> = ({ dataList, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
-  const [state, setState] = useState<boolean>(false)
+  const [grade, setGrade] = useState([])
 
-  useStorage(state, setCount)
+  useStorage(setCount)
   addLikeInList(dataList, count)
+  UseGetGrade(setGrade, dataList)
+
+  const MemoProduct = memo(Product)
 
   return (
-    <div
-      className={`container ${style.bestList}`}
-      onClick={() => setState(!state)}
-    >
-      {dataList.map((item) => (
-        <Product key={item.id} item={item} category={category} />
+    <div className={`container ${style.bestList}`}>
+      {dataList.map((item: any) => (
+        <MemoProduct
+          key={item.id}
+          item={item}
+          category={category}
+          grade={grade && grade}
+        />
       ))}
     </div>
   )
 }
-
 export default BestProductList

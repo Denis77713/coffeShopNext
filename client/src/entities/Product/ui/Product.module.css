@@ -1,8 +1,11 @@
 .bestItem {
   margin: 20px 0;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.item{
+.item {
   width: 200px;
   height: 272px;
   margin: 20px;
@@ -18,6 +21,9 @@
 .wrapper:hover .weight {
   animation: ani 0.1s linear forwards;
 }
+.mb {
+  margin-bottom: 10px;
+}
 .weight {
   position: absolute;
   bottom: 0;
@@ -25,6 +31,9 @@
   right: auto;
   font-size: 0;
   width: 200px;
+}
+.gradeAndButton button {
+  width: 100%;
 }
 @keyframes ani {
   0% {

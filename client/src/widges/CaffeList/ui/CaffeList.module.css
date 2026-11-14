@@ -1,0 +1,5 @@
+.caffeList {
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  justify-content: space-between;
+}

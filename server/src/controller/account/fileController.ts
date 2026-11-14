@@ -1,0 +1,51 @@
+import { prisma } from "../../../../client/prisma/prisma-client"
+import { jsPDF } from "jspdf"
+import html2canvas from "html2canvas"
+import { mailService } from "../../service/account/mailService"
+
+const fs = require("fs")
+const path = require("path")
+
+class fileClass {
+  async fileLoad(req: any, res: any, next: any) {
+    try {
+      if (req.files) {
+        const file = req.files.file
+        const fileName = file.name
+        file.mv("../client/public/product/" + fileName, (err: any) => {
+          if (err) {
+            res.send(err)
+          } else {
+            res.send("File Uploaded")
+          }
+        })
+      }
+    } catch (e) {}
+  }
+  async imageLoad(req: any, res: any, next: any) {
+    // const papka = fs.existsSync(path.resolve(__dirname, "/client/public"))
+    // if (papka) {
+    //   const data = fs.readdirSync(
+    //     path.resolve(__dirname, "../../../../client/public/product")
+    //   )
+    // }
+    const data = await prisma.imagesUrlProduct.findMany()
+    res.json(data)
+  }
+  async pdfLoad(req: any, res: any, next: any) {
+    const { imgData, mail, dataStorage, idPay } = req.body
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "a4",
+    })
+    const data = JSON.parse(dataStorage)
+    const height = Math.ceil(data.length / 4) * 150
+    await doc.addImage(imgData, "PNG", 20, 20, 400, height)
+    await doc.save("./products.pdf")
+    // await mailService.sendPdfFile(mail, `qqwe`)
+    await mailService.sendPdfFile("demigot2033@gmail.com", idPay)
+  }
+}
+
+export const fileController = new fileClass()

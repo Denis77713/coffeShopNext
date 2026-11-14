@@ -3,19 +3,29 @@ import CategoryList from "@/widges/CategoryList/ui/CategoryList"
 import LocationsList from "@/widges/LocationsList/ui/LocationsList"
 import Title from "@/shared/ui/Title"
 import style from "./HomePage.module.css"
-import { Suspense } from "react"
+import { FC, Suspense } from "react"
 import Skeleton from "@/shared/ui/Skeleton"
 import assortiment from "@/widges/CategoryList/ui/CategoryList.module.css"
 import BestProductList from "@/widges/BestProductList/ui/BestProductList"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
 import bestStyleItem from "@/entities/Product/ui/Product.module.css"
 import WhyUsList from "@/widges/WhyUsList/ui/WhyUsList"
-import { getCookie, getProduct } from "../api/api"
-import { getCategoryes } from "@/widges/CategoryList/api/api"
+import { getProduct } from "../api/api"
+import { getCategory, getCategoryes } from "@/widges/CategoryList/api/api"
+import img from "@/../public/slider/slide1.jpg"
+import Image from "next/image"
+import IsToken from "@/shared/Hookcs/IsToken"
+import { IParams } from "@/pages/shop/ui/ShopPage"
 
-export default async function Home() {
+const Home: FC<{ params: Promise<IParams>; searchParams: any }> = async ({
+  params,
+  searchParams,
+}) => {
   // Лучшие продусты
-  const bestProductList = await getProduct()
+  const newParams = await searchParams
+  const bestProductList = await getProduct(newParams)
+  const categoryMarket = await getCategory("Shop")
+  const categoryCaffe = await getCategory("Cafe")
   const list = assortiment.cartList
   const cart = assortiment.cart
   const bestList = bestStyle.bestList
@@ -25,28 +35,62 @@ export default async function Home() {
     <Skeleton number={4} wrapper={bestList} inner={bestItem} />
   )
   const category = await getCategoryes()
-  const cookie =  getCookie()
+  const images = [
+    { id: 2, src: "/slider/slide2.jpg" },
+    { id: 3, src: "/slider/slide3.jpg" },
+  ]
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 4000, min: 320 },
+      items: 1,
+    },
+  }
+
   return (
     <div>
       <main>
+        <IsToken />
         <Title coffeNum={"true"}>Кофейни:</Title>
-        <CarouselSlider />
+        <CarouselSlider responsive={responsive}>
+          <Image
+            className={style.sliderItem}
+            width={1000}
+            height={400}
+            src={img}
+            alt={"slid-one"}
+            placeholder="blur"
+          />
+          {images?.map((item) => (
+            <img key={item.id} src={item.src} alt={item.src} />
+          ))}
+        </CarouselSlider>
         <LocationsList />
         <Title coffeNum={"false"} styles={style.title}>
-          Асcортимент
+          Ассортимент интернет магазина
         </Title>
         <Suspense fallback={CategorySkeleton}>
-          <CategoryList page={"products"} />
+          <CategoryList page={"shop"} category={categoryMarket} />
+        </Suspense>
+        <Title coffeNum={"false"} styles={style.title}>
+          Ассортимент кофейни
+        </Title>
+        <Suspense fallback={CategorySkeleton}>
+          <CategoryList page={"caffe"} category={categoryCaffe} />
         </Suspense>
         <Title coffeNum={"false"} styles={style.title}>
           Хиты продаж
         </Title>
-        <Suspense fallback={ProductSkeleton}>
-          <BestProductList dataList={bestProductList} category={category} />
-        </Suspense>
+        {/* <Suspense fallback={ProductSkeleton}> */}
+        <BestProductList dataList={bestProductList} category={category} />
+        {/* </Suspense> */}
         <WhyUsList />
       </main>
     </div>
   )
 }
 
+export default Home

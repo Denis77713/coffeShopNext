@@ -1,0 +1,8 @@
+.star {
+  cursor: pointer;
+}
+.wrapperStar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit"
-import LikeSlice from "@/features/likeGroup/ui/SlicelikeGroup"
-import FavoriteSlice from "@/pages/favorites/ui/FavoriteSlice"
-import ProductSlice from "@/entities/Product/ui/ProductSlice"
-import FormSlice from '@/shared/Form/ui/FormSlice'
+import LikeSlice from "@/shared/reducers/LikeSlice"
+import FavoriteSlice from "@/shared/reducers/FavoriteSlice"
+import ProductSlice from "@/shared/reducers/ProductSlice"
+import FormSlice from "@/shared/reducers/FormSlice"
 
 export const store = configureStore({
   reducer: {
-    like: LikeSlice,
+    LikeSlice: LikeSlice,
     product: FavoriteSlice,
     ProductSlice: ProductSlice,
-    FormSlice:FormSlice
+    FormSlice: FormSlice,
   },
 })
 

@@ -1,0 +1,17 @@
+.commetntInput {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px 10px #c7c7c7;
+}
+.wrapperBtn {
+  margin: 20px 0;
+}
+.Comment {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.Comment button {
+  max-width: 200px;
+}

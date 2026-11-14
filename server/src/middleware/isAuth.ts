@@ -3,22 +3,16 @@ import { tokenServise } from "../service/account/tokenService"
 
 export function isAuth(req: any, res: any, next: any) {
   try {
-    
     const authorizasionHeader = req.headers.authorization
-    if(!authorizasionHeader){
-    console.log(authorizasionHeader)
+    if (!authorizasionHeader) {
       return next(ApiError.UnauthorizedError())
     }
-    const authorizasionToken = authorizasionHeader.split(' ')[1]
-    if(!authorizasionToken){
-    console.log("authorizasionToken")
-
+    const authorizasionToken = authorizasionHeader.split(" ")[1]
+    if (!authorizasionToken) {
       return next(ApiError.UnauthorizedError())
     }
     const userData = tokenServise.validateAccessToken(authorizasionToken)
-    if(!userData){
-    console.log("userData")
-
+    if (!userData) {
       return next(ApiError.UnauthorizedError())
     }
     req.user = userData

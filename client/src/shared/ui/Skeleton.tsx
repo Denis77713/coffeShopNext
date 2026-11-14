@@ -10,7 +10,7 @@ interface IntSkeleton {
 const Skeleton: FC<IntSkeleton> = ({ number, wrapper, inner }) => {
   let arr2 = []
   for (let i = 0; i < number; i++) {
-    arr2.push(1)
+    arr2.push(i)
   }
   return (
     <div className={wrapper}>

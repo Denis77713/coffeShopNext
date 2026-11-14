@@ -1,4 +1,4 @@
-import { TypeCategory } from "@/widges/ProductList/ui/ProductList"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 import { Item } from "./ProductType"
 
 export function addCookie(item: number) {
@@ -6,7 +6,11 @@ export function addCookie(item: number) {
   document.cookie = `number=${item}`
 }
 
-export function getPageCategory(item: Item,category: TypeCategory[],pathname: string | null) : string {
+export function getPageCategory(
+  item: Iproduct,
+  category: TypeCategory[],
+  pathname: string | null
+): string {
   const filterCategory = category.filter(
     (inner) => inner.id === item.categoryId
   )
@@ -14,9 +18,9 @@ export function getPageCategory(item: Item,category: TypeCategory[],pathname: st
   const resultCategory = filterCategory[0].page
   const result = resultCategory.replace("/", "")
   let url = ""
-  
+
   if (pathname === "/" || pathname === "/favorites") {
-    url = `products/${result}/${item.name}`
+    url = `shop/${result}/${item.name}`
   } else {
     url = `${result}/${item.name}`
   }

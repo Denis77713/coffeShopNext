@@ -5,48 +5,80 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-  id             Int     @id @default(autoincrement())
-  // поле уникальное
-  email          String  @unique
-  password       String
-  isActivated    Boolean @default(false)
+  id             Int          @id @default(autoincrement())
+  email          String       @unique
+  name           String
   activationLink String
+  isActivated    Boolean      @default(false)
+  lastName       String
+  password       String
+  role           String       @default("user")
+  GradeStar      GradeStar[]
+  ProductPay     ProductPay[]
   token          Token?
 }
 
 model Token {
-  token       User   @relation(fields: [userId], references: [id]) 
+  id           Int    @id @default(autoincrement())
   userId       Int    @unique
-  refreshToken String 
+  refreshToken String
+  token        User   @relation(fields: [userId], references: [id])
 }
 
 model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   image    String
-  // Связь одна Category ко многим Product
   page     String
-  products Product[]
+  category String    @default("Shop")
   filters  Filter[]
+  products Product[]
+}
+
+model SecondCategory {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  text    String    @default("")
+  Product Product[]
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
+  id               Int             @id @default(autoincrement())
+  name             String
+  imageUrl         String
+  price            String?
+  best             String?
+  weight           String?
+  none             String
+  drip             String
+  categoryId       Int
+  number           Int?            @default(5)
+  secondCategoryId Int?
+  text             String?
+  GradeStar        GradeStar[]
+  category         Category        @relation(fields: [categoryId], references: [id])
+  secondCategory   SecondCategory? @relation(fields: [secondCategoryId], references: [id])
+}
+
+model imagesUrlProduct {
+  id       Int    @id @default(autoincrement())
+  imageURL String
+}
+
+model ProductPay {
+  id         Int    @id @default(autoincrement())
+  userId     Int
+  productId  Int
+  sum        Int
+  status     String @default("Успешный заказ")
+  num        Int
+  developId  String @default("")
   name       String
-  imageUrl   String
-  // Связь с Category
-  category   Category @relation(fields: [categoryId], references: [id])
-  // Связь с Category
-  price      String
-  best       String
-  weight     String
-  none       String
-  drip       String
-  categoryId Int
+  textStatus String @default("Успешный заказ")
+  user       User   @relation(fields: [userId], references: [id])
 }
 
 model Filter {
@@ -54,9 +86,8 @@ model Filter {
   name     String
   value    String
   text     String
-  // Связь с Category
-  filter   Category @relation(fields: [filterId], references: [id])
   filterId Int
+  filter   Category @relation(fields: [filterId], references: [id])
 }
 
 model City {
@@ -74,8 +105,8 @@ model Location {
   newIsOpen   Boolean
   newLocation String
   isWork      Boolean
-  city        City    @relation(fields: [cityId], references: [id])
   cityId      Int
+  city        City    @relation(fields: [cityId], references: [id])
 }
 
 model Carousel {
@@ -94,4 +125,15 @@ model Contacts {
   id    Int    @id @default(autoincrement())
   email String
   text  String
+}
+
+model GradeStar {
+  id         Int     @id @default(autoincrement())
+  grade      Int
+  comment    String?
+  userAnonim Boolean
+  productId  Int
+  userId     Int?
+  category   Product @relation(fields: [productId], references: [id])
+  User       User?   @relation(fields: [userId], references: [id])
 }

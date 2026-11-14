@@ -16,7 +16,8 @@ const Search = () => {
     <input
       className={style.input}
       type="text"
-      value={search}
+      defaultValue={search}
+      // value={search}
       onChange={(e) => {
         const result = inputSecurity(e.target.value)
         setSearch(result)

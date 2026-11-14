@@ -5,27 +5,30 @@ import { addLikeInList } from "@/shared/ui/addLikeInList"
 import useStorage from "@/shared/ui/useStorage"
 import { FC, useState } from "react"
 import style from "./ProductList.module.css"
-import { Item } from "@/entities/Product/ui/ProductType"
 import { ItemStore } from "@/widges/BestProductList/ui/BestProductListTypes"
 import bestStyle from "@/widges/BestProductList/ui/BestProductList.module.css"
+import UseGetGrade from "@/shared/Hookcs/UseGetGrade"
+import { Iproduct, TypeCategory } from "@/shared/types/types"
 
-export type TypeCategory = {
-    id: number;
-    name: string;
-    image: string;
-    page: string;
-}
-
-const ProductList: FC<{ res: Item[],category:TypeCategory[]  }> = ({ res,category }) => {
+const ProductList: FC<{
+  res: Iproduct[] | any
+  category: TypeCategory[]
+}> = ({ res, category }) => {
   const [count, setCount] = useState<ItemStore[]>([])
-  const [state, setState] = useState<boolean>(false)
+  const [grade, setGrade] = useState([])
 
-  useStorage(state, setCount)
+  UseGetGrade(setGrade, res)
+
+  useStorage(setCount)
   addLikeInList(res, count)
   return (
-    <div className={`${style.bestList} ${bestStyle.bestList}`} onClick={() => setState(!state)}>
-      {res.map((item) => (
-        <Product key={item.id} item={item} category={category}
+    <div className={`${style.bestList} ${bestStyle.bestList}`}>
+      {res.map((item: Iproduct) => (
+        <Product
+          key={item.id}
+          item={item}
+          category={category}
+          grade={grade && grade}
         />
       ))}
     </div>

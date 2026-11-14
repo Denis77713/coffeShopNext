@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { IntStorageData } from "../like/ui/Like"
 import { useDispatch } from "react-redux"
-import { getLike } from "@/features/likeGroup/ui/SlicelikeGroup"
+import { getLike } from "@/shared/reducers/LikeSlice"
 
-const useStorage = (state: boolean, setCount: any) => {
+const useStorage = (setCount: any) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useStorage = (state: boolean, setCount: any) => {
         )
       )
     }
-  }, [state])
+  }, [])
 }
 
 export default useStorage

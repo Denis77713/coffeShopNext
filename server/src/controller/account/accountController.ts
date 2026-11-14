@@ -2,6 +2,14 @@ import { prisma } from "../../../../client/prisma/prisma-client"
 import { userService } from "../../service/account/userSevice"
 import { validationResult } from "express-validator"
 import { ApiError } from "../../errors/api.error"
+export interface IProductCartStore {
+  id: number
+  imageUrl: string
+  price: string
+  name: string
+  number: number
+  numProductsPay?: number | any
+}
 
 class UserControllerClass {
   async registrarion(req: any, res: any, next: any) {
@@ -13,9 +21,14 @@ class UserControllerClass {
     }
     try {
       // Получаю из тела запросса майл и пароль
-      const { email, password } = req.body
+      const { email, password, name, lastName } = req.body
       // Вызываю функцию регистрации, а в userData сохраняю токены и юзера
-      const userData = await userService.registration(email, password)
+      const userData = await userService.registration(
+        email,
+        password,
+        name,
+        lastName
+      )
       // Сохраняю refreshToken в куки и даю ему время жизни,
       // запрещаю refreshToken менять на клиенте через httpOnly: true
       res.cookie("refreshToken", userData.refreshToken, {
@@ -23,7 +36,9 @@ class UserControllerClass {
         httpOnly: true,
       })
       // Вернуть Юзера
+      // setTimeout(() => {
       return res.json(userData)
+      // }, 10000)
     } catch (e) {
       next(e)
     }
@@ -92,6 +107,56 @@ class UserControllerClass {
     } catch (e) {
       next(e)
     }
+  }
+  async getCartPay(req: any, res: any, next: any) {
+    try {
+      const { refreshToken } = req.cookies
+      const { data, sum, payId } = req.body
+      const user = await prisma.token.findFirst({
+        where: { refreshToken: refreshToken },
+      })
+      if (user && data && refreshToken) {
+        const developId = await userService.createProductPay(data, user, payId)
+        //Создать записи в таблице покупок
+        // Обновить количество продуктов в Product
+        await userService.ubdateProductInPay(data, user)
+        const newDataPay = await userService.getProductInPay(data, user)
+        res.json({ data: newDataPay, status: res.status, developId: developId })
+      }
+    } catch (e) {
+      next(e)
+    }
+  }
+  async getProduct(req: any, res: any, next: any) {
+    try {
+      const { refreshToken } = req.cookies
+      const getProductData = await userService.getProductService(refreshToken)
+      if (getProductData) {
+        const { userProduct, complitePdoduct, develery } = getProductData
+        res.json({
+          userProduct: userProduct,
+          complitePdoduct: complitePdoduct,
+          develery: develery,
+        })
+      }
+    } catch (e) {
+      next(e)
+    }
+  }
+  async getGrade(req: any, res: any, next: any) {
+    const databody = req.body.data
+    try {
+      const data = await userService.getGradeServise(databody)
+      res.json(data)
+    } catch (e) {}
+  }
+  async postGrade(req: any, res: any, next: any) {
+    const dataBody = req.body
+
+    try {
+      const data = await userService.postGradeAuthorizedServise(dataBody)
+      res.json(data)
+    } catch (e) {}
   }
 }
 

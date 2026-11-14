@@ -1,0 +1,59 @@
+.product {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+.productWrapper {
+  background: white;
+  max-height: 500px;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+.wrapperPrise {
+  display: flex;
+  margin-top: 15px;
+}
+.wrapperPrise__Prise {
+  margin: 0 10px;
+}
+.pointer {
+  cursor: pointer;
+}
+.wrapperImgName {
+  display: flex;
+  align-items: center;
+}
+.wrapperImgName img {
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.calc {
+  display: flex;
+  align-items: center;
+}
+.calc img {
+  margin: 0 10px;
+  cursor: pointer;
+}
+.calc p {
+  margin-right: 10px;
+}
+.wrapperInner {
+  display: flex;
+  justify-content: space-between;
+}
+.itemPDF {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  margin: 20px;
+  margin-top: 0px;
+  /* height: 220px; */
+  /* width: 150px; */
+}
+.qr {
+  /* width: 60%; */
+  /* height: 50%; */
+}

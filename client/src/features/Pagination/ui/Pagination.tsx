@@ -4,7 +4,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import ResponsivePagination from "react-responsive-pagination"
 import "react-responsive-pagination/themes/classic.css"
-
+import style from "./Pagination.module.css"
+//
+//
 const Pagination = (numProduct: any) => {
   const searchParams: any = useSearchParams()
   const pathName = usePathname()

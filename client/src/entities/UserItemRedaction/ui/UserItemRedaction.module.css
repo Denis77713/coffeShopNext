@@ -1,0 +1,9 @@
+.userUpdateWrapper {
+  display: flex;
+}
+.userUpdateWrapper input {
+  margin: 10px;
+}
+.delete {
+  cursor: pointer;
+}
